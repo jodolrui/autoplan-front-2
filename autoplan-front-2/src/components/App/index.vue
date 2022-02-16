@@ -3,12 +3,12 @@
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-import example from "./parts/example";
+import bar from "./parts/bar";
 import foo from "./parts/foo";
 export default compose("App", [
   main,
+  bar,
   foo,
-  example,
 ]);
 </script>
 

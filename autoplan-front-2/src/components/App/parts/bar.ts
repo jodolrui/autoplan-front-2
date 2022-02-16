@@ -10,31 +10,7 @@ export default defineComponent({
     onMounted(() => {
       halfmoon.onDOMContentLoaded();
     });
-    data.example = defineBlocks([
-      {
-        code: "slot",
-        caption: "",
-        row: 1,
-        col: 1,
-        colSpan: 10,
-        slot: "mi-slot",
-      },
-      {
-        code: "random",
-        caption: "",
-        row: 1,
-        col: 11,
-        colSpan: 1,
-        icon: "fa fa-dice-six",
-        classes: {
-          btn: true,
-          "btn-square": true,
-          "rounded-circle": true,
-        },
-        click: () => {
-          alert("click1");
-        },
-      },
+    data.bar = defineBlocks([
       {
         code: "toggledark",
         caption: "",
@@ -46,7 +22,7 @@ export default defineComponent({
           btn: true,
           "btn-square": true,
           "rounded-circle": true,
-          "btn-primary": false,
+          "btn-primary": true,
         },
         click: (block: Block) => {
           halfmoon.toggleDarkMode();

@@ -1,15 +1,15 @@
 <!--//* App -->
 <div id="general">
   <Blocks
-    :key="example.pulse"
-    :items="example.items"
-    @pressed="example.pressed($event)"
+    :key="foo.pulse"
+    :items="foo.items"
+    @pressed="foo.pressed($event)"
   >
-    <template v-slot:mi-slot>
+    <template v-slot:my-slot-name>
       <Blocks
-        :key="foo.pulse"
-        :items="foo.items"
-        @pressed="foo.pressed($event)"
+        :key="bar.pulse"
+        :items="bar.items"
+        @pressed="bar.pressed($event)"
       >
       </Blocks>
     </template>
