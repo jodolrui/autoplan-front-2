@@ -1,0 +1,26 @@
+<!--//* Blocks -->
+<div class="blocks">
+  <template v-for="(item, i) in items" :key="i">
+    <template v-if="item.slot">
+      <slot :name="item.slot"></slot>
+    </template>
+    <template v-else>
+      <Block
+        :name="item.name"
+        :code="item.code"
+        :caption="item.caption"
+        :icon="item.icon"
+        :row="item.row"
+        :col="item.col"
+        :rowSpan="item.rowSpan"
+        :colSpan="item.colSpan"
+        :slot="item.slot"
+        :classes="item.classes"
+        :style="item.style"
+        @pressed="pressed($event)"
+      >  
+      </Block>
+    </template>
+  </template>
+  
+</div>

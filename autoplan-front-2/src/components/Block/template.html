@@ -1,0 +1,10 @@
+<!--//* Block -->
+<template v-if="slot">
+  <slot :name="slot"></slot>
+</template>
+<template v-else>
+  <button :class="classes" :style="style" @click="pressed(code)">
+    <div><i v-if="icon" :class="icon"></i> {{caption}}</div>
+  </button>
+</template>
+

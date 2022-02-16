@@ -1,0 +1,18 @@
+<!--//* App -->
+<div id="general">
+  <Blocks
+    :key="example.pulse"
+    :items="example.items"
+    @pressed="example.pressed($event)"
+  >
+    <template v-slot:mi-slot>
+      <Blocks
+        :key="foo.pulse"
+        :items="foo.items"
+        @pressed="foo.pressed($event)"
+      >
+      </Blocks>
+    </template>
+  </Blocks>
+</div>
+<!-- {{ example }} -->
