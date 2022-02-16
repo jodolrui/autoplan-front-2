@@ -1,11 +1,11 @@
 import { defineComponent, onMounted, computed, ref, watch, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import _Block from "../../Block/index.vue";
-import { Block } from "../../../helpers/wall";
+import _Brick from "../../Brick/index.vue";
+import { Brick } from "../../../helpers/wall";
 import { useData } from "../data";
 
 export default defineComponent({
-  components: { Block: _Block },
+  components: { Brick: _Brick },
   props: {
     items: { type: Array, required: true },
     flex: { type: Boolean, required: true },
@@ -13,12 +13,12 @@ export default defineComponent({
   emits: ["pressed"],
   setup(props, context) {
     const data = useData();
-    data.items = <Block[]>props.items;
+    data.items = <Brick[]>props.items;
     data.rows = computed(() =>
       Math.max.apply(
         Math,
         data.items.map(
-          (block: Block) => block.row + (block.rowSpan ? block.rowSpan - 1 : 0),
+          (brick: Brick) => brick.row + (brick.rowSpan ? brick.rowSpan - 1 : 0),
         ),
       ),
     );
@@ -26,7 +26,7 @@ export default defineComponent({
       Math.max.apply(
         Math,
         data.items.map(
-          (block: Block) => block.col + (block.colSpan ? block.colSpan - 1 : 0),
+          (brick: Brick) => brick.col + (brick.colSpan ? brick.colSpan - 1 : 0),
         ),
       ),
     );

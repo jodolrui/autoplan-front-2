@@ -1,8 +1,8 @@
 import { getCurrentInstance, ComputedRef } from "vue";
-import { Block } from "../../helpers/wall";
+import { Brick } from "../../helpers/wall";
 
 export function useData(): {
-  items: Block[];
+  items: Brick[];
   rows: ComputedRef<number>;
   cols: ComputedRef<number>;
   flex: boolean;

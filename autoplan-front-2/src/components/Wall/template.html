@@ -5,7 +5,7 @@
       <slot :name="item.slot"></slot>
     </template>
     <template v-else>
-      <Block
+      <Brick
         :name="item.name"
         :code="item.code"
         :caption="item.caption"
@@ -19,7 +19,7 @@
         :style="item.style"
         @pressed="pressed($event)"
       >  
-      </Block>
+      </Brick>
     </template>
   </template>
 </div>

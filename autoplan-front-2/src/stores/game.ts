@@ -230,11 +230,11 @@ export const useGameStore = defineStore("game", {
         return result;
       } else return false;
     },
-    inPlaceBlock(letter: string, position: number) {
+    inPlaceBrick(letter: string, position: number) {
       if (this.enigma.charAt(position) === letter) return true;
       return false;
     },
-    isSolvedBlock(position: number) {
+    isSolvedBrick(position: number) {
       const letter = this.enigma.charAt(position);
       let result = false;
       this.plays.forEach((element: string) => {

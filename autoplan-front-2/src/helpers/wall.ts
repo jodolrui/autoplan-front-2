@@ -1,6 +1,6 @@
 import { Ref, ref, reactive } from "vue";
 
-export type Block = {
+export type Brick = {
   code: string;
   caption: string;
   row: number;
@@ -18,26 +18,26 @@ export type Block = {
   isReminder?: boolean;
   classes?: Object;
   style?: Object;
-  click?: (tile: Block) => void;
+  click?: (tile: Brick) => void;
   slot?: string;
 };
 
 export type Wall = {
   pulse: Ref<number>;
   pressed?: (code: string) => void;
-  items: Block[];
+  items: Brick[];
   flex?: boolean;
 };
 
-export function defineWall(obj: Block[], flex: boolean = false): Wall {
+export function defineWall(obj: Brick[], flex: boolean = false): Wall {
   // "any" para evitar error de typescript
   return reactive(<any>{
     pulse: ref(0),
     // "function" para que funcione "this"
     pressed: function (code: string) {
       const items = this.items;
-      const found: Block | undefined = items.find(
-        (element: Block) => element.code === code,
+      const found: Brick | undefined = items.find(
+        (element: Brick) => element.code === code,
       );
       if (found) if (found.click) found.click(found);
       this.pulse.value++;

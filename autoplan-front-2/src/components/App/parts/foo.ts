@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, Ref, ref, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineWall, Block } from "../../../helpers/wall";
+import { defineWall, Brick } from "../../../helpers/wall";
 import { useData } from "../data";
 
 export default defineComponent({
@@ -49,9 +49,9 @@ export default defineComponent({
             "rounded-circle": true,
             "btn-primary": false,
           },
-          click: (block: Block) => {
+          click: (brick: Brick) => {
             halfmoon.toggleDarkMode();
-            // block.classes["btn-primary"] = !block.classes["btn-primary"];
+            // brick.classes["btn-primary"] = !brick.classes["btn-primary"];
           },
         },
       ],
