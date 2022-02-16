@@ -5,10 +5,12 @@ import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import bar from "./parts/bar";
 import foo from "./parts/foo";
+import topbar from "./parts/topbar";
 export default compose("App", [
   main,
   bar,
   foo,
+  topbar,
 ]);
 </script>
 

@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import Blocks from "../../Blocks/index.vue";
+import Wall from "../../Wall/index.vue";
 export default defineComponent({
-  components: { Blocks },
+  components: { Wall },
   setup() {},
 });

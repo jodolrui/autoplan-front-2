@@ -1,18 +1,18 @@
-# Blocks anidados
+# Wall anidados
 
 ```js
-<Blocks
+<Wall
   :key="foo.pulse"
   :items="foo.items"
   @pressed="foo.pressed($event)"
 >
   <template v-slot:my-slot-name>
-    <Blocks
+    <Wall
       :key="bar.pulse"
       :items="bar.items"
       @pressed="bar.pressed($event)"
     >
-    </Blocks>
+    </Wall>
   </template>
-</Blocks>
+</Wall>
 ```

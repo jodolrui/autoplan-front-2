@@ -1,9 +1,10 @@
 import { getCurrentInstance, Ref } from "vue";
-import { Blocks } from "../../helpers/blocks";
+import { Wall } from "../../helpers/wall";
 
 export function useData(): {
-  foo: Blocks;
-  bar: Blocks;
+  foo: Wall;
+  bar: Wall;
+  topbar: { container: Wall; left: Wall; center: Wall; right: Wall };
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

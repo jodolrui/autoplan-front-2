@@ -22,13 +22,14 @@ export type Block = {
   slot?: string;
 };
 
-export type Blocks = {
+export type Wall = {
   pulse: Ref<number>;
   pressed?: (code: string) => void;
   items: Block[];
+  flex?: boolean;
 };
 
-export function defineBlocks(obj: Block[]): Blocks {
+export function defineWall(obj: Block[], flex: boolean = false): Wall {
   // "any" para evitar error de typescript
   return reactive(<any>{
     pulse: ref(0),
@@ -36,11 +37,12 @@ export function defineBlocks(obj: Block[]): Blocks {
     pressed: function (code: string) {
       const items = this.items;
       const found: Block | undefined = items.find(
-        (element: Block) => element.code === code
+        (element: Block) => element.code === code,
       );
       if (found) if (found.click) found.click(found);
       this.pulse.value++;
     },
     items: obj,
+    flex,
   });
 }

@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, Ref, ref, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineBlocks, Block } from "../../../helpers/blocks";
+import { defineWall, Block } from "../../../helpers/wall";
 import { useData } from "../data";
 
 export default defineComponent({
@@ -10,7 +10,7 @@ export default defineComponent({
     onMounted(() => {
       halfmoon.onDOMContentLoaded();
     });
-    data.bar = defineBlocks([
+    data.bar = defineWall([
       {
         code: "toggledark",
         caption: "",
