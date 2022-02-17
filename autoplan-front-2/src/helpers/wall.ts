@@ -1,5 +1,6 @@
 import { Ref, ref, reactive, watch } from "vue";
 import _ from "lodash";
+import { spread } from "./composeStyle";
 
 export type ConfigBrick = {
   code?: string;
@@ -46,7 +47,7 @@ const canWatch: Ref<boolean> = ref(true);
 export function defineWall(config: WallConfig): Wall {
   const wall: Wall = reactive({
     pulse: 0,
-    items: config.items ? config.items : {},
+    items: config.items ? <{ [key: string]: Brick }>config.items : {},
     classes: config.classes ? config.classes : {},
     style: config.style ? config.style : {},
     refresh: config.refresh ? config.refresh : () => {},
