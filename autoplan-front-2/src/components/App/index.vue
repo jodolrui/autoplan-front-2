@@ -3,26 +3,28 @@
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-import bar from "./parts/bar";
-import foo from "./parts/foo";
 import topbar from "./parts/topbar";
 export default compose("App", [
   main,
-  bar,
-  foo,
   topbar,
 ]);
 </script>
 
 <style>
 @import url("halfmoon/css/halfmoon-variables.min.css");
-/* @import url("./styles/media.css");
-@import url("./styles/main.css");
-@import url("./styles/items.css"); */
+
+/* //* necesario para que el background-color aparezca bien en fullscreen */
+#app:fullscreen {
+  background-color: var(--lm-base-body-bg-color);
+}
+.dark-mode #app:fullscreen {
+  background-color: var(--dm-base-body-bg-color)
+}
 
 #general {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
+
 </style>

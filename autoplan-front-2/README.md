@@ -2,13 +2,13 @@
 
 ```js
 <Wall
-  :key="foo.pulse"
+  :key="foo.key"
   :items="foo.items"
   @pressed="foo.pressed($event)"
 >
   <template v-slot:my-slot-name>
     <Wall
-      :key="bar.pulse"
+      :key="bar.key"
       :items="bar.items"
       @pressed="bar.pressed($event)"
     >

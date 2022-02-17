@@ -1,4 +1,5 @@
 import { getCurrentInstance } from "vue";
+import { Brick } from "../../helpers/wall";
 
 export function useData(): {
   name: string;
@@ -10,6 +11,7 @@ export function useData(): {
   gridArea: string;
   pressed: (code: string) => void;
   slot: string;
+  item: Brick;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

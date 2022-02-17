@@ -29,18 +29,14 @@ export default defineComponent({
     // expose({ isDark });
 
     // watchEffect(() => {
-
-    data.topbar = reactive({
-      container: {
-        key: 0,
+    data.topbar = {
+      container: defineWall({
         style: {
           display: "grid",
           "grid-template-columns": "1fr 1fr 1fr",
-          // "background-color": "red",
+          // backgroundColor: "red",
           padding: "3px",
-          "border-bottom": halfmoon.darkModeOn
-            ? "1px solid red"
-            : "1px solid black",
+          "border-bottom": true ? "1px solid red" : "1px solid black",
         },
         items: [
           {
@@ -65,16 +61,15 @@ export default defineComponent({
             slot: "slot-3",
           },
         ],
-      },
-      left: {
-        key: 0,
+      }),
+      left: defineWall({
         style: {
           display: "flex",
-          "flex-direction": "row",
-          "flex-wrap": "nowrap",
-          "justify-content": "flex-start",
-          "align-content": "stretch",
-          "align-items": "frex-start",
+          frexDirection: "row",
+          flexWrap: "nowrap",
+          justifyContent: "flex-start",
+          alignContent: "stretch",
+          alignItems: "frex-start",
           gap: "3px",
         },
         items: [
@@ -87,24 +82,23 @@ export default defineComponent({
             icon: "fa fa-bars",
             classes: {
               btn: true,
-              "btn-square": true,
-              "rounded-circle": true,
+              btnSquare: true,
+              roundedCircle: true,
             },
             div: {
               html: "<i class='fa fa-bars'></i>",
             },
           },
         ],
-      },
-      center: {
-        key: 0,
+      }),
+      center: defineWall({
         style: {
           display: "flex",
-          "frex-direction": "row",
-          "flex-wrap": "nowrap",
-          "justify-content": "center",
-          "align-content": "stretch",
-          "align-items": "frex-start",
+          frexDirection: "row",
+          flexWrap: "nowrap",
+          justifyContent: "center",
+          alignContent: "stretch",
+          alignItems: "frex-start",
           gap: "3px",
         },
         items: [
@@ -123,16 +117,15 @@ export default defineComponent({
             },
           },
         ],
-      },
-      right: {
-        key: 0,
+      }),
+      right: defineWall({
         style: {
           display: "flex",
-          "frex-direction": "row",
-          "flex-wrap": "nowrap",
-          "justify-content": "flex-end",
-          "align-content": "stretch",
-          "align-items": "frex-start",
+          frexDirection: "row",
+          flexWrap: "nowrap",
+          justifyContent: "flex-end",
+          alignContent: "stretch",
+          alignItems: "frex-start",
           gap: "3px",
         },
         items: [
@@ -145,14 +138,11 @@ export default defineComponent({
             icon: "fa fa-adjust",
             classes: {
               btn: true,
-              "btn-square": true,
-              "rounded-circle": true,
-              "btn-primary": false,
+              btnSquare: true,
+              roundedCircle: true,
             },
             click: function () {
               halfmoon.toggleDarkMode();
-              this.classes["btn-primary"] = true;
-              data.topbar.container.key++;
             },
           },
           {
@@ -164,8 +154,8 @@ export default defineComponent({
             icon: "fas fa-expand",
             classes: {
               btn: true,
-              "btn-square": true,
-              "rounded-circle": true,
+              btnSquare: true,
+              roundedCircle: true,
             },
             click: function () {
               if (document.fullscreen) document.exitFullscreen();
@@ -180,17 +170,8 @@ export default defineComponent({
             },
           },
         ],
-      },
-    });
-
-    watch(
-      () => data.topbar.container.key,
-      () => {
-        data.topbar.container.style["border-bottom"] = halfmoon.darkModeOn
-          ? "1px solid red"
-          : "1px solid black";
-      },
-    );
+      }),
+    };
 
     // });
   },

@@ -1,52 +1,28 @@
 <!--//* App -->
 <div id="general">
-  <!-- <Wall
-    :key="foo.pulse"
-    :items="foo.items"
-    :flex="foo.flex"
-    @pressed="foo.pressed($event)"
-  >
-    <template v-slot:my-slot-name>
-      <Wall
-        :key="bar.pulse"
-        :items="bar.items"
-        :flex="bar.flex"
-        @pressed="bar.pressed($event)"
-      >
-      </Wall>
-    </template>
-  </Wall> -->
-
-
   <Wall
-    :key="topbar.container.pulse"
-    :items="topbar.container.items"
-    :flex="topbar.container.flex"
-    @pressed="topbar.container.pressed($event)"
+    :key="topbar.container.key"
+    :config="topbar.container"
   >
-    <template v-slot:slot-1><Wall
-      :key="topbar.left.pulse"
-      :items="topbar.left.items"
-      :flex="topbar.left.flex"
-      @pressed="topbar.left.pressed($event)"
-    >
-    </Wall></template>
-    <template v-slot:slot-2><Wall
-      :key="topbar.center.pulse"
-      :items="topbar.center.items"
-      :flex="topbar.center.flex"
-      @pressed="topbar.center.pressed($event)"
-    >
-    </Wall></template>
+    <template v-slot:slot-1>
+      <Wall
+        :key="topbar.left.key"
+        :config="topbar.left"
+      />
+    </template>
+    <template v-slot:slot-2>
+      <Wall
+        :key="topbar.center.key"
+        :config="topbar.center"
+      />
+    </template>
     <template v-slot:slot-3>
       <Wall
-        :key="topbar.right.pulse"
-        :items="topbar.right.items"
-        :flex="topbar.right.flex"
-        @pressed="topbar.right.pressed($event)"
-      >
-      </Wall>
+        :key="topbar.right.key"
+        :config="topbar.right"
+      />
     </template>
   </Wall>
 </div>
-<!-- {{ example }} -->
+{{isDark}}
+{{topbar}}

@@ -11,7 +11,7 @@ import {
 } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineWall } from "../../../helpers/wall";
+import { defineWall, Wall } from "../../../helpers/wall";
 import { useData } from "../data";
 
 export default defineComponent({
@@ -28,8 +28,6 @@ export default defineComponent({
     // const isDark = computed(() => halfmoon.darkModeOn);
     // expose({ isDark });
 
-    // watchEffect(() => {
-
     data.topbar = reactive({
       container: {
         key: 0,
@@ -39,7 +37,7 @@ export default defineComponent({
           // "background-color": "red",
           padding: "3px",
           "border-bottom": halfmoon.darkModeOn
-            ? "1px solid red"
+            ? "1px solid white"
             : "1px solid black",
         },
         items: [
@@ -151,7 +149,7 @@ export default defineComponent({
             },
             click: function () {
               halfmoon.toggleDarkMode();
-              this.classes["btn-primary"] = true;
+              this.classes["btn-primary"] = halfmoon.darkModeOn;
               data.topbar.container.key++;
             },
           },
@@ -186,12 +184,11 @@ export default defineComponent({
     watch(
       () => data.topbar.container.key,
       () => {
-        data.topbar.container.style["border-bottom"] = halfmoon.darkModeOn
-          ? "1px solid red"
+        alert("assd");
+        data.topbar.container.classes["border-bottom"] = halfmoon.darkModeOn
+          ? "1px solid white"
           : "1px solid black";
       },
     );
-
-    // });
   },
 });
