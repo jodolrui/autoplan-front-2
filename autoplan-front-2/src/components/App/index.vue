@@ -4,9 +4,11 @@
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import topbar from "./parts/topbar";
+import example from "./parts/example";
 export default compose("App", [
   main,
   topbar,
+  example,
 ]);
 </script>
 

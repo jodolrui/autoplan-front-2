@@ -11,8 +11,10 @@ import {
 } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineWall } from "../../../helpers/wall";
+import { Wall } from "../../../helpers/wall";
 import { useData } from "../data";
+
+import _ from "lodash";
 
 export default defineComponent({
   setup() {
@@ -20,28 +22,12 @@ export default defineComponent({
     onMounted(() => {
       halfmoon.onDOMContentLoaded();
     });
-    // halfmoon.toggleDarkMode();
-    // refresh();
-    // onUpdated(refresh);
-    // watch(() => data.topbar, refresh);
-
-    // const isDark = computed(() => halfmoon.darkModeOn);
-    // expose({ isDark });
-
-    // watchEffect(() => {
 
     data.topbar = reactive({
       container: {
-        key: 0,
-        style: {
-          display: "grid",
-          "grid-template-columns": "1fr 1fr 1fr",
-          // "background-color": "red",
-          padding: "3px",
-          "border-bottom": halfmoon.darkModeOn
-            ? "1px solid red"
-            : "1px solid black",
-        },
+        pulse: 0,
+        classes: {},
+        style: {},
         items: [
           {
             code: "slot-1",
@@ -65,9 +51,21 @@ export default defineComponent({
             slot: "slot-3",
           },
         ],
+        refresh: function () {
+          this.style = {
+            display: "grid",
+            "grid-template-columns": "1fr 1fr 1fr",
+            // "background-color": "red",
+            padding: "3px",
+            "background-color": halfmoon.darkModeOn ? "red" : "yellow",
+            "border-bottom": halfmoon.darkModeOn
+              ? "1px solid white"
+              : "1px solid black",
+          };
+        },
       },
       left: {
-        key: 0,
+        pulse: 0,
         style: {
           display: "flex",
           "flex-direction": "row",
@@ -97,7 +95,7 @@ export default defineComponent({
         ],
       },
       center: {
-        key: 0,
+        pulse: 0,
         style: {
           display: "flex",
           "frex-direction": "row",
@@ -125,7 +123,7 @@ export default defineComponent({
         ],
       },
       right: {
-        key: 0,
+        pulse: 0,
         style: {
           display: "flex",
           "frex-direction": "row",
@@ -151,8 +149,8 @@ export default defineComponent({
             },
             click: function () {
               halfmoon.toggleDarkMode();
-              this.classes["btn-primary"] = true;
-              data.topbar.container.key++;
+              this.classes["btn-primary"] = halfmoon.darkModeOn;
+              data.topbar.container.pulse++;
             },
           },
           {
@@ -183,15 +181,25 @@ export default defineComponent({
       },
     });
 
+    let canRefresh = true;
     watch(
-      () => data.topbar.container.key,
+      () => _.cloneDeep(data.topbar),
       () => {
-        data.topbar.container.style["border-bottom"] = halfmoon.darkModeOn
-          ? "1px solid red"
-          : "1px solid black";
+        if (canRefresh) {
+          canRefresh = false;
+          data.topbar.container.refresh();
+          canRefresh = true;
+        }
       },
     );
 
-    // });
+    watch(
+      () => data.topbar.container.pulse,
+      () => {
+        // data.topbar.container.refresh();
+      },
+    );
+
+    if (data.topbar.container.refresh) data.topbar.container.refresh();
   },
 });

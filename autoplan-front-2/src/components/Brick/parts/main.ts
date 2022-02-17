@@ -11,7 +11,7 @@ export default defineComponent({
     data.item = <Brick>props.item;
     data.gridArea = `${data.item.row} / ${data.item.col} / span ${data.item.rowSpan} / span ${data.item.colSpan}`;
     data.pressed = function () {
-      if (data.item.click) data.item.click();
+      if (data.item.__click) data.item.__click();
     };
   },
 });
