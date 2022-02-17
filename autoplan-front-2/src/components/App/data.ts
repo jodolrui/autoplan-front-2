@@ -3,6 +3,7 @@ import { Wall } from "../../helpers/wall-brick";
 
 export function useData(): {
   navbar: Wall;
+  breadcrumbs: Wall;
   bar: Wall;
   topbar: { container: Wall; left: Wall; center: Wall; right: Wall };
 } {

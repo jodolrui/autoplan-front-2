@@ -4,9 +4,11 @@
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import navbar from "./parts/navbar";
+import breadcrumbs from "./parts/breadcrumbs";
 export default compose("App", [
   main,
   navbar,
+  breadcrumbs
 ]);
 </script>
 
@@ -26,5 +28,4 @@ export default compose("App", [
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
-
 </style>

@@ -51,7 +51,7 @@ export default defineComponent({
           classes: {
             btn: true,
             btnSquare: true,
-            roundedCircle: false,
+            roundedCircle: true,
             btnPrimary: false,
           },
           style: {},
