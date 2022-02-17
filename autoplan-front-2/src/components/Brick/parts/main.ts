@@ -1,7 +1,7 @@
 import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
-import { Brick } from "../../../helpers/wall";
+import { Brick } from "../../../helpers/wall-brick";
 import { composeClass, composeStyle } from "../../../helpers/composeStyle";
 
 export default defineComponent({

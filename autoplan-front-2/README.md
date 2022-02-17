@@ -2,9 +2,9 @@
 
 ```js
 <Wall
-  :key="foo.key"
-  :items="foo.items"
-  @pressed="foo.pressed($event)"
+  :key="navbar.key"
+  :items="navbar.items"
+  @pressed="navbar.pressed($event)"
 >
   <template v-slot:my-slot-name>
     <Wall

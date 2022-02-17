@@ -13,7 +13,6 @@ export type ConfigBrick = {
   classes: { [key: string]: any };
   style: { [key: string]: any };
   click?: () => void;
-  __click?: () => void; //* click() + wall.refresh()
   slot?: string;
   div?: {
     classes?: { [key: string]: any };
@@ -25,6 +24,7 @@ export type ConfigBrick = {
 
 export type Brick = ConfigBrick & {
   __refresh: () => void; //* con __refresh solucioné un problema de acceso recursivo a refresh
+  __click?: () => void; //* click() + wall.refresh()
 };
 
 export type WallConfig = {

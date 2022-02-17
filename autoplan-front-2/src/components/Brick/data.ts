@@ -1,5 +1,5 @@
 import { getCurrentInstance } from "vue";
-import { Brick } from "../../helpers/wall";
+import { Brick } from "../../helpers/wall-brick";
 
 export function useData(): {
   name: string;

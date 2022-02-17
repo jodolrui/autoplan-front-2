@@ -1,8 +1,8 @@
 import { getCurrentInstance, Ref } from "vue";
-import { Wall } from "../../helpers/wall";
+import { Wall } from "../../helpers/wall-brick";
 
 export function useData(): {
-  foo: Wall;
+  navbar: Wall;
   bar: Wall;
   topbar: { container: Wall; left: Wall; center: Wall; right: Wall };
 } {
