@@ -7,14 +7,16 @@ function kebabize(str: string) {
   return str
     .split("")
     .map((letter: string, index: number) => {
-      return letter.toUpperCase() === letter
+      return letter.toUpperCase() === letter && letter !== "-"
         ? `${index !== 0 ? "-" : ""}${letter.toLowerCase()}`
         : letter;
     })
     .join("");
 }
 
-export function composeClass(obj: any) {
+export function composeClass(obj: { [key: string]: any }): {
+  [key: string]: any;
+} {
   let result: any = {};
   for (const prop in obj) {
     let propName: string = kebabize(prop);
@@ -27,11 +29,14 @@ export function composeClass(obj: any) {
   return result;
 }
 
-export function composeStyle(obj: any) {
-  let result = "";
+export function composeStyle(obj: { [key: string]: any }): {
+  [key: string]: any;
+} {
+  let result: any = {};
   for (const prop in obj) {
     let propName: string = kebabize(prop);
-    result += `${propName}: ${obj[prop]};`;
+    // result += `${propName}: ${obj[prop]};`;
+    result[propName] = obj[prop];
   }
   return result;
 }

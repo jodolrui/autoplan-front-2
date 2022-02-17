@@ -14,11 +14,11 @@ export default defineComponent({
       classes: {},
       style: {
         display: "flex",
-        "frex-direction": "row",
-        "flex-wrap": "nowrap",
-        "justify-content": "flex-end",
-        "align-content": "stretch",
-        "align-items": "frex-start",
+        frexDirection: "row",
+        flexWrap: "nowrap",
+        justifyContent: "flex-end",
+        alignContent: "stretch",
+        alignItems: "frex-start",
         padding: "3px",
         gap: "3px",
       },
@@ -26,28 +26,35 @@ export default defineComponent({
         this.style["border-bottom"] = halfmoon.darkModeOn
           ? "var(--navbar-border-width) solid var(--dm-navbar-border-color)"
           : "var(--navbar-border-width) solid var(--lm-navbar-border-color)";
+        this.style.backgroundColor = halfmoon.darkModeOn ? "red" : "green";
       },
-      items: [
-        {
+      items: {
+        toggleDark: {
           code: "toggledark",
           icon: "fa fa-adjust",
           classes: {
             btn: true,
-            "btn-square": true,
-            "rounded-circle": true,
+            btnSquare: true,
+            roundedCircle: true,
+            btnPrimary: false,
+          },
+          style: {},
+          refresh: function () {
+            this.classes.btnPrimary = halfmoon.darkModeOn;
           },
           click: function () {
             halfmoon.toggleDarkMode();
           },
         },
-        {
+        toggleFullscreen: {
           code: "togglefullscreen",
           icon: "fas fa-expand",
           classes: {
             btn: true,
-            "btn-square": true,
-            "rounded-circle": true,
+            btnSquare: true,
+            roundedCircle: false,
           },
+          style: {},
           click: function () {
             if (document.fullscreen) document.exitFullscreen();
             else {
@@ -60,7 +67,9 @@ export default defineComponent({
             }
           },
         },
-      ],
+      },
     });
-  },
+
+    // data.foo.items.toggleFullscreen.classes.roundedCircle = true;
+  }, // setup
 });

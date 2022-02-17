@@ -3,7 +3,7 @@
   <slot :name="item.slot"></slot>
 </template>
 <template v-else>
-  <button :class="item.classes" :style="item.style" @click="pressed()">
+  <button :class="classes" :style="style" @click="pressed()">
     <div><i v-if="item.icon" :class="item.icon"></i> {{item.caption}}</div>
 
     <!-- <template v-if="item.div">
