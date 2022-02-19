@@ -3,13 +3,7 @@
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-import navbar from "./parts/navbar";
-import breadcrumbs from "./parts/breadcrumbs";
-export default compose("App", [
-  main,
-  navbar,
-  breadcrumbs
-]);
+export default compose("App", [main]);
 </script>
 
 <style>
@@ -20,12 +14,6 @@ export default compose("App", [
   background-color: var(--lm-base-body-bg-color);
 }
 .dark-mode #app:fullscreen {
-  background-color: var(--dm-base-body-bg-color)
-}
-
-#general {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  background-color: var(--dm-base-body-bg-color);
 }
 </style>

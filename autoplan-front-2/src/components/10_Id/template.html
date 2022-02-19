@@ -1,0 +1,22 @@
+<!--//* App -->
+<div id="general">
+  <Wall
+    :config="navbar"
+  />
+  <Wall
+    :config="breadcrumbs"
+  />
+</div>
+
+{{record}}<br/><br/>
+<div v-for="(child, i) in children" :key="i">
+  {{child}}<br/><br/>
+</div>
+
+<!-- <div v-if="designKey==='building'">
+  <Design
+    designKey="floor"
+    :collapse="{hidden: false, header: 'Plantas'}"
+    :routeId="routeId"
+  ></Design>
+</div> -->

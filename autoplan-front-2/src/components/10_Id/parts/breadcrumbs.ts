@@ -28,7 +28,7 @@ export default defineComponent({
           : "var(--navbar-border-width) solid var(--lm-navbar-border-color)";
       },
       items: {
-        toggleDark: {
+        home: {
           code: "home",
           icon: "fas fa-home",
           classes: {

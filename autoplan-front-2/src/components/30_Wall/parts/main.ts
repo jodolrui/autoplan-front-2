@@ -1,6 +1,6 @@
 import { defineComponent, onMounted, computed, ref, watch, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import _Brick from "../../Brick/index.vue";
+import _Brick from "../../40_Brick/index.vue";
 import { Brick, WallConfig } from "../../../helpers/wall-brick";
 import { useData } from "../data";
 import { composeClass, composeStyle } from "../../../helpers/composeStyle";

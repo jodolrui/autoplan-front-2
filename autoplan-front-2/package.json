@@ -11,10 +11,13 @@
     "@jodolrui/glue": "^1.0.4",
     "@types/halfmoon": "^1.0.2",
     "@types/lodash": "^4.14.178",
+    "@vuelidate/core": "^2.0.0-alpha.34",
+    "@vuelidate/validators": "^2.0.0-alpha.26",
     "halfmoon": "^1.1.1",
     "lodash": "^4.17.21",
     "pinia": "^2.0.11",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
