@@ -3,9 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    // "dev": "vite --host",
+    // "build": "vue-tsc --noEmit && vite build",
+    // "preview": "vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "build0": "vue-tsc --noEmit &&  vite build",
+    "build1": "vue-tsc --noEmit",
+    "build2": "vite build",
+    "serve": "vite preview",
+    "test": "jest"
   },
   "dependencies": {
     "@jodolrui/glue": "^1.0.4",
