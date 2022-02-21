@@ -5,7 +5,7 @@ import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import design from "./parts/design";
 
-export default compose("ViewDesign", [
+export default compose("Design", [
   main,
   design,
 ]);

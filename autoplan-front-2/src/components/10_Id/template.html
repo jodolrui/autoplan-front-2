@@ -8,10 +8,7 @@
   />
 </div>
 
-{{record}}<br/><br/>
-<div v-for="(child, i) in children" :key="i">
-  {{child}}<br/><br/>
-</div>
+<Watch :record="record" :children="children" :path="path" />
 
 <!-- <div v-if="designKey==='building'">
   <Design
