@@ -1,13 +1,17 @@
 import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Format, Field, RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
-import { getChildrenByDesign } from "../../../10_Data/helpers/functions";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
+import { useProjectData } from "../../../stores/useProjectData";
+const projectData = useProjectData();
 
 export default function setup() {
-  const { routeId, updated } = exposed();
+  const data = useData();
+  const current = useCurrent();
 
-  const format: Format = {
+  data.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -19,23 +23,20 @@ export default function setup() {
     },
     mobile: { view: "list" },
   };
-  expose({ format });
 
   type Record = RecordBase & {
-    data: {
-      number: { value: number | null };
-      from: { value: string | null };
-      to: { value: string | null };
-      width: { value: number | null; units: string | null };
-      tread: { value: number | null; units: string | null }; // huella
-      riser: { value: number | null; units: string | null }; // contrahuella
-      isForEmergencyUseOnly: { value: boolean | null };
-      isOutside: { value: boolean | null };
-      protected: { value: string | null };
-    };
+    number: { value: number | null };
+    from: { value: string | null };
+    to: { value: string | null };
+    width: { value: number | null; units: string | null };
+    tread: { value: number | null; units: string | null }; // huella
+    riser: { value: number | null; units: string | null }; // contrahuella
+    isForEmergencyUseOnly: { value: boolean | null };
+    isOutside: { value: boolean | null };
+    protected: { value: string | null };
   };
 
-  const fields: Field[] = [
+  data.fields = [
     {
       key: "number",
       label: { caption: "Escalera #" },
@@ -149,36 +150,31 @@ export default function setup() {
       },
     },
   ];
-  expose({ fields });
 
-  const newRecord: Record = {
+  data.newRecord = {
     __designKey: "stairs",
     __id: "",
-    __parentId: routeId,
+    __parentId: current.routeId,
     __order: 0,
-    data: {
-      __breadcrumb: "",
-      number: { value: null },
-      from: { value: null },
-      to: { value: null },
-      width: { value: null, units: "cm" },
-      tread: { value: null, units: "cm" },
-      riser: { value: null, units: "cm" },
-      isForEmergencyUseOnly: { value: false },
-      isOutside: { value: false },
-      protected: { value: null },
-    },
-  };
-  expose({ newRecord });
+    __breadcrumb: "",
+    number: { value: null },
+    from: { value: null },
+    to: { value: null },
+    width: { value: null, units: "cm" },
+    tread: { value: null, units: "cm" },
+    riser: { value: null, units: "cm" },
+    isForEmergencyUseOnly: { value: false },
+    isOutside: { value: false },
+    protected: { value: null },
+  } as Record;
 
   //* rellenamos "desde" y "hasta" con las plantas
-  const floors = getChildrenByDesign(routeId, "floor");
-  const from = fields.find((field) => field.key === "from");
-  const to = fields.find((field) => field.key === "to");
-  console.log({ routeId, floors, from, to });
+  const floors = projectData.getChildrenByDesign(current.routeId, "floor");
+  const from = data.fields.find((field) => field.key === "from");
+  const to = data.fields.find((field) => field.key === "to");
 
   floors?.forEach((element) => {
-    from?.control?.options?.push((element.data as any).name.value);
-    to?.control?.options?.push((element.data as any).name.value);
+    from?.control?.options?.push((element as any).name.value);
+    to?.control?.options?.push((element as any).name.value);
   });
 }

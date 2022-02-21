@@ -1,4 +1,6 @@
 
 Hola<br>
-{{designKey}}<br>
-{{routeId}}
+
+<template v-for="(record, i) in records" :key="i">
+  {{record}}<br/><br/>
+</template>

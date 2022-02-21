@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { currentData } from "../helpers/data";
+import { projectData } from "../helpers/data";
 
 export const useData = defineStore("data", {
   state: (): {} => {

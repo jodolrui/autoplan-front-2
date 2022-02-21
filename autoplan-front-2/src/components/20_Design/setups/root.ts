@@ -1,11 +1,14 @@
 import { expose, exposed } from "@jodolrui/glue";
-import { Format, Field, RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default function setup() {
-  const { routeId } = exposed();
+  const data = useData();
+  const current = useCurrent();
 
-  const format: Format = {
+  data.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -17,15 +20,12 @@ export default function setup() {
     },
     mobile: { view: "list" },
   };
-  expose({ format });
 
   type Record = RecordBase & {
-    data: {
-      name: { value: string | null };
-    };
+    name: { value: string | null };
   };
 
-  const fields: Field[] = [
+  data.fields = [
     {
       key: "name",
       label: { caption: "Denominación" },
@@ -36,17 +36,13 @@ export default function setup() {
       validation: { value: { required } },
     },
   ];
-  expose({ fields });
 
-  const newRecord: Record = {
+  data.newRecord = {
     __designKey: "root",
     __id: "",
-    __parentId: routeId,
+    __parentId: current.routeId,
     __order: 0,
-    data: {
-      __breadcrumb: "",
-      name: { value: null },
-    },
-  };
-  expose({ newRecord });
+    __breadcrumb: "",
+    name: { value: null },
+  } as Record;
 }

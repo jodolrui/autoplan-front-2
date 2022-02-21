@@ -1,5 +1,6 @@
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
+import { useData } from "../data";
 
 // import root from "../setups/root";
 // import site from "../setups/site";
@@ -14,21 +15,25 @@ import floor from "../setups/floor";
 // import elevator from "../setups/elevator";
 
 export default defineComponent({
-  props: { designKey: String },
-  setup(props) {
-    const designKey: String = props.designKey ? props.designKey : "";
-    expose({ designKey });
+  setup() {
+    const data = useData();
 
-    // if (designKey === "root") site();
-    // if (designKey === "site") site();
-    // if (designKey === "coordinates") coordinates();
-    if (designKey === "building") building();
-    // if (designKey === "buildingExit") buildingExit();
-    if (designKey === "floor") floor();
-    // if (designKey === "floorExit") floorExit();
-    // if (designKey === "floorDoor") floorDoor();
-    // if (designKey === "zone") zone();
-    // if (designKey === "stairs") stairs();
-    // if (designKey === "elevator") elevator();
+    if (data.designKey.value) {
+      // if (data.designKey.value === "root") site();
+      // if (data.designKey.value === "site") site();
+      // if (data.designKey.value === "coordinates") coordinates();
+      if (data.designKey.value === "building") building();
+      // if (data.designKey.value === "buildingExit") buildingExit();
+      if (data.designKey.value === "floor") floor();
+      // if (data.designKey.value === "floorExit") floorExit();
+      // if (data.designKey.value === "floorDoor") floorDoor();
+      // if (data.designKey.value === "zone") zone();
+      // if (data.designKey.value === "stairs") stairs();
+      // if (data.designKey.value === "elevator") elevator();
+
+      data.records = ref(
+        data.current.getChildrenByDesign(data.designKey.value as string),
+      );
+    }
   },
 });

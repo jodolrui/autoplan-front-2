@@ -1,12 +1,15 @@
 import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Format, Field, RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default function setup() {
-  const { routeId, updated } = exposed();
+  const data = useData();
+  const current = useCurrent();
 
-  const format: Format = {
+  data.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -18,18 +21,15 @@ export default function setup() {
     },
     mobile: { view: "list" },
   };
-  expose({ format });
 
   type Record = RecordBase & {
-    data: {
-      number: { value: number | null };
-      to: { value: string | null };
-      isForEmergencyUseOnly: { value: boolean | null };
-      width: { value: number | null; units: string | null };
-    };
+    number: { value: number | null };
+    to: { value: string | null };
+    isForEmergencyUseOnly: { value: boolean | null };
+    width: { value: number | null; units: string | null };
   };
 
-  const fields: Field[] = [
+  data.fields = [
     {
       key: "number",
       label: { caption: "Número" },
@@ -79,20 +79,16 @@ export default function setup() {
       },
     },
   ];
-  expose({ fields });
 
-  const newRecord: Record = {
+  data.newRecord = {
     __designKey: "floorExit",
     __id: "",
-    __parentId: routeId,
+    __parentId: current.routeId,
     __order: 0,
-    data: {
-      __breadcrumb: "",
-      number: { value: null },
-      to: { value: null },
-      isForEmergencyUseOnly: { value: false },
-      width: { value: null, units: "cm" },
-    },
-  };
-  expose({ newRecord });
+    __breadcrumb: "",
+    number: { value: null },
+    to: { value: null },
+    isForEmergencyUseOnly: { value: false },
+    width: { value: null, units: "cm" },
+  } as Record;
 }

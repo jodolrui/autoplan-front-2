@@ -1,4 +1,4 @@
-<!--//* App -->
+<!--//* Id -->
 <div id="general">
   <Wall
     :config="navbar"
@@ -8,12 +8,16 @@
   />
 </div>
 
-<Watch :record="record" :children="children" :path="path" />
+<!-- <Watch :record="current.record" :children="current.children" :path="current.path" /> -->
 
-<!-- <div v-if="designKey==='building'">
+<div v-if="current.record?.__designKey==='building'">
   <Design
     designKey="floor"
     :collapse="{hidden: false, header: 'Plantas'}"
-    :routeId="routeId"
   ></Design>
-</div> -->
+
+  <Design
+    designKey="buildingExit"
+    :collapse="{hidden: false, header: 'Salidas de edificio'}"
+  ></Design>
+</div>

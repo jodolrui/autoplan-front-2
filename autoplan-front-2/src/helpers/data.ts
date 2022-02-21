@@ -193,15 +193,15 @@ const floorExits = [
   },
 ];
 
-let currentData: RecordBase[] = [];
+let sampleData: RecordBase[] = [];
 
-currentData = currentData.concat(root);
-currentData = currentData.concat(sites);
-currentData = currentData.concat(coordinates);
-currentData = currentData.concat(buildings);
-currentData = currentData.concat(buildingExits);
-currentData = currentData.concat(floors);
-currentData = currentData.concat(zones);
-currentData = currentData.concat(floorExits);
+sampleData = sampleData.concat(root);
+sampleData = sampleData.concat(sites);
+sampleData = sampleData.concat(coordinates);
+sampleData = sampleData.concat(buildings);
+sampleData = sampleData.concat(buildingExits);
+sampleData = sampleData.concat(floors);
+sampleData = sampleData.concat(zones);
+sampleData = sampleData.concat(floorExits);
 
-export { currentData };
+export { sampleData };

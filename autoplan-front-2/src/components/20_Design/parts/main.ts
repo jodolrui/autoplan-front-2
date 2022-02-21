@@ -1,13 +1,19 @@
-import { defineComponent, watch, reactive } from "vue";
+import { defineComponent, watch, reactive, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-// import ViewControl from "../../22_ViewControl/index.vue";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default defineComponent({
-  // components: { ViewControl },
-  props: { routeId: Object, collapse: Object, options: Object },
+  props: {
+    designKey: { type: String, required: true },
+    collapse: Object,
+    options: Object,
+  },
   setup(props) {
-    const routeId: Object = props.routeId ? props.routeId : {};
-    expose({ routeId });
+    const data = useData();
+    data.designKey = ref(props.designKey);
+    data.current = useCurrent();
+
     const collapse: Object = props.collapse
       ? reactive(props.collapse)
       : { hidden: false, header: "" };

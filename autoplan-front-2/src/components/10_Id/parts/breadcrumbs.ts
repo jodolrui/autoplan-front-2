@@ -3,6 +3,8 @@ import { expose, exposed } from "@jodolrui/glue";
 import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
 import { defineWall } from "../../../helpers/wall-brick";
 import { useData } from "../data";
+import { RecordBase } from "../../../helpers/data-interfaces";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default defineComponent({
   setup() {
@@ -27,76 +29,27 @@ export default defineComponent({
           ? "var(--navbar-border-width) solid var(--dm-navbar-border-color)"
           : "var(--navbar-border-width) solid var(--lm-navbar-border-color)";
       },
-      items: {
-        home: {
-          code: "home",
-          icon: "fas fa-home",
+      items: {},
+    });
+
+    if (data.current.path && data.current.path)
+      data.current.path.forEach((element: RecordBase) => {
+        const isHome = element.__id === "root";
+        data.breadcrumbs.addItem(element.__id, {
+          code: element.__id,
+          caption: isHome ? "" : element.__breadcrumb,
+          icon: isHome ? "fas fa-home" : "",
           classes: {
             btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-            btnPrimary: false,
+            btnSquare: isHome,
+            roundedCircle: isHome,
           },
           style: {},
           refresh: function () {},
-          click: function () {},
-        },
-      },
-    });
-
-    data.breadcrumbs.addItem("a1", {
-      code: "Hola",
-      caption: "Hola",
-      classes: {
-        btn: true,
-      },
-      style: {},
-      refresh: function () {},
-      click: function () {},
-    });
-
-    data.breadcrumbs.addItem("a2", {
-      code: "Mundo",
-      caption: "Mundo",
-      classes: {
-        btn: true,
-      },
-      style: {},
-      refresh: function () {},
-      click: function () {},
-    });
-
-    data.breadcrumbs.addItem("a3", {
-      code: "Mundo",
-      caption: "Mundo",
-      classes: {
-        btn: true,
-      },
-      style: {},
-      refresh: function () {},
-      click: function () {},
-    });
-
-    data.breadcrumbs.addItem("a4", {
-      code: "Mundo",
-      caption: "Mundo",
-      classes: {
-        btn: true,
-      },
-      style: {},
-      refresh: function () {},
-      click: function () {},
-    });
-
-    data.breadcrumbs.addItem("a5", {
-      code: "Mundo",
-      caption: "Mundo",
-      classes: {
-        btn: true,
-      },
-      style: {},
-      refresh: function () {},
-      click: function () {},
-    });
-  }, // setup
+          click: function () {
+            data.goTo(element.__id);
+          },
+        });
+      });
+  },
 });

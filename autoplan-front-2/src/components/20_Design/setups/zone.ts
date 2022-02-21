@@ -1,11 +1,14 @@
 import { expose, exposed } from "@jodolrui/glue";
-import { Format, Field, RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default function setup() {
-  const { routeId } = exposed();
+  const data = useData();
+  const current = useCurrent();
 
-  const format: Format = {
+  data.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -17,19 +20,16 @@ export default function setup() {
     },
     mobile: { view: "list" },
   };
-  expose({ format });
 
   type Record = RecordBase & {
-    data: {
-      number: { value: number | null };
-      name: { value: string | null };
-      use: { value: string | null };
-      detailedUse: { value: string | null };
-      usableArea: { value: number | null; units: string | null };
-    };
+    number: { value: number | null };
+    name: { value: string | null };
+    use: { value: string | null };
+    detailedUse: { value: string | null };
+    usableArea: { value: number | null; units: string | null };
   };
 
-  const fields: Field[] = [
+  data.fields = [
     {
       key: "number",
       label: { caption: "Número" },
@@ -104,21 +104,17 @@ export default function setup() {
       },
     },
   ];
-  expose({ fields });
 
-  const newRecord: Record = {
+  data.newRecord = {
     __designKey: "zone",
     __id: "",
-    __parentId: routeId,
+    __parentId: current.routeId,
     __order: 0,
-    data: {
-      __breadcrumb: "",
-      number: { value: null },
-      name: { value: null },
-      use: { value: null },
-      detailedUse: { value: null },
-      usableArea: { value: null, units: null },
-    },
-  };
-  expose({ newRecord });
+    __breadcrumb: "",
+    number: { value: null },
+    name: { value: null },
+    use: { value: null },
+    detailedUse: { value: null },
+    usableArea: { value: null, units: null },
+  } as Record;
 }

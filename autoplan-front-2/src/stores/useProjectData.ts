@@ -1,8 +1,29 @@
 import { defineStore } from "pinia";
 import { RecordBase } from "../helpers/data-interfaces";
 
-export const useProjectData = defineStore("projectData", {
-  state: (): { projectData: RecordBase[] } => {
+export type UseProjectDataState = {
+  projectData: RecordBase[];
+};
+export type UseProjectDataGetters = {};
+export type UseProjectDataActions = {
+  setData: (data: RecordBase[]) => void;
+  getItem: (id: string) => RecordBase | null;
+  getParent: (id: string) => RecordBase | null;
+  getChildren: (id: string) => RecordBase[] | null;
+  getChildrenByDesign: (id: string, designKey: string) => RecordBase[] | null;
+  getPath: (id: string) => RecordBase[] | null;
+  addItem: (record: RecordBase) => void;
+  deleteItem: (record: RecordBase) => void;
+  changeItem: (record: RecordBase) => void;
+};
+
+export const useProjectData = defineStore<
+  "projectData",
+  UseProjectDataState,
+  UseProjectDataGetters,
+  UseProjectDataActions
+>("projectData", {
+  state: () => {
     return {
       projectData: [],
     };

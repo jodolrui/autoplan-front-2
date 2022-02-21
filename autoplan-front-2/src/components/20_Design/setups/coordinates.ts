@@ -1,11 +1,14 @@
 import { expose, exposed } from "@jodolrui/glue";
-import { Format, Field, RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
+import { useData } from "../data";
+import { useCurrent } from "../../../stores/useCurrent";
 
 export default function setup() {
-  const { routeId } = exposed();
+  const data = useData();
+  const current = useCurrent();
 
-  const format: Format = {
+  data.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -17,24 +20,21 @@ export default function setup() {
     },
     mobile: { view: "list" },
   };
-  expose({ format });
 
   type Record = RecordBase & {
-    data: {
-      latitudeSide: { value: string | null };
-      latitudeDegrees: { value: number | null };
-      latitudeMinutes: { value: number | null };
-      latitudeSeconds: { value: number | null };
-      latitudeDecimals: { value: number | null };
-      longitudeSide: { value: string | null };
-      longitudeDegrees: { value: number | null };
-      longitudeMinutes: { value: number | null };
-      longitudeSeconds: { value: number | null };
-      longitudeDecimals: { value: number | null };
-    };
+    latitudeSide: { value: string | null };
+    latitudeDegrees: { value: number | null };
+    latitudeMinutes: { value: number | null };
+    latitudeSeconds: { value: number | null };
+    latitudeDecimals: { value: number | null };
+    longitudeSide: { value: string | null };
+    longitudeDegrees: { value: number | null };
+    longitudeMinutes: { value: number | null };
+    longitudeSeconds: { value: number | null };
+    longitudeDecimals: { value: number | null };
   };
 
-  const fields: Field[] = [
+  data.fields = [
     {
       key: "latitudeSide",
       label: { caption: "Latitud" },
@@ -128,26 +128,22 @@ export default function setup() {
       validation: { value: { required } },
     },
   ];
-  expose({ fields });
 
-  const newRecord: Record = {
+  data.newRecord = {
     __designKey: "coordinates",
     __id: "",
-    __parentId: routeId,
+    __parentId: current.routeId,
     __order: 0,
-    data: {
-      __breadcrumb: "",
-      latitudeSide: { value: null },
-      latitudeDegrees: { value: null },
-      latitudeMinutes: { value: null },
-      latitudeSeconds: { value: null },
-      latitudeDecimals: { value: null },
-      longitudeSide: { value: null },
-      longitudeDegrees: { value: null },
-      longitudeMinutes: { value: null },
-      longitudeSeconds: { value: null },
-      longitudeDecimals: { value: null },
-    },
-  };
-  expose({ newRecord });
+    __breadcrumb: "",
+    latitudeSide: { value: null },
+    latitudeDegrees: { value: null },
+    latitudeMinutes: { value: null },
+    latitudeSeconds: { value: null },
+    latitudeDecimals: { value: null },
+    longitudeSide: { value: null },
+    longitudeDegrees: { value: null },
+    longitudeMinutes: { value: null },
+    longitudeSeconds: { value: null },
+    longitudeDecimals: { value: null },
+  } as Record;
 }
