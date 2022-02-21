@@ -6,6 +6,8 @@ import {
   UseProjectDataGetters,
   UseProjectDataActions,
 } from "./useProjectData";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 export type UseCurrentState = {
   routeId: string;
@@ -19,6 +21,7 @@ export type UseCurrentGetters = {};
 export type UseCurrentActions = {
   setId: (routeId: string) => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
+  goTo: (id: string) => void;
 };
 
 export const useCurrent = defineStore<
@@ -71,6 +74,10 @@ export const useCurrent = defineStore<
         );
       });
       return found ? found : null;
+    },
+    //! da un fallo de router y no funciona
+    goTo: function (id: string) {
+      router.push({ path: `/${id}` });
     },
   },
 });

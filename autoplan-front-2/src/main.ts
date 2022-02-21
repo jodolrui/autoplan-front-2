@@ -19,4 +19,8 @@ const routes: RouteRecordRaw[] = [
 ];
 const router: Router = createRouter({ history, routes });
 
-createApp(App).use(pinia).use(router).mount("#app");
+const app = createApp(App);
+app.use(router);
+app.use(pinia);
+
+app.mount("#app");

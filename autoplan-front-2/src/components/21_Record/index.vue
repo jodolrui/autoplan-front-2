@@ -4,10 +4,12 @@
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import control from "./parts/control";
+import table from "./parts/table";
 
 export default compose("Record", [
   main,
-  control
+  control,
+  table
 ]);
 </script>
 

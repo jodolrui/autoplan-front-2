@@ -1,67 +1,96 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
+import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
+import { defineWall } from "../../../helpers/wall-brick";
 import { useData } from "../data";
-import { defineWall, WallConfig } from "../../../helpers/wall-brick";
-import { Field, RecordBase } from "../../../helpers/data-interfaces";
-import _Wall from "../../30_Wall/index.vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  components: { Wall: _Wall },
   setup() {
     const data = useData();
-
+    const router = useRouter();
+    onMounted(() => {
+      halfmoon.onDOMContentLoaded();
+    });
     data.control = defineWall({
       classes: {},
       style: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        margin: "6px",
+        display: "flex",
+        frexDirection: "row",
+        flexWrap: "nowrap",
+        justifyContent: "flex-end",
+        alignContent: "stretch",
+        alignItems: "frex-start",
+        padding: "3px",
+        gap: "3px",
       },
       refresh: function () {},
-      items: {},
-    } as WallConfig);
-
-    data.fields.forEach((field: Field, i: number) => {
-      data.control.addItem(`${field.key}_label`, {
-        code: `${field.key}_label`,
-        caption: field.label?.caption,
-        classes: {
-          btn: true,
+      items: {
+        moveUp: {
+          code: "move-up",
+          icon: "fa fa-angle-up",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {},
         },
-        style: {
-          gridArea: `${i + 1} / 1 / span 1 / span 1`,
-          borderRadius: "0px",
-          borderTop:
-            i === 0 ? "1px solid var(--my-table-border-color)" : "none",
-          borderBottom: "1px solid var(--my-table-border-color)",
-          borderLeft: "1px solid var(--my-table-border-color)",
-          borderRight: "none",
-          boxShadow: "none",
+        moveDown: {
+          code: "move-down",
+          icon: "fa fa-angle-down",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {},
         },
-        refresh: function () {},
-        click: function () {},
-      });
-      data.control.addItem(`${field.key}_value`, {
-        code: `${field.key}_value`,
-        caption: !data.record[field.key].units
-          ? data.record[field.key].value
-          : `${data.record[field.key].value} ${data.record[field.key].units}`,
-        classes: {
-          btn: true,
+        delete: {
+          code: "delete",
+          icon: "fa fa-trash",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {},
         },
-        style: {
-          gridArea: `${i + 1} / 2 / span 1 / span 1`,
-          borderRadius: "0px",
-          borderTop:
-            i === 0 ? "1px solid var(--my-table-border-color)" : "none",
-          borderBottom: "1px solid var(--my-table-border-color)",
-          borderLeft: "1px solid var(--my-table-border-color)",
-          borderRight: "1px solid var(--my-table-border-color)",
-          boxShadow: "none",
+        add: {
+          code: "add",
+          icon: "fa fa-plus",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {},
         },
-        refresh: function () {},
-        click: function () {},
-      });
+        enter: {
+          code: "enter",
+          icon: "fa fa-angle-double-right",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {
+            router.push({
+              path: `/${data.record?.__id as string}`,
+            });
+          },
+        },
+      },
     });
-  },
+  }, // setup
 });
