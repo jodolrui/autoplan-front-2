@@ -56,7 +56,7 @@ export default function setup() {
     },
     {
       key: "isForEmergencyUseOnly",
-      label: { caption: "Uso exclusivo en emerencias" },
+      label: { caption: "Uso exclusivo en emergencias" },
       control: {
         type: "checkbox",
       },

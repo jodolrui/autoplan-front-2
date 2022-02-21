@@ -1,4 +1,4 @@
-import { getCurrentInstance, Ref } from "vue";
+import { getCurrentInstance, Ref, ComputedRef } from "vue";
 import { Wall } from "../../helpers/wall-brick";
 import { RecordBase } from "../../helpers/data-interfaces";
 import {
@@ -9,7 +9,6 @@ import {
 import { Store } from "pinia";
 
 export function useData(): {
-  routeId: Ref<string | string[]>;
   navbar: Wall;
   breadcrumbs: Wall;
   current: Store<
@@ -18,6 +17,7 @@ export function useData(): {
     UseCurrentGetters,
     UseCurrentActions
   >;
+  designKey: ComputedRef<string | undefined>;
   goTo: (id: string) => void;
 } {
   return getCurrentInstance()?.glueInstance.exposed();

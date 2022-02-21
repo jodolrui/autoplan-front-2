@@ -1,0 +1,37 @@
+<template src="./template.html"></template>
+
+<script>
+import { compose } from "@jodolrui/glue";
+import main from "./parts/main";
+import control from "./parts/control";
+
+export default compose("Record", [
+  main,
+  control
+]);
+</script>
+
+<style scoped>
+* {
+  --my-table-border-color: var(--lm-table-border-color);
+}
+.dark-mode * {
+  --my-table-border-color: var(--dm-table-border-color);
+}
+
+.collapse-panel {
+  margin-bottom: 0.5em;
+}
+
+.collapse-header {
+  border: none;
+  border-radius: 0px;
+  /* background: transparent; */
+}
+
+.collapse-content {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+</style>

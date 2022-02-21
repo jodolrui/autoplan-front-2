@@ -1,6 +1,6 @@
-
-Hola<br>
-
+<!--//* Design -->
 <template v-for="(record, i) in records" :key="i">
-  {{record}}<br/><br/>
+  <Record
+    :fields="fields" :record="record"
+  />
 </template>

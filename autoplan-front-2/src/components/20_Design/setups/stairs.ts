@@ -5,7 +5,7 @@ import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 import { useData } from "../data";
 import { useCurrent } from "../../../stores/useCurrent";
 import { useProjectData } from "../../../stores/useProjectData";
-const projectData = useProjectData();
+// const projectData = useProjectData();
 
 export default function setup() {
   const data = useData();
@@ -169,12 +169,12 @@ export default function setup() {
   } as Record;
 
   //* rellenamos "desde" y "hasta" con las plantas
-  const floors = projectData.getChildrenByDesign(current.routeId, "floor");
-  const from = data.fields.find((field) => field.key === "from");
-  const to = data.fields.find((field) => field.key === "to");
+  // const floors = projectData.getChildrenByDesign(current.routeId, "floor");
+  // const from = data.fields.find((field) => field.key === "from");
+  // const to = data.fields.find((field) => field.key === "to");
 
-  floors?.forEach((element) => {
-    from?.control?.options?.push((element as any).name.value);
-    to?.control?.options?.push((element as any).name.value);
-  });
+  // floors?.forEach((element) => {
+  //   from?.control?.options?.push((element as any).name.value);
+  //   to?.control?.options?.push((element as any).name.value);
+  // });
 }

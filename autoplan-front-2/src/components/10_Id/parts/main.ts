@@ -1,4 +1,4 @@
-import { defineComponent, Ref, ref, watch } from "vue";
+import { defineComponent, Ref, ref, watch, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useRoute } from "vue-router";
 import { useData } from "../data";
@@ -11,8 +11,10 @@ export default defineComponent({
   setup() {
     const data = useData();
     const route = useRoute();
-    data.routeId = ref(route.params.id);
     data.current = useCurrent();
-    data.current.setId(data.routeId.value as string);
+    data.current.setId(route.params.id as string);
+    data.designKey = computed(() => {
+      return data.current.record?.__designKey;
+    });
   },
 });
