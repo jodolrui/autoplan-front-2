@@ -23,12 +23,10 @@ export default defineComponent({
         alignItems: "frex-start",
         padding: "3px",
         gap: "3px",
+        borderBottom: "1px solid var(--border-color)",
+        // boxShadow: "0 0.2rem 0.2rem var(--shadow-color)",
       },
-      refresh: function () {
-        this.style["border-bottom"] = halfmoon.darkModeOn
-          ? "var(--navbar-border-width) solid var(--dm-navbar-border-color)"
-          : "var(--navbar-border-width) solid var(--lm-navbar-border-color)";
-      },
+      refresh: function () {},
       items: {},
     });
 

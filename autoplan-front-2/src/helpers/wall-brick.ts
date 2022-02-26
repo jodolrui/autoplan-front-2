@@ -20,6 +20,7 @@ export type BrickConfig = {
     html: string;
   };
   refresh?: () => void;
+  elementType?: "button" | "div";
 };
 
 export type Brick = BrickConfig & {

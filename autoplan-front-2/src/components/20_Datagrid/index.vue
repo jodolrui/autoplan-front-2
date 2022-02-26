@@ -3,14 +3,8 @@
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-import breadcrumbs from "./parts/breadcrumbs";
-import goTo from "./parts/goTo";
-export default compose("Id", [
-  main,
-  goTo,
-  breadcrumbs,
-]);
+export default compose("Datagrid", [main]);
 </script>
 
-<style>
+<style scoped>
 </style>

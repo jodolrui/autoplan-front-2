@@ -5,11 +5,13 @@ import { useProjectData } from "../../../stores/useProjectData";
 import { sampleData } from "../../../helpers/data";
 import Wall from "../../30_Wall/index.vue";
 import Id from "../../10_Id/index.vue";
+import Keyboard from "../../60_Keyboard/index.vue";
 export default defineComponent({
-  components: { Wall, Id },
+  components: { Wall, Id, Keyboard },
   setup() {
     const data = useData();
     const projectData = useProjectData();
     projectData.setData(sampleData);
+    data.keyboardOn = ref(false);
   },
 });

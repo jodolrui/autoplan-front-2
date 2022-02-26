@@ -2,13 +2,10 @@ import { defineComponent, Ref, ref, watch, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useRoute } from "vue-router";
 import { useData } from "../data";
-import Datagrid from "../../20_Datagrid/index.vue";
-import Wall from "../../30_Wall/index.vue";
-import Watch from "../../11_Watch/index.vue";
-import Tree from "../../50_Tree/index.vue";
+import Design from "../../21_Design/index.vue";
 import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
-  components: { Wall, Datagrid, Watch, Tree },
+  components: { Design },
   setup() {
     const data = useData();
     const route = useRoute();

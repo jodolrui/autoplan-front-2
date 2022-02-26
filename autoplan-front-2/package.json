@@ -3,12 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    // "dev": "vite --host",
-    // "build": "vue-tsc --noEmit && vite build",
-    // "preview": "vite preview"
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "build0": "vue-tsc --noEmit &&  vite build",
+    "build0": "vue-tsc --noEmit && vite build",
     "build1": "vue-tsc --noEmit",
     "build2": "vite build",
     "serve": "vite preview",
@@ -29,6 +26,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
     "prettier": "2.5.1",
+    "sass": "^1.49.9",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vue-tsc": "^0.29.8"

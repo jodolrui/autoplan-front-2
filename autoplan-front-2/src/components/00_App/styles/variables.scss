@@ -1,0 +1,14 @@
+body {
+  --bg-color: rgb(245, 245, 245);
+  --fore-color: rgb(80, 80, 80);
+  --border-color: rgb(180, 180, 180);
+  --shadow-color: rgb(226, 226, 226);
+  --key-active-color: rgb(216, 200, 56);
+}
+
+body.dark-mode {
+  --bg-color: rgb(50, 50, 50);
+  --fore-color: rgb(200,200,200);
+  --border-color: rgb(120, 120, 120);
+  --shadow-color: rgb(56, 56, 56);
+}

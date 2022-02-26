@@ -21,16 +21,13 @@ export default defineComponent({
         alignItems: "frex-start",
         padding: "3px",
         gap: "3px",
+        borderBottom: "1px solid var(--border-color)",
       },
-      refresh: function () {
-        this.style["border-bottom"] = halfmoon.darkModeOn
-          ? "var(--navbar-border-width) solid var(--dm-navbar-border-color)"
-          : "var(--navbar-border-width) solid var(--lm-navbar-border-color)";
-      },
+      refresh: function () {},
       items: {
-        toggleDark: {
+        keyboard: {
           code: "toggledark",
-          icon: "fa fa-adjust",
+          icon: "fa fa-keyboard",
           classes: {
             btn: true,
             btnSquare: true,
@@ -42,7 +39,25 @@ export default defineComponent({
             this.classes.btnPrimary = halfmoon.darkModeOn;
           },
           click: function () {
-            halfmoon.toggleDarkMode();
+            data.keyboardOn.value = !data.keyboardOn.value;
+          },
+        },
+        toggleDark: {
+          code: "toggledark",
+          icon: "fa fa-adjust",
+          classes: {
+            btn: true,
+            btnSquare: true,
+            roundedCircle: true,
+            btnPrimary: false,
+          },
+          style: {},
+          refresh: function () {},
+          click: function () {
+            var body = document.body;
+            if (body.classList.contains("dark-mode"))
+              body.classList.remove("dark-mode");
+            else body.classList.add("dark-mode");
           },
         },
         toggleFullscreen: {

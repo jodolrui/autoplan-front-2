@@ -2,7 +2,7 @@ import { defineComponent, watch, reactive, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
 import { useCurrent } from "../../../stores/useCurrent";
-import Record from "../../21_Record/index.vue";
+import Record from "../../22_Record/index.vue";
 
 export default defineComponent({
   components: { Record },

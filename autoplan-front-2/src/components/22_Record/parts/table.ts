@@ -15,7 +15,8 @@ export default defineComponent({
       style: {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        margin: "6px",
+        // marginLeft: "10px",
+        // marginRight: "10px",
       },
       refresh: function () {},
       items: {},
@@ -24,40 +25,32 @@ export default defineComponent({
     data.fields.forEach((field: Field, i: number) => {
       data.table.addItem(`${field.key}_label`, {
         code: `${field.key}_label`,
+        // elementType: "div",
         caption: field.label?.caption,
         classes: {
-          btn: true,
+          field: true,
+          fieldLabel: true,
+          fieldFirst: i === 0,
         },
         style: {
           gridArea: `${i + 1} / 1 / span 1 / span 1`,
-          borderRadius: "0px",
-          borderTop:
-            i === 0 ? "1px solid var(--my-table-border-color)" : "none",
-          borderBottom: "1px solid var(--my-table-border-color)",
-          borderLeft: "1px solid var(--my-table-border-color)",
-          borderRight: "none",
-          boxShadow: "none",
         },
         refresh: function () {},
         click: function () {},
       });
       data.table.addItem(`${field.key}_value`, {
         code: `${field.key}_value`,
+        // elementType: "div",
         caption: !data.record[field.key].units
           ? data.record[field.key].value
           : `${data.record[field.key].value} ${data.record[field.key].units}`,
         classes: {
-          btn: true,
+          field: true,
+          fieldValue: true,
+          fieldFirst: i === 0,
         },
         style: {
           gridArea: `${i + 1} / 2 / span 1 / span 1`,
-          borderRadius: "0px",
-          borderTop:
-            i === 0 ? "1px solid var(--my-table-border-color)" : "none",
-          borderBottom: "1px solid var(--my-table-border-color)",
-          borderLeft: "1px solid var(--my-table-border-color)",
-          borderRight: "1px solid var(--my-table-border-color)",
-          boxShadow: "none",
         },
         refresh: function () {},
         click: function () {},
