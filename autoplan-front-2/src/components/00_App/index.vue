@@ -97,6 +97,11 @@ body {
       border-radius: 100%;
     }
   }
+  /* elimina la posibilidad de seleccionar el texto */
+  user-select: none;
+  -webkit-user-select: none;
+  /* elimina el azul del toque en móviles */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .field {
@@ -131,5 +136,24 @@ body {
   &.field-value {
     /* font-size: 0.9rem; */
   }
+  /* elimina el azul del toque en móviles */
+  -webkit-tap-highlight-color: transparent;
 }
+
+
+/* --> elimina el efecto que tiene la navbar sobre height */
+/* html,
+body,
+#app, */
+.container {
+  height: 100%;
+  position: fixed;
+}
+/* --< elimina el efecto que tiene la navbar sobre height */
+
+
+
+
+
+
 </style>

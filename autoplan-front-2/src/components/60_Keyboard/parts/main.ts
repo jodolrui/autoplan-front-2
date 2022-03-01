@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch, reactive, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
 import { useProjectData } from "../../../stores/useProjectData";
@@ -12,11 +12,26 @@ export default defineComponent({
   components: { Wall: _Wall },
   setup() {
     const data = useData();
+    data.edit = {} as any;
     data.keys = [];
     data.numbers = [];
     data.symbols = [];
     data.shift = ref(false);
     data.panel = ref("letters");
+    data.current = useCurrent();
     data.pulse = ref(0);
+
+    let el: HTMLElement | null = null;
+    let value: Ref<any> = ref(null);
+    expose({ value });
+    // watch(data.current.selected, () => {
+    //   const selected = data.current.selected;
+    //   if (selected.record && selected.field) {
+    //     const datum = selected.record[selected.field.key];
+    //     value.value = !datum.units
+    //       ? datum.value
+    //       : `${datum.value} ${datum.units}`;
+    //   }
+    // });
   },
 });

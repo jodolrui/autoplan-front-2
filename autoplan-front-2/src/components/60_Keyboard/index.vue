@@ -5,10 +5,11 @@
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
+import edit from "./parts/edit";
 import letters from "./parts/letters";
 import numbers from "./parts/numbers";
 import symbols from "./parts/symbols";
-export default compose("Keyboard", [main, letters, numbers, symbols]);
+export default compose("Keyboard", [main, edit, letters, numbers, symbols]);
 </script>
 
 <style lang="scss">
@@ -37,7 +38,9 @@ button.btn-key {
   padding: 0px;
   font-size: 14pt;
   &:active {
-    /* background-color:var(--key-active-color) !important; */
+    background-color: var(--active-color) !important;
   }
 }
+
+
 </style>

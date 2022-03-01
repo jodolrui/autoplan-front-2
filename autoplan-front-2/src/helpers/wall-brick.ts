@@ -10,8 +10,9 @@ export type BrickConfig = {
   rowSpan?: number;
   colSpan?: number;
   icon?: string;
-  classes: { [key: string]: any };
-  style: { [key: string]: any };
+  classes?: { [key: string]: any };
+  style?: { [key: string]: any };
+  setup?: () => void;
   click?: () => void;
   slot?: string;
   div?: {
@@ -21,6 +22,7 @@ export type BrickConfig = {
   };
   refresh?: () => void;
   elementType?: "button" | "div";
+  vars?: { [key: string]: any };
 };
 
 export type Brick = BrickConfig & {
@@ -74,6 +76,7 @@ export function defineWall(config: WallConfig): Wall {
           // console.log({ brick });
         };
       } else brick.__refresh = () => {};
+      if (brick.setup) brick.setup();
       this.items[key] = brick;
     },
   });

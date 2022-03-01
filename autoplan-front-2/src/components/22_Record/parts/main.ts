@@ -16,5 +16,6 @@ export default defineComponent({
       [key: string]: { value: any | null; units?: string | null };
     };
     data.current = useCurrent();
+    data.pulse = ref(0);
   },
 });

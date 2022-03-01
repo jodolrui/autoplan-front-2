@@ -21,6 +21,7 @@ export function useData(): {
     UseCurrentGetters,
     UseCurrentActions
   >;
+  pulse: Ref<number>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

@@ -1,5 +1,7 @@
 <!--//* Keyboard -->
 <div id="keyboard">
+  <!-- <div class="btn" style="overflow: hidden; overflow-x: scroll; padding-top: 7px;">{{value}}</div> -->
+  <Wall :config="edit" :key="pulse"><template v-slot:edit><div class="btn" style="grid-area: 1 / 1 / span 1 / span 9; height: 100%; width: 100%; text-align: center; padding-top: 11px; border-radius: 8px;">{{value}}</div></template></Wall>
   <template v-if="panel === 'letters'" v-for="(row, i) in keys" :key="pulse">
     <Wall :config="row" />
   </template>

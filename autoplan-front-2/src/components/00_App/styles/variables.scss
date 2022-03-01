@@ -3,7 +3,7 @@ body {
   --fore-color: rgb(80, 80, 80);
   --border-color: rgb(180, 180, 180);
   --shadow-color: rgb(226, 226, 226);
-  --key-active-color: rgb(216, 200, 56);
+  --active-color: violet;
 }
 
 body.dark-mode {
@@ -11,4 +11,5 @@ body.dark-mode {
   --fore-color: rgb(200,200,200);
   --border-color: rgb(120, 120, 120);
   --shadow-color: rgb(56, 56, 56);
+  --active-color: rgb(110, 60, 110);
 }

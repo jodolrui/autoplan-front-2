@@ -1,5 +1,5 @@
 <!--//* Design -->
-<template v-for="(record, i) in records" :key="i">
+<template v-for="(record, i) in records" :key="current.fieldPulse">
   <Record
     :fields="fields" :record="record"
   />

@@ -1,5 +1,6 @@
 import { defineStore, Store } from "pinia";
 import { RecordBase } from "../helpers/data-interfaces";
+import { Field } from "../helpers/data-interfaces";
 import {
   useProjectData,
   UseProjectDataState,
@@ -14,6 +15,9 @@ export type UseCurrentState = {
   record: RecordBase | null;
   children: RecordBase[] | null;
   path: RecordBase[] | null;
+  selectedField: string | null;
+  fieldPulse: number;
+  selected: { record: RecordBase | null; field: Field | null };
 };
 
 export type UseCurrentGetters = {};
@@ -36,6 +40,9 @@ export const useCurrent = defineStore<
       record: null,
       children: null,
       path: null,
+      selectedField: null,
+      fieldPulse: 0,
+      selected: { record: null, field: null },
     };
   },
   getters: {},
