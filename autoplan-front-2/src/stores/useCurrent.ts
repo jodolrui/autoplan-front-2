@@ -1,4 +1,5 @@
 import { defineStore, Store } from "pinia";
+import { watch } from "vue";
 import { RecordBase } from "../helpers/data-interfaces";
 import { Field } from "../helpers/data-interfaces";
 import {
@@ -18,6 +19,7 @@ export type UseCurrentState = {
   selectedField: string | null;
   fieldPulse: number;
   selected: { record: RecordBase | null; field: Field | null };
+  edit: { value: string | null; cursor: number | null };
 };
 
 export type UseCurrentGetters = {};
@@ -43,9 +45,14 @@ export const useCurrent = defineStore<
       selectedField: null,
       fieldPulse: 0,
       selected: { record: null, field: null },
+      edit: { value: null, cursor: null },
     };
   },
-  getters: {},
+  getters: {
+    editChars: function (state): string[] | null {
+      return state.edit.value ? state.edit.value.split("") : null;
+    },
+  },
   actions: {
     setId: function (routeId: string) {
       const projectData: Store<

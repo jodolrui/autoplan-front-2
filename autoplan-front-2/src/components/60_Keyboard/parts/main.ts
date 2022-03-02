@@ -21,9 +21,9 @@ export default defineComponent({
     data.current = useCurrent();
     data.pulse = ref(0);
 
-    let el: HTMLElement | null = null;
-    let value: Ref<any> = ref(null);
-    expose({ value });
+    // let el: HTMLElement | null = null;
+    // let value: Ref<any> = ref(null);
+    // expose({ value });
     // watch(data.current.selected, () => {
     //   const selected = data.current.selected;
     //   if (selected.record && selected.field) {
@@ -33,5 +33,25 @@ export default defineComponent({
     //       : `${datum.value} ${datum.units}`;
     //   }
     // });
+
+    watch(
+      data.current.selected,
+      () => {
+        const selected = data.current.selected;
+        if (selected && selected.record && selected.field) {
+          const datum = (selected.record as unknown as any)[selected.field.key];
+          data.current.edit.value = !datum.units
+            ? datum.value
+            : `${datum.value} ${datum.units}`;
+          // data.cursor.value = data.value.value.length;
+        }
+        data.pulse.value++;
+      },
+      { immediate: true },
+    );
+
+    data.editCharClick = function (position: number) {
+      data.current.edit.cursor = position;
+    };
   },
 });

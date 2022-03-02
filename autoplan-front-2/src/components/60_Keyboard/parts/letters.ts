@@ -61,6 +61,49 @@ export default defineComponent({
             if (this.code === "numbers") {
               data.panel.value = "numbers";
             }
+            if (this.code === "backspace") {
+              const value = data.current.edit.value;
+              let cursor = data.current.edit.cursor;
+              if (value) {
+                if (cursor) {
+                  const pre = value.substring(0, (cursor as number) - 1);
+                  const post = value.substring(cursor as number);
+                  data.current.edit.value = `${pre}${post}`;
+                  if (cursor > 0) (data.current.edit.cursor as number)--;
+                } else {
+                  data.current.edit.value = value.substring(
+                    0,
+                    value.length - 1,
+                  );
+                  data.current.edit.cursor = data.current.edit.value.length;
+                }
+              }
+            }
+            if (this.caption?.length === 1) {
+              if (data.current.edit.value)
+                if (data.current.edit.cursor === 0) {
+                  data.current.edit.value =
+                    this.caption + data.current.edit.value;
+                  data.current.edit.cursor++;
+                } else if (data.current.edit.cursor) {
+                  const pre = data.current.edit.value.substring(
+                    0,
+                    data.current.edit.cursor,
+                  );
+                  const post = data.current.edit.value.substring(
+                    data.current.edit.cursor,
+                  );
+                  console.log({ pre, post });
+
+                  data.current.edit.value = `${pre}${this.caption}${post}`;
+                  data.current.edit.cursor++;
+                } else {
+                  data.current.edit.value += this.caption;
+                  data.current.edit.cursor = data.current.edit.value.length;
+                }
+              else data.current.edit.value = this.caption;
+            }
+            data.pulse.value++;
           },
         });
         col += element.colSpan ? element.colSpan : 1;

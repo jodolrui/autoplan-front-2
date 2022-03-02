@@ -73,6 +73,7 @@ export default defineComponent({
           if (this.vars && this.vars.field)
             current.selected.field = this.vars.field;
 
+          current.edit.cursor = null;
           // current.fieldPulse++;
         },
       });

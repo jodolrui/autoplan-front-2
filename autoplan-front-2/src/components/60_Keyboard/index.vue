@@ -43,4 +43,28 @@ button.btn-key {
 }
 
 
+.edit-char {
+  border-left: 2px solid transparent;
+}
+
+.cursor-char {
+  border-left: 2px solid var(--fore-color);
+  animation: blinker 0.5s ease infinite;
+}
+
+@keyframes blinker {
+  0% {
+    border-left: 2px solid var(--fore-color);
+  }
+  33% {
+    border-left: 2px solid var(--fore-color);
+  }
+  66% {
+    border-left: 2px solid transparent;
+  }
+  100% {
+    border-left: 2px solid transparent;
+  }
+}
+
 </style>

@@ -22,6 +22,7 @@ export function useData(): {
     UseCurrentActions
   >;
   pulse: Ref<number>;
+  editCharClick: (position: number) => void;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

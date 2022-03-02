@@ -32,7 +32,7 @@ export default defineComponent({
         input: {
           code: "edit-box",
           caption: "",
-          // slot: "edit",
+          slot: "edit",
           classes: {
             btn: true,
             btnKey: true,
@@ -46,22 +46,25 @@ export default defineComponent({
             borderRadius: "0px",
           },
           setup: function () {
-            watch(
-              data.current.selected,
-              () => {
-                const selected = data.current.selected;
-                if (selected && selected.record && selected.field) {
-                  const datum = (selected.record as unknown as any)[
-                    selected.field.key
-                  ];
-                  this.caption = !datum.units
-                    ? datum.value
-                    : `${datum.value} ${datum.units}`;
-                }
-                data.pulse.value++;
-              },
-              { immediate: true },
-            );
+            // watch(
+            //   data.current.selected,
+            //   () => {
+            //     const selected = data.current.selected;
+            //     if (selected && selected.record && selected.field) {
+            //       const datum = (selected.record as unknown as any)[
+            //         selected.field.key
+            //       ];
+            //       // this.caption = !datum.units
+            //       //   ? datum.value
+            //       //   : `${datum.value} ${datum.units}`;
+            //       data.value = !datum.units
+            //         ? datum.value
+            //         : `${datum.value} ${datum.units}`;
+            //     }
+            //     data.pulse.value++;
+            //   },
+            //   { immediate: true },
+            // );
           },
         },
         cancel: {
