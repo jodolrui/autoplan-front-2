@@ -43,6 +43,8 @@ export type Wall = {
   refresh: () => void;
 };
 
+const bricks: Brick[] = [];
+
 export function useBrick(code?: string): Brick {
   const brick: Brick = {} as any;
   brick.__pulse = ref(0);
@@ -80,8 +82,11 @@ export function useBrick(code?: string): Brick {
   brick.refresh = () => {
     brick.__updated(brick, brick.__wall);
   };
+  bricks.push(brick);
   return brick;
 }
+
+const walls: Wall[] = [];
 
 export function useWall(name: string): Wall {
   const wall: Wall = {} as any;
@@ -104,5 +109,6 @@ export function useWall(name: string): Wall {
   wall.refresh = () => {
     wall.__updated(wall);
   };
+  walls.push(wall);
   return wall;
 }

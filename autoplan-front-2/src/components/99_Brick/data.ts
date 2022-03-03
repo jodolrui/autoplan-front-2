@@ -5,7 +5,7 @@ export function useData(): {
   config: Brick;
   classes: ComputedRef<{ [key: string]: any }>;
   style: ComputedRef<{ [key: string]: any }>;
-  clicked: (code: string) => void;
+  clicked: () => void;
   pulse: number;
 } {
   return getCurrentInstance()?.glueInstance.exposed();

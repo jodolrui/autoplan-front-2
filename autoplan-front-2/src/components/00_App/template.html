@@ -1,10 +1,12 @@
 <!--//* App -->
+<Test />
+
 <div class="container">
   <div class="header"><Wall :config="navbar" /></div>
   <div class="body">
     <!--//* :key="$route.path" es necesario para que se refresque al cambiar la dirección -->
-    <!-- <router-view :key="$route.path"></router-view> -->
-    <Test />
+    <router-view :key="$route.path"></router-view>
+    <!-- <Test /> -->
   </div>
   <div class="footer"><Keyboard v-if="keyboardOn" /></div>
 </div>
