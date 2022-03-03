@@ -1,28 +1,32 @@
-type Create<T> = (create: () => T) => T | void;
-type Item<T> = (item: T) => void;
+type Create<T> = (create: () => T) => T | void; //* predesign
+type Item<T> = (item: T) => void; //* design
 type Stored<T> = {
   isPredesign: boolean;
   funct: Create<T> | Item<T>;
 };
 
+
+expor typ
+
 export type Builder<T> = {
+  //* propiedades asignadas
+  __create: () => T;
+  __before: (item: T) => void;
+  __after: (item: T) => void;
+  __stored: Stored<T>[];
+  //* son los métodos que se utilizarán, requieren nombre sencillo
   create: (funct: () => T) => void;
   before: (funct: (item: T) => void) => void;
   design: (funct: (item: T) => void) => void;
   after: (funct: (item: T) => void) => void;
   predesign: (funct: (create: () => T) => T | void) => void;
   build: () => void;
-  __create: () => T;
-  __before: (item: T) => void;
-  __after: (item: T) => void;
-  __stored: Stored<T>[];
 };
-
-//! puede que almacenarlos no haga falta
-const builders: Builder<any>[] = [];
 
 export function createBuilder<T>(): Builder<T> {
   const instance: Builder<T> = {} as Builder<T>;
+  //! tengo que crearlo así haciendo uso de "instance"
+  //! para que me deje acceder a las propiedades __x desde los métodos
   instance.__create = () => ({} as T);
   instance.__before = (item: T) => {};
   instance.__after = (item: T) => {};
@@ -58,10 +62,5 @@ export function createBuilder<T>(): Builder<T> {
       }
     });
   };
-
-  builders.push(instance);
-  // console.log({ builders });
-
-  // return builders.at(builders.length - 1) as Builder<T>;
   return instance;
 }

@@ -1,5 +1,5 @@
 import { getCurrentInstance, ComputedRef } from "vue";
-import { Brick } from "../../helpers/wallbrick";
+import { Brick } from "../wallbrick";
 
 export function useData(): {
   config: Brick;

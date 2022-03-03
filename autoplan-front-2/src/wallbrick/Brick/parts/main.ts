@@ -1,7 +1,7 @@
 import { defineComponent, ref, computed, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
-import { Brick } from "../../../helpers/wallbrick";
+import { Brick } from "../../wallbrick";
 
 export default defineComponent({
   props: { config: { type: Object, required: true } },

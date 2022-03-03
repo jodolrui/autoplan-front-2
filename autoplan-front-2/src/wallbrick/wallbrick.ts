@@ -1,6 +1,6 @@
 import { Ref, ref, reactive, watch } from "vue";
 import _ from "lodash";
-import { spread } from "./composeStyle";
+import { spread } from "../helpers/composeStyle";
 
 export type Brick = {
   __pulse: Ref<number>;

@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, computed, ref, watch, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import _Brick from "../../99_Brick/index.vue";
-import { Brick, Wall } from "../../../helpers/wallbrick";
+import _Brick from "../../Brick/index.vue";
+import { Brick, Wall } from "../../wallbrick";
 import { useData } from "../data";
 
 export default defineComponent({
