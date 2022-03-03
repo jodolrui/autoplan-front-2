@@ -3,7 +3,7 @@ import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
 import { useProjectData } from "../../../stores/useProjectData";
 import { sampleData } from "../../../helpers/data";
-import Wall from "../../30_Wall/index.vue";
+import Wall from "../../../wallbrick/Wall/index.vue";
 import Id from "../../10_Id/index.vue";
 import Keyboard from "../../60_Keyboard/index.vue";
 import Test from "../../../wallbrick/Test/index.vue";

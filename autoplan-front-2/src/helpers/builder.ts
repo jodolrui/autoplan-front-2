@@ -14,10 +14,11 @@ export type Data<T> = {
 
 //* create: función *común* creadora de objetos, si queremos pasarle siempre el mismo objeto pasarle "() => objeto"
 //* predesign: función configuradora de objetos recibiendo como argumento la función creadora de objetos
-//*     y devolviendo el objeto creado para pasarlo a las funciones siguientes
-//* before: función *común* configuradora de objetos que se ejecuta antes de cada "design" recibiendo como argumento el objeto
-//* design: función configuradora de objetos recibiendo como argumento el objeto
-//* after: función *común* configuradora de objetos que se ejecuta después de cada "design" recibiendo como argumento el objeto
+//*     y devolviendo (return) el objeto creado para pasarlo a las funciones siguientes
+//*     sirve para casos donde la creación de objetos necesite pasarle argumentos a la función creadora
+//* before: función *común* configuradora de objetos que se ejecuta antes de cada "design" recibiendo como argumento el objeto ya creado
+//* design: función configuradora de objetos recibiendo como argumento el objeto ya creado
+//* after: función *común* configuradora de objetos que se ejecuta después de cada "design" recibiendo como argumento el objeto ya creado
 //* build: función *común* que ejecuta todo el batch de funciones predesign y design, debe ejecutarse al final
 export type Builder<T> = {
   create: (funct: () => T) => void;
