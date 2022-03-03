@@ -1,53 +1,74 @@
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineWall } from "../../../helpers/wall-brick";
+import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { useData } from "../data";
 import { RecordBase } from "../../../helpers/data-interfaces";
-import { useCurrent } from "../../../stores/useCurrent";
+import { createBuilder } from "../../../helpers/builder";
 
 export default defineComponent({
   setup() {
     const data = useData();
-    onMounted(() => {
-      halfmoon.onDOMContentLoaded();
-    });
-    data.breadcrumbs = defineWall({
-      classes: {},
-      style: {
-        display: "flex",
-        frexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "flex-start",
-        alignContent: "stretch",
-        alignItems: "frex-start",
-        padding: "3px",
-        gap: "3px",
-        borderBottom: "1px solid var(--border-color)",
-        // boxShadow: "0 0.2rem 0.2rem var(--shadow-color)",
-      },
-      refresh: function () {},
-      items: {},
+    data.breadcrumbsPulse = ref(0);
+    data.breadcrumbs = useWall("breadcrumbs");
+
+    const { create, design, after, build } = createBuilder<Wall>();
+
+    create(() => data.breadcrumbs);
+    after((wall: Wall) => {
+      wall.mount();
     });
 
-    if (data.current.path && data.current.path)
-      data.current.path.forEach((element: RecordBase) => {
-        const isHome = element.__id === "root";
-        data.breadcrumbs.addItem(element.__id, {
-          code: element.__id,
-          caption: isHome ? "" : element.__breadcrumb,
-          icon: isHome ? "fas fa-home" : "",
-          classes: {
-            btn: true,
-            btnSquare: isHome,
-            roundedCircle: isHome,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {
-            data.goTo(element.__id);
-          },
+    design((wall) => {
+      let { style } = wall;
+      style.set("display", "flex");
+      style.set("flex-direction", "row");
+      style.set("flex-wrap", "wrap");
+      style.set("justify-content", "flex-start");
+      style.set("align-content", "stretch");
+      style.set("align-items", "flex-start");
+      style.set("padding", "3px");
+      style.set("gap", "3px");
+      style.set("border-bottom", "1px solid var(--border-color)");
+
+      const { create, before, design, after, build } = createBuilder<Brick>();
+
+      create(useBrick);
+      before((brick: Brick) => {
+        const { classes } = brick;
+        classes.set("btn", true);
+      });
+      after((brick: Brick) => {
+        brick.mount(wall);
+      });
+
+      //* root
+      design((brick) => {
+        brick.code = "root";
+        brick.icon = "fas fa-home";
+        const { classes, clicked } = brick;
+        classes.set("btn-square", true);
+        classes.set("rounded-circle", true);
+        clicked(() => {
+          data.goTo(brick.code);
         });
       });
+
+      if (data.current.path && data.current.path)
+        data.current.path.forEach((element: RecordBase) => {
+          if (element.__id !== "root")
+            design((brick) => {
+              brick.code = element.__id;
+              brick.caption = element.__breadcrumb;
+              const { clicked } = brick;
+              clicked(() => {
+                data.goTo(brick.code);
+              });
+            });
+        });
+
+      build();
+    });
+
+    build();
   },
 });

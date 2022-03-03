@@ -1,5 +1,5 @@
 import { getCurrentInstance, Ref, ComputedRef } from "vue";
-import { Wall } from "../../helpers/wall-brick";
+import { Wall } from "../../wallbrick/wallbrick";
 import { RecordBase } from "../../helpers/data-interfaces";
 import {
   UseCurrentState,
@@ -10,6 +10,7 @@ import { Store } from "pinia";
 
 export function useData(): {
   navbar: Wall;
+  breadcrumbsPulse: Ref<number>;
   breadcrumbs: Wall;
   current: Store<
     "current",

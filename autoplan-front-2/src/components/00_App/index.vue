@@ -104,6 +104,10 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.btn-primary {
+  background-color: var(--active-color);
+}
+
 .field {
   /* @include noselect(); */
   display: inline-block;
