@@ -1,6 +1,6 @@
 import { getCurrentInstance, Ref } from "vue";
 import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
-import { Wall } from "../../helpers/wall-brick";
+import { Wall } from "../../wallbrick/wallbrick";
 import {
   UseCurrentState,
   UseCurrentGetters,
@@ -14,7 +14,9 @@ export function useData(): {
     [key: string]: { value: any | null; units?: string | null };
   };
   table: Wall;
+  tablePulse: Ref<number>;
   control: Wall;
+  controlPulse: Ref<number>;
   current: Store<
     "current",
     UseCurrentState,

@@ -4,9 +4,11 @@ import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { useData } from "../data";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { createBuilder } from "../../../helpers/builder";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const data = useData();
     data.breadcrumbsPulse = ref(0);
     data.breadcrumbs = useWall("breadcrumbs");
@@ -49,7 +51,7 @@ export default defineComponent({
         classes.set("btn-square", true);
         classes.set("rounded-circle", true);
         clicked(() => {
-          data.goTo(brick.code);
+          router.push({ path: `/${brick.code}` });
         });
       });
 
@@ -61,7 +63,7 @@ export default defineComponent({
               brick.caption = element.__breadcrumb;
               const { clicked } = brick;
               clicked(() => {
-                data.goTo(brick.code);
+                router.push({ path: `/${brick.code}` });
               });
             });
         });

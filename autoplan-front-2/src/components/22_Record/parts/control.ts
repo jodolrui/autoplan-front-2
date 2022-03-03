@@ -1,96 +1,87 @@
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import halfmoon from "halfmoon"; // npm install --save @types/halfmoon
-import { defineWall } from "../../../helpers/wall-brick";
+import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { useData } from "../data";
+import { createBuilder } from "../../../helpers/builder";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
-    const data = useData();
     const router = useRouter();
-    onMounted(() => {
-      halfmoon.onDOMContentLoaded();
+    const data = useData();
+    data.controlPulse = ref(0);
+    data.control = useWall("control");
+
+    const { create, design, after, build } = createBuilder<Wall>();
+
+    create(() => data.control);
+    after((wall: Wall) => {
+      wall.mount();
     });
-    data.control = defineWall({
-      classes: {},
-      style: {
-        display: "flex",
-        frexDirection: "row",
-        flexWrap: "nowrap",
-        justifyContent: "flex-end",
-        alignContent: "stretch",
-        alignItems: "frex-start",
-        padding: "3px",
-        gap: "3px",
-      },
-      refresh: function () {},
-      items: {
-        moveUp: {
-          code: "move-up",
-          icon: "fa fa-angle-up",
-          classes: {
-            btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {},
-        },
-        moveDown: {
-          code: "move-down",
-          icon: "fa fa-angle-down",
-          classes: {
-            btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {},
-        },
-        delete: {
-          code: "delete",
-          icon: "fa fa-trash",
-          classes: {
-            btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {},
-        },
-        add: {
-          code: "add",
-          icon: "fa fa-plus",
-          classes: {
-            btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {},
-        },
-        enter: {
-          code: "enter",
-          icon: "fa fa-angle-double-right",
-          classes: {
-            btn: true,
-            btnSquare: true,
-            roundedCircle: true,
-          },
-          style: {},
-          refresh: function () {},
-          click: function () {
-            router.push({
-              path: `/${data.record?.__id as string}`,
-            });
-          },
-        },
-      },
+
+    design((wall) => {
+      let { style } = wall;
+      style.set("display", "flex");
+      style.set("flex-direction", "row");
+      style.set("flex-wrap", "nowrap");
+      style.set("justify-content", "flex-end");
+      style.set("align-content", "stretch");
+      style.set("align-items", "flex-start");
+      style.set("padding", "3px");
+      style.set("gap", "3px");
+      style.set("border-bottom", "1px solid var(--border-color)");
+
+      const { create, before, design, after, build } = createBuilder<Brick>();
+
+      create(useBrick);
+      before((brick: Brick) => {
+        const { classes } = brick;
+        classes.set("btn", true);
+        classes.set("btn-square", true);
+        classes.set("rounded-circle", true);
+      });
+      after((brick: Brick) => {
+        brick.mount(wall);
+      });
+
+      design((brick) => {
+        brick.code = "move-up";
+        brick.icon = "fa fa-angle-up";
+        const { clicked } = brick;
+      });
+
+      design((brick) => {
+        brick.code = "move-down";
+        brick.icon = "fa fa-angle-down";
+        const { clicked } = brick;
+      });
+
+      design((brick) => {
+        brick.code = "delete";
+        brick.icon = "fa fa-trash";
+        const { clicked } = brick;
+      });
+
+      design((brick) => {
+        brick.code = "add";
+        brick.icon = "fa fa-plus";
+        const { clicked } = brick;
+      });
+
+      design((brick) => {
+        brick.code = "enter";
+        brick.icon = "fa fa-angle-double-right";
+        const { clicked } = brick;
+        clicked(() => {
+          router.push({
+            path: `/${data.record?.__id as string}`,
+          });
+        });
+      });
+
+      build();
     });
-  }, // setup
+
+    build();
+  },
 });
