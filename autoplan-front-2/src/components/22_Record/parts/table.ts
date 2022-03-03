@@ -43,6 +43,7 @@ export default defineComponent({
       data.table.addItem(`${field.key}_value`, {
         code: `${data.record.__id}_${field.key}_value`,
         // elementType: "div",
+        elementType: "text",
         caption: !data.record[field.key].units
           ? data.record[field.key].value
           : `${data.record[field.key].value} ${data.record[field.key].units}`,
@@ -53,6 +54,7 @@ export default defineComponent({
         },
         style: {
           gridArea: `${i + 1} / 2 / span 1 / span 1`,
+          border: "1px solid var(--border-color)",
         },
         vars: {
           record: data.record,

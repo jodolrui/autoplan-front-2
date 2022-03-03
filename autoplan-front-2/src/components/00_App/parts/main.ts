@@ -6,8 +6,9 @@ import { sampleData } from "../../../helpers/data";
 import Wall from "../../30_Wall/index.vue";
 import Id from "../../10_Id/index.vue";
 import Keyboard from "../../60_Keyboard/index.vue";
+import Test from "../../99_Test_1/index.vue";
 export default defineComponent({
-  components: { Wall, Id, Keyboard },
+  components: { Wall, Id, Keyboard, Test },
   setup() {
     const data = useData();
     const projectData = useProjectData();

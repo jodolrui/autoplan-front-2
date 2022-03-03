@@ -1,0 +1,12 @@
+import { getCurrentInstance, ComputedRef } from "vue";
+import { Brick } from "../../helpers/wallbrick";
+
+export function useData(): {
+  config: Brick;
+  classes: ComputedRef<{ [key: string]: any }>;
+  style: ComputedRef<{ [key: string]: any }>;
+  clicked: (code: string) => void;
+  pulse: number;
+} {
+  return getCurrentInstance()?.glueInstance.exposed();
+}

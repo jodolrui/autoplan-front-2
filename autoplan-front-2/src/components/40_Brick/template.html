@@ -7,9 +7,13 @@
     <div><i v-if="item.icon" :class="item.icon"></i> {{item.caption}}</div>
     <!-- <div><font-awesome-icon v-if="item.icon" :icon="item.icon" /> {{item.caption}}</div> -->
   </button>
-    <div v-if="item.elementType === 'div'" :id="item.code" :class="classes" :style="style" @click="pressed()">
-      <div><i v-if="item.icon" :class="item.icon"></i> {{item.caption}}</div>
-      <!-- <div><font-awesome-icon v-if="item.icon" :icon="item.icon" /> {{item.caption}}</div> -->
-    </div>
+  <div v-if="item.elementType === 'div'" :id="item.code" :class="classes" :style="style" @click="pressed()">
+    <div><i v-if="item.icon" :class="item.icon"></i> {{item.caption}}</div>
+    <!-- <div><font-awesome-icon v-if="item.icon" :icon="item.icon" /> {{item.caption}}</div> -->
+  </div>
+  <input v-if="item.elementType === 'text'" type="text" :id="item.code" :class="classes" :style="style" @click="pressed()" :value="item.caption" />
+    <!-- <div><i v-if="item.icon" :class="item.icon"></i> {{item.caption}}</div> -->
+    <!-- <div><font-awesome-icon v-if="item.icon" :icon="item.icon" /> {{item.caption}}</div> -->
+  <!-- </input> -->
 </template>
 

@@ -36,7 +36,7 @@
         <span v-for="(char, i) in current.editChars" :key="pulse" 
         :class="{ 'edit-char': true, 'cursor-char': i===current.edit.cursor }"
         @click="editCharClick(i)">{{char}}</span>
-        <span v-if="current.edit.value.length > 0" :class="{ 'edit-char': true, 'cursor-char': current.edit.cursor===current.editChars.length }"
+        <span v-if="current.edit.value && current.edit.value.length > 0" :class="{ 'edit-char': true, 'cursor-char': current.edit.cursor===current.editChars.length }"
         @click="editCharClick(current.editChars.length)">&nbsp;</span>
       </div>
     </template>

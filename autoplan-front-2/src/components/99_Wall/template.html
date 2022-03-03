@@ -1,0 +1,11 @@
+<!--//* Wall -->
+<div :class="classes" :style="style">
+  <template v-for="(brick, i) in bricks" :key="pulse">
+    <template v-if="brick.slot">
+      <slot :name="brick.slot"></slot>
+    </template>
+    <template v-else>
+      <Brick :config="brick" @pulse="pulse++" />  
+    </template>
+  </template>
+</div>
