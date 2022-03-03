@@ -1,17 +1,24 @@
-type Create<T> = (create: () => T) => T | void; //* predesign
-type Item<T> = (item: T) => void; //* design
-type Stored<T> = {
+type Predesign<T> = (create: () => T) => T | void;
+type Design<T> = (item: T) => void;
+type Batch<T> = {
   isPredesign: boolean;
-  funct: Create<T> | Item<T>;
+  funct: Predesign<T> | Design<T>;
 };
 
 export type Data<T> = {
   create: () => T;
   before: (item: T) => void;
   after: (item: T) => void;
-  stored: Stored<T>[];
+  batch: Batch<T>[]; //* almacena funciones predesign y design
 };
 
+//* create: función *común* creadora de objetos, si queremos pasarle siempre el mismo objeto pasarle "() => objeto"
+//* predesign: función configuradora de objetos recibiendo como argumento la función creadora de objetos
+//*     y devolviendo el objeto creado para pasarlo a las funciones siguientes
+//* before: función *común* configuradora de objetos que se ejecuta antes de cada "design" recibiendo como argumento el objeto
+//* design: función configuradora de objetos recibiendo como argumento el objeto
+//* after: función *común* configuradora de objetos que se ejecuta después de cada "design" recibiendo como argumento el objeto
+//* build: función *común* que ejecuta todo el batch de funciones predesign y design, debe ejecutarse al final
 export type Builder<T> = {
   create: (funct: () => T) => void;
   before: (funct: (item: T) => void) => void;
@@ -26,34 +33,35 @@ export function createBuilder<T>(): Builder<T> {
     create: () => ({} as T),
     before: (item: T) => {},
     after: (item: T) => {},
-    stored: [] as Stored<T>[],
+    batch: [] as Batch<T>[],
   };
   const instance: Builder<T> = {
     create: function (funct: () => T) {
       data.create = funct;
     },
     predesign: function (funct: (create: () => T) => T | void) {
-      data.stored.push({ isPredesign: true, funct });
+      data.batch.push({ isPredesign: true, funct });
     },
     before: function (funct: (item: T) => void) {
       data.before = funct;
     },
     design: function (funct: (item: T) => void) {
-      data.stored.push({ isPredesign: false, funct });
+      data.batch.push({ isPredesign: false, funct });
     },
     after: function (funct: (item: T) => void) {
       data.after = funct;
     },
     build: function () {
       let item: T | void | undefined = undefined;
-      data.stored.forEach((element: Stored<T>) => {
+      //* recorremos las funciones predesign y design
+      data.batch.forEach((element: Batch<T>) => {
         if (element.isPredesign) {
-          item = (element.funct as Create<T>)(data.create as () => T);
+          item = (element.funct as Predesign<T>)(data.create as () => T);
         } else {
           if (!item) if (data.create) item = data.create();
           if (item) {
             if (data.before) data.before(item);
-            (element.funct as Item<T>)(item);
+            (element.funct as Design<T>)(item);
             if (data.after) data.after(item);
             item = undefined;
           }
