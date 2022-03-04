@@ -1,7 +1,7 @@
 <template src="./template.html"></template>
 
-//! quito lang="ts" para evitar errores de typescript
-//! y elimino de tsconfig.json los archivos *.vue
+//! quito lang="ts" para evitar errores de typescript //! y elimino de
+tsconfig.json los archivos *.vue
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
@@ -42,6 +42,15 @@ button.btn-key {
   }
 }
 
+#edit {
+  grid-area: 1 / 2 / span 1 / span 7;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-top: 11px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
 
 .edit-char {
   border-left: 2px solid transparent;
@@ -66,5 +75,4 @@ button.btn-key {
     border-left: 2px solid transparent;
   }
 }
-
 </style>

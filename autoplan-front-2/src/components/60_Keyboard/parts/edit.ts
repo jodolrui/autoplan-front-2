@@ -48,7 +48,7 @@ export default defineComponent({
         const { style, clicked } = brick;
         style.set("grid-area", "1 / 2 / span 1 / span 7");
         style.set("overflow", "hidden");
-        style.set("overflow-x", "scroll");
+        style.set("overflow-x", "auto");
         style.set("font-size", "1rem");
         style.set("box-shadow", "none");
         style.set("border-radius", "0px");
