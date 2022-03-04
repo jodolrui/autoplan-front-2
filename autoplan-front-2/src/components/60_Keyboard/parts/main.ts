@@ -5,7 +5,7 @@ import { useProjectData } from "../../../stores/useProjectData";
 import { useCurrent } from "../../../stores/useCurrent";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { defineWall, Wall, WallConfig } from "../../../helpers/wall-brick";
-import _Wall from "../../30_Wall/index.vue";
+import _Wall from "../../../wallbrick/Wall/index.vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -13,7 +13,7 @@ export default defineComponent({
   setup() {
     const data = useData();
     data.edit = {} as any;
-    data.keys = [];
+    data.letters = [];
     data.numbers = [];
     data.symbols = [];
     data.shift = ref(false);

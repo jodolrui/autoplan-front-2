@@ -29,7 +29,7 @@ export default defineComponent({
       style.set("align-items", "flex-start");
       style.set("padding", "3px");
       style.set("gap", "3px");
-      style.set("border-bottom", "1px solid var(--border-color)");
+      // style.set("border-bottom", "1px solid var(--border-color)");
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 

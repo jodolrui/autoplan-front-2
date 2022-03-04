@@ -1,5 +1,5 @@
 import { getCurrentInstance, Ref } from "vue";
-import { Wall } from "../../helpers/wall-brick";
+import { Wall } from "../../wallbrick/wallbrick";
 import { Store } from "pinia";
 import {
   UseCurrentState,
@@ -8,11 +8,14 @@ import {
 } from "../../stores/useCurrent";
 
 export function useData(): {
-  // keys: Ref<Wall[]>;
   edit: Wall;
-  keys: Wall[];
+  editPulse: Ref<number>;
+  letters: Wall[];
+  lettersPulse: Ref<number>;
   numbers: Wall[];
+  numbersPulse: Ref<number>;
   symbols: Wall[];
+  symbolsPulse: Ref<number>;
   shift: Ref<boolean>;
   panel: Ref<"letters" | "numbers" | "symbols">;
   current: Store<

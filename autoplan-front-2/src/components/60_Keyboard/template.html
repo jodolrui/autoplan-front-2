@@ -1,7 +1,7 @@
 <!--//* Keyboard -->
 <div id="keyboard">
   <!-- <div class="btn" style="overflow: hidden; overflow-x: scroll; padding-top: 7px;">{{value}}</div> -->
-  <Wall :config="edit" :key="pulse">
+  <Wall :config="edit" :key="editPulse" @pulse="editPulse++">
     <template v-slot:edit>
       <!-- <input
         id="edit"
@@ -41,8 +41,8 @@
       </div>
     </template>
   </Wall>
-  <template v-if="panel === 'letters'" v-for="(row, i) in keys" :key="pulse">
-    <Wall :config="row" />
+  <template v-if="panel === 'letters'" v-for="(row, i) in letters" :key="lettersPulse">
+    <Wall :config="row" @pulse="lettersPulse++" />
   </template>
   <template v-if="panel === 'numbers'" v-for="(row, i) in numbers" :key="pulse">
     <Wall :config="row" />

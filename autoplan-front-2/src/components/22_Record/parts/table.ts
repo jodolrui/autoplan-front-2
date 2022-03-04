@@ -57,7 +57,6 @@ export default defineComponent({
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2 / span 1 / span 1`);
-          style.set("border", "1px solid var(--border-color)");
           brick.vars = {
             record: data.record,
             field: field,

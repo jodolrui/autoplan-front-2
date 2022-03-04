@@ -37,6 +37,7 @@ body {
   #app {
     --width: var(--max-width);
     --border: 1px solid var(--border-color);
+    
   }
   .dark-mode #app {
   --border: 1px solid var(--border-color);
@@ -136,7 +137,7 @@ body {
   margin: 0;
   box-sizing: inherit;
   /* scroll para poder ver el contenido entero */
-  overflow-x:scroll;
+  overflow-x: auto;
   &.field-value {
     /* font-size: 0.9rem; */
   }
@@ -152,6 +153,7 @@ body,
 .container {
   height: 100%;
   position: fixed;
+  max-width: var(--max-width);
 }
 /* --< elimina el efecto que tiene la navbar sobre height */
 
