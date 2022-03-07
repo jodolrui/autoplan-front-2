@@ -7,7 +7,7 @@ import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import test1 from "./parts/test1";
 import test2 from "./parts/test2";
-export default compose("99_Test", [main, test1, test2]);
+export default compose("Test", [main, test1, test2]);
 </script>
 
 <style>

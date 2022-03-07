@@ -7,14 +7,14 @@ import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
 
 export default defineComponent({
-  emits: ["pulse"],
+  emits: ["updated"],
   setup(props, context) {
     const data = useData();
     const current = useCurrent();
     data.tablePulse = ref(0);
     //* transmitimos el pulse hacia atrás
     watch(data.tablePulse, () => {
-      context.emit("pulse");
+      context.emit("updated");
     });
 
     data.table = useWall("table");
@@ -100,7 +100,7 @@ export default defineComponent({
                 style.set("background-color", "inherit");
             }
           });
-          clicked(() => {
+          clicked((brick: Brick) => {
             data.current.selected.record = vars.get("record");
             data.current.selected.field = vars.get("field");
 
@@ -109,6 +109,9 @@ export default defineComponent({
                 data.current.selected.record[data.current.selected.field.key];
               if (datum) data.current.edit.value = datum.value.toString();
             }
+            // brick.style.set("background-color", "red");
+
+            // brick.refresh();
           });
         });
       });

@@ -12,14 +12,14 @@ export default defineComponent({
     collapse: Object,
     options: Object,
   },
-  emits: ["pulse"],
+  emits: ["updated"],
   setup(props, context) {
     const data = useData();
     data.designKey = ref(props.designKey);
     data.current = useCurrent();
     data.recordPulse = ref(0);
     watch(data.recordPulse, () => {
-      context.emit("pulse");
+      context.emit("updated");
     });
 
     const collapse: Object = props.collapse

@@ -5,7 +5,7 @@ import { Brick } from "../../wallbrick";
 
 export default defineComponent({
   props: { config: { type: Object, required: true } },
-  emits: ["pulse"],
+  emits: ["updated"],
   setup(props, context) {
     const data = useData();
     data.config = props.config as Brick;
@@ -13,7 +13,7 @@ export default defineComponent({
     data.style = computed(() => Object.fromEntries(data.config.style));
     data.clicked = () => {
       data.config.__clicked(data.config, data.config.__wall);
-      context.emit("pulse");
+      context.emit("updated");
     };
   },
 });

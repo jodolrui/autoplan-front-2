@@ -7,7 +7,7 @@ import { useData } from "../data";
 export default defineComponent({
   components: { Brick: _Brick },
   props: { config: { type: Object, required: true } },
-  emits: ["pulse"],
+  emits: ["updated"],
   setup(props, context) {
     const data = useData();
     data.config = props.config as Wall;
@@ -15,6 +15,6 @@ export default defineComponent({
     data.style = computed(() => Object.fromEntries(data.config.style));
     data.bricks = computed(() => Object.fromEntries(data.config.bricks));
     data.pulse = ref(0);
-    watch(data.pulse, () => context.emit("pulse"));
+    watch(data.pulse, () => context.emit("updated"));
   },
 });

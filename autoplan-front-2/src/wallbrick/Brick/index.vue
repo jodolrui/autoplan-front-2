@@ -5,7 +5,7 @@
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-export default compose("99_Brick", [main]);
+export default compose("Brick", [main]);
 </script>
 
 <style scoped>

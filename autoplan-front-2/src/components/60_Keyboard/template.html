@@ -3,7 +3,7 @@
   <!-- <div class="btn" style="overflow: hidden; overflow-x: scroll; padding-top: 7px;">{{value}}</div> -->
 
   <!-- //! esta fila de edición la acabaré quitando  -->
-  <!-- <Wall :config="edit" :key="editPulse" @pulse="editPulse++">
+  <!-- <Wall :config="edit" :key="editPulse" @updated="editPulse++">
     <template v-slot:edit>
       <div id="edit" class="btn">
         <span
@@ -27,20 +27,20 @@
     v-for="(row, i) in letters"
     :key="lettersPulse"
   >
-    <Wall :config="row" @pulse="lettersPulse++" />
+    <Wall :config="row" @updated="lettersPulse++" />
   </template>
   <template
     v-if="panel === 'numbers'"
     v-for="(row, i) in numbers"
     :key="numbersPulse"
   >
-    <Wall :config="row" @pulse="numbersPulse++" />
+    <Wall :config="row" @updated="numbersPulse++" />
   </template>
   <template
     v-if="panel === 'symbols'"
     v-for="(row, i) in symbols"
     :key="symbolsPulse"
   >
-    <Wall :config="row" @pulse="symbolsPulse++" />
+    <Wall :config="row" @updated="symbolsPulse++" />
   </template>
 </div>

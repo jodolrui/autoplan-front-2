@@ -5,7 +5,7 @@
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-export default compose("99_Wall", [main]);
+export default compose("Wall", [main]);
 </script>
 
 <style>
