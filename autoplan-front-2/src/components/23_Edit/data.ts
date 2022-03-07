@@ -1,4 +1,4 @@
-import { getCurrentInstance, Ref, ComputedRef } from "vue";
+import { getCurrentInstance, Ref } from "vue";
 import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
 import { Wall } from "../../wallbrick/wallbrick";
 import {
@@ -9,22 +9,12 @@ import {
 import { Store } from "pinia";
 
 export function useData(): {
-  fields: Field[];
-  record: RecordBase & {
-    [key: string]: { value: any | null; units?: string | null };
-  };
-  table: Wall;
-  tablePulse: Ref<number>;
-  control: Wall;
-  controlPulse: Ref<number>;
   current: Store<
     "current",
     UseCurrentState,
     UseCurrentGetters,
     UseCurrentActions
   >;
-  pulse: Ref<number>;
-  isEditing: ComputedRef<boolean>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

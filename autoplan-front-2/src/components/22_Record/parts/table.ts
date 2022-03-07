@@ -18,13 +18,12 @@ export default defineComponent({
     });
 
     data.table = useWall("table");
-
     const { setup } = data.table;
     setup(() => {
+      //* refrescamos para que se actualice el elemento seleccionado
       watch(
-        () => data.current.selectedElement?.value,
+        () => data.current.selected.field,
         () => {
-          //* para que se actualice el elemento seleccionado
           data.table.refreshAll();
         },
       );
@@ -63,6 +62,10 @@ export default defineComponent({
           classes.set("field-label", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
+          clicked(() => {
+            data.current.selected.record = null;
+            data.current.selected.field = null;
+          });
         });
 
         //* value
@@ -72,6 +75,11 @@ export default defineComponent({
           brick.caption = !data.record[field.key].units
             ? data.record[field.key].value
             : `${data.record[field.key].value} ${data.record[field.key].units}`;
+          brick.slot =
+            data.current.selected.record?.__id === data.record.__id &&
+            data.current.selected.field?.key === field.key
+              ? "edit"
+              : "";
           const { classes, style, clicked, vars, updated, setup } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
@@ -79,12 +87,18 @@ export default defineComponent({
           vars.set("record", data.record);
           vars.set("field", field);
           updated((brick: Brick) => {
-            if (data.current.selectedElement)
-              if (brick.code === data.current.selectedElement.value.id) {
+            //* si es el elemento seleccionado
+            if (
+              data.current.selectedElement &&
+              brick.code === data.current.selectedElement.value.id
+            ) {
+              if (style.get("background-color") !== "var(--active-color)")
                 style.set("background-color", "var(--active-color)");
-              } else {
+            } else {
+              //* si NO es el elemento seleccionado
+              if (style.get("background-color") !== "inherit")
                 style.set("background-color", "inherit");
-              }
+            }
           });
           clicked(() => {
             data.current.selected.record = vars.get("record");

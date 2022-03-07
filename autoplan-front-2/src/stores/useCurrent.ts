@@ -61,10 +61,11 @@ export const useCurrent = defineStore<
       const key = `${state.selected.record?.__id}_${state.selected.field?.key}`;
       const label = document.getElementById(`${key}_label`);
       const value = document.getElementById(`${key}_value`);
-      console.log({ label, value });
+      //console.log({ label, value });
       return label && value ? { label, value } : null;
     },
     editChars(state): string[] | null {
+      // return state.edit.value ? state.edit.value.split("") : null;
       return state.edit.value ? state.edit.value.split("") : null;
     },
   },

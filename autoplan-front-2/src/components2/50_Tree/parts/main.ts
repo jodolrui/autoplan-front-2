@@ -108,6 +108,6 @@ export default defineComponent({
       },
     );
 
-    console.log({ treeArray });
+    //console.log({ treeArray });
   },
 });

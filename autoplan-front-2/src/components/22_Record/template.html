@@ -1,3 +1,7 @@
 <!--//* Record -->
 <Wall :config="control" :key="controlPulse" @pulse="controlPulse++" />
-<Wall :config="table" :key="tablePulse" @pulse="tablePulse++" />
+<Wall :config="table" :key="tablePulse" @pulse="tablePulse++" >
+  <template v-slot:edit>
+    <Edit/>
+  </template>
+</Wall>
