@@ -69,7 +69,6 @@ export default defineComponent({
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
             if (element.length === 1) clicked(typeKey);
-            if (element === "shift") clicked(shift);
             if (element === "backspace") clicked(backspace);
             if (element === "symbols") clicked(symbols);
             if (element === "letters") clicked(letters);
@@ -100,16 +99,6 @@ export default defineComponent({
           }
         else current.edit.value = brick.caption;
       }
-    }
-
-    function shift() {
-      data.shift.value = !data.shift.value;
-      data.symbols.forEach((row: Wall) => {
-        row.refresh();
-        row.bricks.forEach((brick: Brick) => {
-          brick.refresh();
-        });
-      });
     }
 
     function backspace() {

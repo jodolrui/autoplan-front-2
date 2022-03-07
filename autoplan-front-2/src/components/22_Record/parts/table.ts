@@ -39,43 +39,38 @@ export default defineComponent({
       data.fields.forEach((field: Field, i: number) => {
         //* label
         design((brick) => {
-          brick.code = `${data.record.__id}_${field.key}_label`;
+          const elementId: string = `${data.record.__id}_${field.key}_label`;
+          brick.code = elementId;
           brick.caption = field.label?.caption as string;
           const { classes, style, clicked } = brick;
           classes.set("field-label", true);
           if (i === 0) classes.set("field-first", true);
-          style.set("grid-area", `${i + 1} / 1 / span 1 / span 1`);
+          style.set("grid-area", `${i + 1} / 1`);
         });
 
         //* value
         design((brick) => {
-          brick.code = `${data.record.__id}_${field.key}_value`;
+          const elementId: string = `${data.record.__id}_${field.key}_value`;
+          brick.code = elementId;
           brick.caption = !data.record[field.key].units
             ? data.record[field.key].value
             : `${data.record[field.key].value} ${data.record[field.key].units}`;
-          const { classes, style, clicked } = brick;
+          const { classes, style, clicked, vars } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
-          style.set("grid-area", `${i + 1} / 2 / span 1 / span 1`);
-          brick.vars = {
-            record: data.record,
-            field: field,
-          };
+          style.set("grid-area", `${i + 1} / 2`);
+          vars.set("record", data.record);
+          vars.set("field", field);
           clicked(() => {
-            let el: HTMLElement | null = null;
-            if (current.selectedField)
-              el = document.getElementById(current.selectedField);
-            if (el) el.style.backgroundColor = "inherit";
-            if (brick.code) el = document.getElementById(brick.code);
-
-            if (el) el.style.backgroundColor = "var(--active-color)";
-            current.selectedField = brick.code ? brick.code : null;
-            if (brick.vars && brick.vars.record)
-              current.selected.record = brick.vars.record;
-            if (brick.vars && brick.vars.field)
-              current.selected.field = brick.vars.field;
-
-            current.edit.cursor = null;
+            if (data.current.selectedElement) {
+              data.current.selectedElement.value.style.backgroundColor =
+                "inherit";
+            }
+            data.current.selected.record = vars.get("record");
+            data.current.selected.field = vars.get("field");
+            if (data.current.selectedElement) {
+              data.current.selectedElement.value.style.backgroundColor = "red";
+            }
           });
         });
       });

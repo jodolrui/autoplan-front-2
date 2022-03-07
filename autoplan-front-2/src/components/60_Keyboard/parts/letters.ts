@@ -107,10 +107,7 @@ export default defineComponent({
     function shift() {
       data.shift.value = !data.shift.value;
       data.letters.forEach((row: Wall) => {
-        row.refresh();
-        row.bricks.forEach((brick: Brick) => {
-          brick.refresh();
-        });
+        row.refreshAll();
       });
     }
 

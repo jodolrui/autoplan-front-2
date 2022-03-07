@@ -1,6 +1,5 @@
 import { Ref, ref, reactive, watch } from "vue";
 import _ from "lodash";
-import { spread } from "../helpers/composeStyle";
 
 export type Brick = {
   __pulse: Ref<number>;
@@ -8,15 +7,9 @@ export type Brick = {
   caption: string;
   icon: string;
   slot: string;
-  define: (config: {
-    code?: string;
-    caption?: string;
-    icon?: string;
-    slot?: string;
-  }) => void;
   classes: Map<string, boolean | string>;
   style: Map<string, boolean | string>;
-  vars: { [key: string]: any } | {};
+  vars: Map<string, any>;
   setup: (callback: (brick: Brick, wall: Wall) => void) => void;
   __setup: (brick: Brick, wall: Wall) => void;
   clicked: (callback: (brick: Brick, wall: Wall) => void) => void;
@@ -41,6 +34,7 @@ export type Wall = {
   __updated: (wall: Wall) => void;
   mount: () => void;
   refresh: () => void;
+  refreshAll: () => void;
 };
 
 const bricks: Brick[] = [];
@@ -49,21 +43,19 @@ export function useBrick(code?: string): Brick {
   const brick: Brick = {} as any;
   brick.__pulse = ref(0);
   if (code) brick.code;
-  brick.define = ({ code, caption, icon, slot }) => {
-    brick.code = code as string;
-    brick.caption = caption as string;
-    brick.icon = icon as string;
-    brick.slot = slot as string;
-  };
   brick.classes = new Map() as Map<string, boolean | string>;
   brick.style = new Map() as Map<string, boolean | string>;
+  brick.vars = new Map() as Map<string, any>;
   brick.__setup = () => {};
   brick.setup = (callback: (brick: Brick, wall: Wall) => void) => {
     brick.__setup = callback;
   };
   brick.__clicked = () => {};
   brick.clicked = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__clicked = callback;
+    brick.__clicked = (brick: Brick, wall: Wall) => {
+      callback(brick, wall);
+      wall.refreshAll();
+    };
   };
   brick.__updated = () => {};
   brick.updated = (callback: (brick: Brick, wall: Wall) => void) => {
@@ -108,6 +100,12 @@ export function useWall(name: string): Wall {
   };
   wall.refresh = () => {
     wall.__updated(wall);
+  };
+  wall.refreshAll = () => {
+    wall.__updated(wall);
+    wall.bricks.forEach((brick: Brick) => {
+      brick.__updated(brick, wall);
+    });
   };
   walls.push(wall);
   return wall;

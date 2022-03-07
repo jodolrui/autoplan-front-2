@@ -37,11 +37,10 @@ body {
   #app {
     --width: var(--max-width);
     --border: 1px solid var(--border-color);
-    
   }
   .dark-mode #app {
-  --border: 1px solid var(--border-color);
-}
+    --border: 1px solid var(--border-color);
+  }
 }
 /* --< variables */
 #app {
@@ -55,17 +54,12 @@ body {
   /* background-color: var(--dm-bg-color); */
 }
 
-
-
 /* margen detrás del teclado */
 /* #general {
   margin-bottom: 200px;
   overflow-y: scroll;
   overflow-x: auto;
 } */
-
-
-
 
 .btn {
   /* @include noselect(); */
@@ -105,10 +99,6 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.btn-primary {
-  background-color: var(--active-color);
-}
-
 .field {
   /* @include noselect(); */
   display: inline-block;
@@ -143,8 +133,10 @@ body {
   }
   /* elimina el azul del toque en móviles */
   -webkit-tap-highlight-color: transparent;
+  &.field-selected {
+    background-color: var(--active-color) !important;
+  }
 }
-
 
 /* --> elimina el efecto que tiene la navbar sobre height */
 /* html,
@@ -156,10 +148,4 @@ body,
   max-width: var(--max-width);
 }
 /* --< elimina el efecto que tiene la navbar sobre height */
-
-
-
-
-
-
 </style>
