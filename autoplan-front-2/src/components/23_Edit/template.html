@@ -1,7 +1,6 @@
 <!--//* Edit -->
 <div id="edit" class="field field-value" >
-  Editando...
-  <!-- <span
+  <span
     v-for="(char, i) in current.editChars"
     :key="i"
     :class="{ 'edit-char': true, 'cursor-char': i===current.edit.cursor }"
@@ -13,5 +12,5 @@
     :class="{ 'edit-char': true, 'cursor-char': current.edit.cursor===current.editChars.length }"
     @click="editCharClick(current.editChars.length)"
     >&nbsp;</span
-  > -->
+  >
   </div>

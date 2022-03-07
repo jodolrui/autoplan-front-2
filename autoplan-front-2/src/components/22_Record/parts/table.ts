@@ -103,6 +103,12 @@ export default defineComponent({
           clicked(() => {
             data.current.selected.record = vars.get("record");
             data.current.selected.field = vars.get("field");
+
+            if (data.current.selected.record && data.current.selected.field) {
+              const datum =
+                data.current.selected.record[data.current.selected.field.key];
+              if (datum) data.current.edit.value = datum.value.toString();
+            }
           });
         });
       });
