@@ -21,6 +21,7 @@ export function useData(): {
   newRecord: RecordBase;
   records: Ref<RecordBase[] | null>;
   control: Wall;
+  recordPulse: Ref<number>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

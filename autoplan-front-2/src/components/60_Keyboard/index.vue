@@ -1,7 +1,7 @@
 <template src="./template.html"></template>
 
-//! quito lang="ts" para evitar errores de typescript //! y elimino de
-tsconfig.json los archivos *.vue
+//! quito lang="ts" para evitar errores de typescript 
+//! y elimino de tsconfig.json los archivos *.vue
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
@@ -24,12 +24,7 @@ export default compose("Keyboard", [main, edit, letters, numbers, symbols]);
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 3px;
-  width: 100%;
-  @media (min-width: 800px) {
-    width: 800px;
-    margin-left: calc(50% - 400px);
-    margin-right: calc(50% - 400px);
-  }
+  width: auto;
   border-top: 1px solid var(--border-color);
 }
 

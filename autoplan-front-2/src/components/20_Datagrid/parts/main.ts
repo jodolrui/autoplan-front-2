@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { useData } from "../data";
 import Design from "../../21_Design/index.vue";
 import { useCurrent } from "../../../stores/useCurrent";
+import { Brick, Wall } from "../../../wallbrick/wallbrick";
 export default defineComponent({
   components: { Design },
   setup() {
@@ -14,5 +15,6 @@ export default defineComponent({
     data.designKey = computed(() => {
       return data.current.record?.__designKey;
     });
+    data.designPulse = ref(0);
   },
 });

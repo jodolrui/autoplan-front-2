@@ -1,7 +1,9 @@
 <!--//* Keyboard -->
 <div id="keyboard">
   <!-- <div class="btn" style="overflow: hidden; overflow-x: scroll; padding-top: 7px;">{{value}}</div> -->
-  <Wall :config="edit" :key="editPulse" @pulse="editPulse++">
+
+  <!-- //! esta fila de edición la acabaré quitando  -->
+  <!-- <Wall :config="edit" :key="editPulse" @pulse="editPulse++">
     <template v-slot:edit>
       <div id="edit" class="btn">
         <span
@@ -19,7 +21,7 @@
         >
       </div>
     </template>
-  </Wall>
+  </Wall> -->
   <template
     v-if="panel === 'letters'"
     v-for="(row, i) in letters"

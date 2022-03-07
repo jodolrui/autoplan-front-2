@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
@@ -7,11 +7,28 @@ import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
 
 export default defineComponent({
-  setup() {
+  emits: ["pulse"],
+  setup(props, context) {
     const data = useData();
     const current = useCurrent();
     data.tablePulse = ref(0);
+    //* transmitimos el pulse hacia atrás
+    watch(data.tablePulse, () => {
+      context.emit("pulse");
+    });
+
     data.table = useWall("table");
+
+    const { setup } = data.table;
+    setup(() => {
+      watch(
+        () => data.current.selectedElement?.value,
+        () => {
+          //* para que se actualice el elemento seleccionado
+          data.table.refreshAll();
+        },
+      );
+    });
 
     const { create, design, after, build } = createBuilder<Wall>();
 
@@ -42,7 +59,7 @@ export default defineComponent({
           const elementId: string = `${data.record.__id}_${field.key}_label`;
           brick.code = elementId;
           brick.caption = field.label?.caption as string;
-          const { classes, style, clicked } = brick;
+          const { classes, style, clicked, setup } = brick;
           classes.set("field-label", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
@@ -55,22 +72,23 @@ export default defineComponent({
           brick.caption = !data.record[field.key].units
             ? data.record[field.key].value
             : `${data.record[field.key].value} ${data.record[field.key].units}`;
-          const { classes, style, clicked, vars } = brick;
+          const { classes, style, clicked, vars, updated, setup } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2`);
           vars.set("record", data.record);
           vars.set("field", field);
+          updated((brick: Brick) => {
+            if (data.current.selectedElement)
+              if (brick.code === data.current.selectedElement.value.id) {
+                style.set("background-color", "var(--active-color)");
+              } else {
+                style.set("background-color", "inherit");
+              }
+          });
           clicked(() => {
-            if (data.current.selectedElement) {
-              data.current.selectedElement.value.style.backgroundColor =
-                "inherit";
-            }
             data.current.selected.record = vars.get("record");
             data.current.selected.field = vars.get("field");
-            if (data.current.selectedElement) {
-              data.current.selectedElement.value.style.backgroundColor = "red";
-            }
           });
         });
       });

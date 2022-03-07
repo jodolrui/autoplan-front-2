@@ -3,6 +3,7 @@ import { expose, exposed } from "@jodolrui/glue";
 import { useData } from "../data";
 import { useCurrent } from "../../../stores/useCurrent";
 import Record from "../../22_Record/index.vue";
+import { Brick, Wall } from "../../../wallbrick/wallbrick";
 
 export default defineComponent({
   components: { Record },
@@ -11,10 +12,15 @@ export default defineComponent({
     collapse: Object,
     options: Object,
   },
-  setup(props) {
+  emits: ["pulse"],
+  setup(props, context) {
     const data = useData();
     data.designKey = ref(props.designKey);
     data.current = useCurrent();
+    data.recordPulse = ref(0);
+    watch(data.recordPulse, () => {
+      context.emit("pulse");
+    });
 
     const collapse: Object = props.collapse
       ? reactive(props.collapse)

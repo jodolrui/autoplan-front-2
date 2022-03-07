@@ -19,6 +19,7 @@ export function useData(): {
   >;
   designKey: ComputedRef<string | undefined>;
   goTo: (id: string) => void;
+  designPulse: Ref<number>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

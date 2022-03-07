@@ -30,10 +30,11 @@ body {
 /* --> variables */
 #app {
   --width: 100%;
-  --max-width: 800px;
+  --max-width: 500px;
   --border: none;
 }
-@media (min-width: 800px) {
+//* min-width debe ser igual a var(--max-width) sin variable
+@media (min-width: 600px) {
   #app {
     --width: var(--max-width);
     --border: 1px solid var(--border-color);
@@ -146,6 +147,15 @@ body,
   height: 100%;
   position: fixed;
   max-width: var(--max-width);
+  
+}
+
+/* border laterales de la aplicación */
+.container {
+  @media (min-width: 600px) {
+    border-left: var(--border);
+    border-right: var(--border);
+  }
 }
 /* --< elimina el efecto que tiene la navbar sobre height */
 </style>

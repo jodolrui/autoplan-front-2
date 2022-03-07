@@ -20,7 +20,6 @@ export type UseCurrentState = {
   selected: {
     record: RecordBase | null;
     field: Field | null;
-    brick: Brick | null;
   };
   edit: { value: string | null; cursor: number | null };
   editing: { pre: string[]; post: string[] };
@@ -52,7 +51,7 @@ export const useCurrent = defineStore<
       path: null,
       selectedField: null,
       fieldPulse: 0,
-      selected: { record: null, field: null, brick: null },
+      selected: { record: null, field: null },
       edit: { value: null, cursor: null },
       editing: { pre: [], post: [] },
     };

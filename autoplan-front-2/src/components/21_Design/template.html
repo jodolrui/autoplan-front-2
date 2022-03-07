@@ -1,6 +1,6 @@
 <!--//* Design -->
-<template v-for="(record, i) in records" :key="current.fieldPulse">
+<template v-for="(record, i) in records" :key="recordPulse">
   <Record
-    :fields="fields" :record="record"
+    :fields="fields" :record="record" @pulse="recordPulse++"
   />
 </template>

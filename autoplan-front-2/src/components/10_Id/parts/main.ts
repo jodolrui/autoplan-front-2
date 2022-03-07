@@ -4,8 +4,6 @@ import { useRoute } from "vue-router";
 import { useData } from "../data";
 import Datagrid from "../../20_Datagrid/index.vue";
 import Wall from "../../../wallbrick/Wall/index.vue";
-// import Watch from "../../11_Watch/index.vue";
-// import Tree from "../../50_Tree/index.vue";
 import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   components: { Wall, Datagrid },
