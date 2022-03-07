@@ -13,13 +13,15 @@ export default compose("Edit", [main]);
   height: 100%;
   width: 100%;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 9px;
   overflow-x: auto;
   background-color: var(--active-color);
 }
 
 .edit-char {
   border-left: 2px solid transparent;
+  /* compensamos el espacio añadido por el border-left */
+  margin: -1px;
 }
 
 .cursor-char {

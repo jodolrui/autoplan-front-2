@@ -15,6 +15,7 @@ export function useData(): {
     UseCurrentGetters,
     UseCurrentActions
   >;
+  cursor: Ref<number | null>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

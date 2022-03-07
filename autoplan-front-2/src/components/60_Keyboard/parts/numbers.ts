@@ -70,8 +70,7 @@ export default defineComponent({
             classes.set("btn", true);
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            if (element.length === 1) clicked(typeKey);
-            if (element === "backspace") clicked(backspace);
+            clicked(() => current.sendKey(brick.code));
             if (element === "symbols") clicked(symbols);
             if (element === "letters") clicked(letters);
           });
@@ -84,41 +83,6 @@ export default defineComponent({
     }
 
     //* funciones
-    function typeKey(brick: Brick) {
-      if (brick.caption?.length === 1) {
-        if (current.edit.value)
-          if (current.edit.cursor === 0) {
-            current.edit.value = brick.caption + current.edit.value;
-            current.edit.cursor++;
-          } else if (current.edit.cursor) {
-            const pre = current.edit.value.substring(0, current.edit.cursor);
-            const post = current.edit.value.substring(current.edit.cursor);
-            current.edit.value = `${pre}${brick.caption}${post}`;
-            current.edit.cursor++;
-          } else {
-            current.edit.value += brick.caption;
-            current.edit.cursor = current.edit.value.length;
-          }
-        else current.edit.value = brick.caption;
-      }
-    }
-
-    function backspace() {
-      const value = current.edit.value;
-      let cursor = current.edit.cursor;
-      if (value) {
-        if (cursor) {
-          const pre = value.substring(0, (cursor as number) - 1);
-          const post = value.substring(cursor as number);
-          current.edit.value = `${pre}${post}`;
-          if (cursor > 0) (current.edit.cursor as number)--;
-        } else {
-          current.edit.value = value.substring(0, value.length - 1);
-          current.edit.cursor = current.edit.value.length;
-        }
-      }
-    }
-
     function symbols() {
       data.panel.value = "symbols";
     }

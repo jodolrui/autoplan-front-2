@@ -15,8 +15,6 @@ export type UseCurrentState = {
   record: RecordBase | null;
   children: RecordBase[] | null;
   path: RecordBase[] | null;
-  selectedField: string | null;
-  fieldPulse: number;
   selected: {
     record: RecordBase | null;
     field: Field | null;
@@ -35,6 +33,8 @@ export type UseCurrentGetters = {
 export type UseCurrentActions = {
   setId: (routeId: string) => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
+  setSelected: (record: RecordBase, field: Field) => void;
+  sendKey: (keyCode: string) => void;
 };
 
 export const useCurrent = defineStore<
@@ -49,8 +49,6 @@ export const useCurrent = defineStore<
       record: null,
       children: null,
       path: null,
-      selectedField: null,
-      fieldPulse: 0,
       selected: { record: null, field: null },
       edit: { value: null, cursor: null },
       editing: { pre: [], post: [] },
@@ -105,5 +103,70 @@ export const useCurrent = defineStore<
       });
       return found ? found : null;
     },
+    //* --> edit
+    setSelected: function (record: RecordBase | null, field: Field | null) {
+      this.selected = { record, field: field as any };
+      if (record && field) {
+        let value: string = (record as any)[field.key].value.toString();
+        if ((record as any)[field.key].units)
+          value += " " + (record as any)[field.key].units.toString();
+        this.edit.value = value;
+        this.edit.cursor = value.length;
+      } else {
+        this.edit = { value: null, cursor: null };
+      }
+    },
+    sendKey: function (keyCode: string) {
+      if (keyCode.length === 1) {
+        if (this.edit.value)
+          if (this.edit.cursor === 0) {
+            this.edit.value = keyCode + this.edit.value;
+            this.edit.cursor++;
+          } else if (this.edit.cursor) {
+            const pre = this.edit.value.substring(0, this.edit.cursor);
+            const post = this.edit.value.substring(this.edit.cursor);
+            this.edit.value = `${pre}${keyCode}${post}`;
+            this.edit.cursor++;
+          } else {
+            this.edit.value += keyCode;
+            this.edit.cursor = this.edit.value.length;
+          }
+        else {
+          this.edit.value = keyCode;
+          this.edit.cursor = 1;
+        }
+      }
+      if (keyCode === "spacebar") this.sendKey(" ");
+      if (keyCode === "backspace") {
+        const value = this.edit.value;
+        let cursor = this.edit.cursor;
+        if (value) {
+          if (cursor) {
+            const pre = value.substring(0, (cursor as number) - 1);
+            const post = value.substring(cursor as number);
+            this.edit.value = `${pre}${post}`;
+            if (cursor > 0) (this.edit.cursor as number)--;
+          } else {
+            this.edit.value = value.substring(0, value.length - 1);
+            this.edit.cursor = this.edit.value.length;
+          }
+        }
+      }
+      if (keyCode === "enter") {
+        //! me falta procesar las unidades
+        const value: string | null = this.edit.value;
+        if (this.selected.record && this.selected.field) {
+          (this.selected.record as any)[
+            (this.selected.field as Field).key
+          ].value = value;
+          this.selected.record = null;
+          this.selected.field = null;
+        }
+        // if ((record as any)[field.key].units)
+        //   value += " " + (record as any)[field.key].units.toString();
+        // this.edit.value = value;
+      }
+    },
+    //* --< edit
   },
 });

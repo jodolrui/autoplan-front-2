@@ -100,15 +100,17 @@ export default defineComponent({
                 style.set("background-color", "inherit");
             }
           });
-          clicked((brick: Brick) => {
-            data.current.selected.record = vars.get("record");
-            data.current.selected.field = vars.get("field");
+          clicked(() => {
+            data.current.setSelected(vars.get("record"), vars.get("field"));
 
-            if (data.current.selected.record && data.current.selected.field) {
-              const datum =
-                data.current.selected.record[data.current.selected.field.key];
-              if (datum) data.current.edit.value = datum.value.toString();
-            }
+            // data.current.selected.record = vars.get("record");
+            // data.current.selected.field = vars.get("field");
+
+            // if (data.current.selected.record && data.current.selected.field) {
+            //   const datum =
+            //     data.current.selected.record[data.current.selected.field.key];
+            //   if (datum) data.current.edit.value = datum.value.toString();
+            // }
             // brick.style.set("background-color", "red");
 
             // brick.refresh();

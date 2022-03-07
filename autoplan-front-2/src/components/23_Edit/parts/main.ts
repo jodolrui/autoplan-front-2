@@ -14,5 +14,6 @@ export default defineComponent({
   setup(props) {
     const data = useData();
     data.current = useCurrent();
+    data.cursor = ref(null);
   },
 });
