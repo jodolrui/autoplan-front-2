@@ -19,7 +19,7 @@ export type UseCurrentState = {
     record: RecordBase | null;
     field: Field | null;
   };
-  edit: { value: string | null; cursor: number | null };
+  edit: { value: string; cursor: number };
   editing: { pre: string[]; post: string[] };
   keyboardOn: boolean;
 };
@@ -35,7 +35,7 @@ export type UseCurrentActions = {
   setId: (routeId: string) => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
   setSelected: (record: RecordBase | null, field: Field | null) => void;
-  sendKey: (keyCode: string) => void;
+  sendKey: (keyCode: string, keyCaption: string) => void;
 };
 
 export const useCurrent = defineStore<
@@ -51,7 +51,7 @@ export const useCurrent = defineStore<
       children: null,
       path: null,
       selected: { record: null, field: null },
-      edit: { value: null, cursor: null },
+      edit: { value: "", cursor: 0 },
       editing: { pre: [], post: [] },
       keyboardOn: false,
     };
@@ -115,30 +115,33 @@ export const useCurrent = defineStore<
         this.edit.value = value;
         this.edit.cursor = value.length;
       } else {
-        this.edit = { value: null, cursor: null };
+        this.edit = { value: "", cursor: 0 };
+        this.keyboardOn = false;
       }
     },
-    sendKey: function (keyCode: string) {
-      if (keyCode.length === 1) {
-        if (this.edit.value)
-          if (this.edit.cursor === 0) {
-            this.edit.value = keyCode + this.edit.value;
-            this.edit.cursor++;
-          } else if (this.edit.cursor) {
-            const pre = this.edit.value.substring(0, this.edit.cursor);
-            const post = this.edit.value.substring(this.edit.cursor);
-            this.edit.value = `${pre}${keyCode}${post}`;
-            this.edit.cursor++;
-          } else {
-            this.edit.value += keyCode;
-            this.edit.cursor = this.edit.value.length;
+    sendKey: function (keyCode: string, keyCaption: string) {
+      if (keyCode.length === 1 || keyCode === "spacebar") {
+        if (keyCode === "spacebar") keyCaption = " ";
+        if (keyCaption.length === 1) {
+          if (this.edit.value)
+            if (this.edit.cursor === 0) {
+              this.edit.value = keyCaption + this.edit.value;
+              this.edit.cursor++;
+            } else if (this.edit.cursor) {
+              const pre = this.edit.value.substring(0, this.edit.cursor);
+              const post = this.edit.value.substring(this.edit.cursor);
+              this.edit.value = `${pre}${keyCaption}${post}`;
+              this.edit.cursor++;
+            } else {
+              this.edit.value += keyCaption;
+              this.edit.cursor = this.edit.value.length;
+            }
+          else {
+            this.edit.value = keyCaption;
+            this.edit.cursor = 1;
           }
-        else {
-          this.edit.value = keyCode;
-          this.edit.cursor = 1;
         }
       }
-      if (keyCode === "spacebar") this.sendKey(" ");
       if (keyCode === "backspace") {
         const value = this.edit.value;
         let cursor = this.edit.cursor;

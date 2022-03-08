@@ -15,5 +15,13 @@ export default defineComponent({
       state.config.__clicked(state.config, state.config.__wall);
       context.emit("updated");
     };
+    state.mouseDown = () => {
+      state.config.__mouseDown(state.config, state.config.__wall);
+      context.emit("updated");
+    };
+    state.mouseUp = () => {
+      state.config.__mouseUp(state.config, state.config.__wall);
+      context.emit("updated");
+    };
   },
 });

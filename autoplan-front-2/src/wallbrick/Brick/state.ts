@@ -6,6 +6,8 @@ export function useState(): {
   classes: ComputedRef<{ [key: string]: any }>;
   style: ComputedRef<{ [key: string]: any }>;
   clicked: () => void;
+  mouseDown: () => void;
+  mouseUp: () => void;
   pulse: number;
 } {
   return getCurrentInstance()?.glueInstance.exposed();

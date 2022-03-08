@@ -37,4 +37,37 @@ button.btn-key {
   }
 }
 
+.pressed {
+  animation: active 1s ease 1;
+}
+
+@keyframes active {
+  0% {
+    background-color: var(--active-color);
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
+.pressed div__old {
+  animation: fly 0.5s ease 1;
+  position: relative;
+}
+
+@keyframes fly {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(5) translateY(-0.5rem);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
 </style>

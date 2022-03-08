@@ -17,6 +17,9 @@ export function useState(): {
   symbols: Wall[];
   symbolsPulse: Ref<number>;
   shift: Ref<boolean>;
+  acuteAccent: Ref<boolean>;
+  graveAccent: Ref<boolean>;
+  dieresis: Ref<boolean>;
   panel: Ref<"letters" | "numbers" | "symbols">;
   current: Store<
     "current",

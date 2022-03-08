@@ -3,8 +3,16 @@
   <slot :name="config.slot"></slot>
 </template>
 <template v-else>
-  <button :id="config.code" :class="classes" :style="style" @click="clicked()">
-    <div><i v-if="config.icon" :class="config.icon"></i> {{config.caption}}</div>
+  <button
+    :id="config.code"
+    :class="classes"
+    :style="style"
+    @click="clicked($event)"
+    @mousedown="clicked($event)"
+    @mouseup="clicked($event)"
+    >
+    <div>
+      <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
+    </div>
   </button>
 </template>
-

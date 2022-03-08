@@ -13,6 +13,10 @@ export type Brick = {
   __setup: (brick: Brick, wall: Wall) => void;
   clicked: (callback: (brick: Brick, wall: Wall) => void) => void;
   __clicked: (brick: Brick, wall: Wall) => void;
+  mouseDown: (callback: (brick: Brick, wall: Wall) => void) => void;
+  __mouseDown: (brick: Brick, wall: Wall) => void;
+  mouseUp: (callback: (brick: Brick, wall: Wall) => void) => void;
+  __mouseUp: (brick: Brick, wall: Wall) => void;
   updated: (callback: (brick: Brick, wall: Wall) => void) => void;
   __updated: (brick: Brick, wall: Wall) => void;
   mount: (container: Wall | Map<string, Brick>) => void;
@@ -27,8 +31,6 @@ export type Wall = {
   bricks: Map<string, Brick>;
   setup: (callback: (wall: Wall) => void) => void;
   __setup: (wall: Wall) => void;
-  clicked: (callback: (wall: Wall) => void) => void;
-  __clicked: (wall: Wall) => void;
   updated: (callback: (wall: Wall) => void) => void;
   __updated: (wall: Wall) => void;
   mount: () => void;
@@ -53,6 +55,20 @@ export function useBrick(code?: string): Brick {
   brick.__clicked = () => {};
   brick.clicked = (callback: (brick: Brick, wall: Wall) => void) => {
     brick.__clicked = (brick: Brick, wall: Wall) => {
+      callback(brick, wall);
+      wall.refreshAll();
+    };
+  };
+  brick.__mouseDown = () => {};
+  brick.mouseDown = (callback: (brick: Brick, wall: Wall) => void) => {
+    brick.__mouseDown = (brick: Brick, wall: Wall) => {
+      callback(brick, wall);
+      wall.refreshAll();
+    };
+  };
+  brick.__mouseUp = () => {};
+  brick.mouseUp = (callback: (brick: Brick, wall: Wall) => void) => {
+    brick.__mouseUp = (brick: Brick, wall: Wall) => {
       callback(brick, wall);
       wall.refreshAll();
     };

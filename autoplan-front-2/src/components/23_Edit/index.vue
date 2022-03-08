@@ -8,6 +8,10 @@ export default compose("Edit", [main]);
 </script>
 
 <style scoped lang="scss">
+#edit-box-container {
+  position: relative;
+  overflow:visible;
+}
 
 #edit-box {
   height: 100%;
@@ -16,9 +20,11 @@ export default compose("Edit", [main]);
   padding-top: 9px;
   overflow-x: auto;
   background-color: var(--active-color);
-  /* "position: relative" es necesario para que funcione bien el offsetLeft de los edit-char */
-  position: relative;
+  /* position: "relative" o "absolute" es necesario para que funcione bien el offsetLeft de los edit-char */
+  position: absolute;
 }
+
+
 
 .edit-char {
   border-left: 2px solid transparent;
@@ -30,6 +36,12 @@ export default compose("Edit", [main]);
 .cursor {
   border-left: 2px solid var(--fore-color);
   animation: blinker 0.5s ease infinite;
+}
+
+.position {
+  border-left: 2px solid var(--fore-color);
+  /* opacity: 0.5; */
+  /* animation: blinker 0.5s ease infinite; */
 }
 
 .cursor-end {
@@ -57,6 +69,31 @@ export default compose("Edit", [main]);
   }
   100% {
     border-left: 2px solid transparent;
+  }
+}
+
+.editing {
+  position: sticky;
+  display: block;
+  top: 0%;
+  left: -50%;
+  width: 100%;
+  transform: scale(2);
+  /* border: 0.5px solid var(--border-color); */
+  /* box-shadow: 0px 0px 10px var(--border-color); */
+  background-color: lightgoldenrodyellow !important;
+  border: none !important;
+  opacity: 0.8;
+  /* background-color: var(--active-color); */
+  /* animation: open 0.1s ease-in-out 1; */
+}
+
+@keyframes open {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: scale(1.9);
   }
 }
 </style>

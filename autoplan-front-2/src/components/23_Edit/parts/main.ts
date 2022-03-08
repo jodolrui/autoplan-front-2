@@ -1,4 +1,12 @@
-import { defineComponent, Ref, ref, watch, onMounted, computed } from "vue";
+import {
+  defineComponent,
+  Ref,
+  ref,
+  watch,
+  onMounted,
+  computed,
+  onUpdated,
+} from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 //! mantener independiente de currentStore y de wallbrick para poder reutilizarlo
@@ -13,8 +21,24 @@ export default defineComponent({
     const state = useState();
     state.value = ref(props.value);
     state.cursor = ref(props.cursor);
+    state.position = ref(0);
     state.chars = computed(() =>
       state.value.value ? state.value.value.split("") : [],
+    );
+    state.isMovingMouse = ref(false);
+
+    watch(
+      () => state.value.value,
+      () => {
+        //* dispara el evento "updated" devolviendo la posición del cursor
+        const editBox = document.getElementById("edit-box");
+        if (editBox) {
+          editBox.classList.add("editing");
+          setTimeout(() => {
+            editBox.classList.remove("editing");
+          }, 10);
+        }
+      },
     );
 
     //* si cambiamos la posición del cursor haciendo clic
@@ -29,7 +53,8 @@ export default defineComponent({
       let lastSpan: HTMLElement | null;
       //* getElementById necesita estar en el onMounted
       editDiv = document.getElementById("edit-box");
-      editDiv?.addEventListener("click", (event) => {
+
+      function getPosition(event: MouseEvent): number {
         let position: number = 0;
         firstSpan = document.getElementById(
           editDiv?.firstElementChild?.id as string,
@@ -58,8 +83,35 @@ export default defineComponent({
             }
           });
         }
-        state.cursor.value = position;
+        return position;
+      }
+      editDiv?.addEventListener("click", (event) => {
+        state.cursor.value = getPosition(event);
       });
+
+      //! activar si quiero que se muestre continuamente el punto de inserción de ratón
+      // editDiv?.addEventListener("click", (event) => {
+      //   // state.cursor.value = getPosition(event);
+      //   state.cursor.value = state.position.value;
+      //   state.isMovingMouse.value = false;
+      // });
+      // editDiv?.addEventListener("mouseover", (event) => {
+      //   state.isMovingMouse.value = true;
+      //   state.position.value = getPosition(event);
+      // });
+      // editDiv?.addEventListener("mouseleave", (event) => {
+      //   state.isMovingMouse.value = false;
+      // });
+    });
+
+    onMounted(() => {
+      let editDiv: HTMLElement | null;
+      //* getElementById necesita estar en el onMounted
+      editDiv = document.getElementById("edit-box");
+      editDiv?.classList.add("editing");
+      setTimeout(() => {
+        editDiv?.classList.remove("editing");
+      }, 2000);
     });
   },
 });
