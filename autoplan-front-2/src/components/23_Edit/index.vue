@@ -9,7 +9,7 @@ export default compose("Edit", [main]);
 
 <style scoped lang="scss">
 
-#edit {
+#edit-box {
   height: 100%;
   width: 100%;
   text-align: center;

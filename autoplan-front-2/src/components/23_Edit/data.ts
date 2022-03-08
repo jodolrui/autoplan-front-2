@@ -3,7 +3,7 @@ import { getCurrentInstance, Ref, ComputedRef } from "vue";
 export function useData(): {
   chars: ComputedRef<string[]>;
   value: Ref<string>;
-  cursor: Ref<number | null>;
+  cursor: Ref<number>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

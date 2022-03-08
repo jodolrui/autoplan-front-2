@@ -2,11 +2,10 @@ import { defineComponent, Ref, ref, watch, onMounted, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Field, RecordBase } from "../../../helpers/data-interfaces";
 import { useData } from "../data";
-import { useCurrent } from "../../../stores/useCurrent";
-import _Wall from "../../../wallbrick/Wall/index.vue";
+//! quiero mantener este componente independiente de currentStore y de wallbrick
+//! para poder reutilizarlo más fácilmente
 
 export default defineComponent({
-  components: { Wall: _Wall },
   props: {
     value: { type: String, required: true },
     cursor: { type: Number, required: true },
@@ -27,31 +26,41 @@ export default defineComponent({
     });
 
     onMounted(() => {
+      let editDiv: HTMLElement | null;
+      let firstSpan: HTMLElement | null;
+      let lastSpan: HTMLElement | null;
       //* getElementById necesita estar en el onMounted
-      const editDiv: HTMLElement | null = document.getElementById("edit");
-      const firstSpan: HTMLElement | null = document.getElementById(
-        editDiv?.firstElementChild?.id as string,
-      );
-      const lastSpan: HTMLElement | null = document.getElementById(
-        editDiv?.lastElementChild?.id as string,
-      );
-      console.log({ lastSpan });
-
+      editDiv = document.getElementById("edit-box");
       editDiv?.addEventListener("click", (event) => {
-        //* si pulsamos por delante del valor
+        let position: number = 0;
+        firstSpan = document.getElementById(
+          editDiv?.firstElementChild?.id as string,
+        );
+        lastSpan = document.getElementById(
+          editDiv?.lastElementChild?.id as string,
+        );
+        //* si pulsamos por delante de los caracteres
         if (firstSpan?.offsetLeft && event.offsetX < firstSpan?.offsetLeft)
-          //* mueve el cursor al principio
-          data.cursor.value = 0;
-        //* si pulsamos por detrás del valor
-        if (
-          lastSpan?.offsetLeft &&
-          event.offsetX > lastSpan?.offsetLeft //+ lastSpan.offsetWidth
-        ) {
-          //* mueve el cursor al final
-          data.cursor.value = data.value.value?.length
-            ? data.value.value?.length
-            : null;
+          position = 0;
+        //* si pulsamos por detrás de los caracteres
+        else if (lastSpan?.offsetLeft && event.offsetX > lastSpan?.offsetLeft) {
+          position = data.value.value?.length;
+        } else {
+          //* si pulsamos a la altura de los caracteres
+          editDiv?.childNodes.forEach((element: ChildNode, i: number) => {
+            const span: HTMLElement | null = document.getElementById(
+              (element as HTMLElement).id as string,
+            );
+            if (span?.classList.contains("edit-char")) {
+              if (
+                span?.offsetLeft &&
+                span?.offsetLeft + span.offsetWidth / 2 < event.offsetX
+              )
+                position++;
+            }
+          });
         }
+        data.cursor.value = position;
       });
     });
   },

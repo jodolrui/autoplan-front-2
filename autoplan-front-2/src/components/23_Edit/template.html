@@ -1,12 +1,11 @@
 <!--//* Edit -->
-<div id="edit" class="field field-value">
+<div id="edit-box" class="field field-value">
   <!-- span de los caracteres -->
   <span
     v-for="(char, i) in chars"
     :key="i"
     :id="`edit-char${i + 1}`"
-    :class="{ 'edit-char': true, 'cursor': i===cursor }"
-    @click="cursor=i">
+    :class="{ 'edit-char': true, 'cursor': i===cursor }">
     {{char===' ' ? '&nbsp;' : char }}</span>
   <!-- span especial para cursor en última posición -->
   <span
