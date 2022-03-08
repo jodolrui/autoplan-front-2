@@ -4,10 +4,9 @@ import { Field, RecordBase } from "../../../helpers/data-interfaces";
 import { useData } from "../data";
 import { useCurrent } from "../../../stores/useCurrent";
 import _Wall from "../../../wallbrick/Wall/index.vue";
-import Edit from "../../23_Edit/index.vue";
 
 export default defineComponent({
-  components: { Wall: _Wall, Edit },
+  components: { Wall: _Wall },
   props: {
     fields: { type: Array, required: true },
     record: { type: Object, required: true },
@@ -19,6 +18,5 @@ export default defineComponent({
       [key: string]: { value: any | null; units?: string | null };
     };
     data.current = useCurrent();
-    data.pulse = ref(0);
   },
 });

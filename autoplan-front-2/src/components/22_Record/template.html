@@ -2,6 +2,6 @@
 <Wall :config="control" :key="controlPulse" @updated="controlPulse++" />
 <Wall :config="table" :key="tablePulse" @updated="tablePulse++" >
   <template v-slot:edit>
-    <Edit/>
+    <Edit :value="current.edit.value" :cursor="current.edit.cursor" :key="editPulse" @updated="onEditUpdated($event)" />
   </template>
 </Wall>

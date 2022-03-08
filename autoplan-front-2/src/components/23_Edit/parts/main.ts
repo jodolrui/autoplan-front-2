@@ -11,12 +11,23 @@ export default defineComponent({
     value: { type: String, required: true },
     cursor: { type: Number, required: true },
   },
-  setup() {
+  emits: ["updated"],
+  setup(props, context) {
     const data = useData();
-    data.current = useCurrent();
+    data.value = ref(props.value);
+    data.cursor = ref(props.cursor);
     data.chars = computed(() =>
-      data.current.edit.value ? data.current.edit.value.split("") : [],
+      data.value.value ? data.value.value.split("") : [],
     );
+
+    watch(data.value, () => {
+      alert("value");
+      context.emit("updated", { value: data.value, cursor: data.cursor });
+    });
+    watch(data.cursor, () => {
+      context.emit("updated", { value: data.value, cursor: data.cursor });
+    });
+
     onMounted(() => {
       //* getElementById necesita estar en el onMounted
       const editDiv: HTMLElement | null = document.getElementById("edit");
@@ -32,15 +43,15 @@ export default defineComponent({
         //* si pulsamos por delante del valor
         if (firstSpan?.offsetLeft && event.offsetX < firstSpan?.offsetLeft)
           //* mueve el cursor al principio
-          data.current.edit.cursor = 0;
+          data.cursor.value = 0;
         //* si pulsamos por detrás del valor
         if (
           lastSpan?.offsetLeft &&
           event.offsetX > lastSpan?.offsetLeft //+ lastSpan.offsetWidth
         ) {
           //* mueve el cursor al final
-          data.current.edit.cursor = data.current.edit.value?.length
-            ? data.current.edit.value?.length
+          data.cursor.value = data.value.value?.length
+            ? data.value.value?.length
             : null;
         }
       });

@@ -5,11 +5,13 @@ import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import control from "./parts/control";
 import table from "./parts/table";
+import edit from "./parts/edit";
 
 export default compose("Record", [
   main,
   control,
-  table
+  table,
+  edit
 ]);
 </script>
 

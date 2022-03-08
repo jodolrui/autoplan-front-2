@@ -4,13 +4,13 @@
     v-for="(char, i) in chars"
     :key="i"
     :id="`edit-char${i + 1}`"
-    :class="{ 'edit-char': true, 'cursor-char': i===current.edit.cursor, 'first-char': i===0, 'last-char': i===chars.length-1 }"
-    @click="current.edit.cursor=i">
+    :class="{ 'edit-char': true, 'cursor-char': i===cursor, 'first-char': i===0, 'last-char': i===chars.length-1 }"
+    @click="cursor=i">
     {{char===' ' ? '&nbsp;' : char }}</span
   >
   <span
     id="cursor-end"
-    :class="{ 'cursor-end': true, 'cursor-char': current.edit.cursor===chars.length }"
+    :class="{ 'cursor-end': true, 'cursor-char': cursor===chars.length }"
     unselectable="on"
     onselectstart="return false;"
     onmousedown="return false;"></span>
