@@ -20,11 +20,12 @@ export default defineComponent({
     data.table = useWall("table");
     const { setup } = data.table;
     setup(() => {
-      //* refrescamos para que se actualice el elemento seleccionado
+      //* al seleccionarse un campo tenemos que refrescar
       watch(
         () => data.current.selected.field,
         () => {
           data.table.refreshAll();
+          data.tablePulse.value++;
         },
       );
     });
@@ -63,8 +64,7 @@ export default defineComponent({
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           clicked(() => {
-            data.current.selected.record = null;
-            data.current.selected.field = null;
+            data.current.setSelected(null, null);
           });
         });
 
@@ -102,18 +102,7 @@ export default defineComponent({
           });
           clicked(() => {
             data.current.setSelected(vars.get("record"), vars.get("field"));
-
-            // data.current.selected.record = vars.get("record");
-            // data.current.selected.field = vars.get("field");
-
-            // if (data.current.selected.record && data.current.selected.field) {
-            //   const datum =
-            //     data.current.selected.record[data.current.selected.field.key];
-            //   if (datum) data.current.edit.value = datum.value.toString();
-            // }
-            // brick.style.set("background-color", "red");
-
-            // brick.refresh();
+            data.current.keyboardOn = true;
           });
         });
       });

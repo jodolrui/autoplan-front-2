@@ -1,16 +1,17 @@
 <!--//* Edit -->
-<div id="edit" class="field field-value" >
+<div id="edit" class="field field-value">
   <span
-    v-for="(char, i) in current.editChars"
+    v-for="(char, i) in chars"
     :key="i"
-    :class="{ 'edit-char': true, 'cursor-char': i===current.edit.cursor }"
-    @click="editCharClick(i)"
-    >{{char}}</span
+    :id="`edit-char${i + 1}`"
+    :class="{ 'edit-char': true, 'cursor-char': i===current.edit.cursor, 'first-char': i===0, 'last-char': i===chars.length-1 }"
+    @click="current.edit.cursor=i">
+    {{char===' ' ? '&nbsp;' : char }}</span
   >
   <span
-    v-if="current.edit.value && current.edit.value.length > 0"
-    :class="{ 'edit-char': true, 'cursor-char': current.edit.cursor===current.editChars.length }"
-    @click="editCharClick(current.editChars.length)"
-    >&nbsp;</span
-  >
-  </div>
+    id="cursor-end"
+    :class="{ 'cursor-end': true, 'cursor-char': current.edit.cursor===chars.length }"
+    unselectable="on"
+    onselectstart="return false;"
+    onmousedown="return false;"></span>
+</div>

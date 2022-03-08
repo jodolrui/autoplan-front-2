@@ -5,5 +5,5 @@
     <!--//* :key="$route.path" es necesario para que se refresque al cambiar la dirección -->
     <router-view :key="$route.path"></router-view>
   </div>
-  <div class="footer"><Keyboard v-if="keyboardOn" /></div>
+  <div class="footer"><Keyboard v-if="current.keyboardOn" /></div>
 </div>

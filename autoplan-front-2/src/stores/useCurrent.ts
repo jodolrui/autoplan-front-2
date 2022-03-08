@@ -21,19 +21,20 @@ export type UseCurrentState = {
   };
   edit: { value: string | null; cursor: number | null };
   editing: { pre: string[]; post: string[] };
+  keyboardOn: boolean;
 };
 
 export type UseCurrentGetters = {
   selectedElement(
     state: UseCurrentState,
   ): { label: HTMLElement; value: HTMLElement } | null;
-  editChars(state: UseCurrentState): string[] | null;
+  // editChars(state: UseCurrentState): string[] | null;
 };
 
 export type UseCurrentActions = {
   setId: (routeId: string) => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
-  setSelected: (record: RecordBase, field: Field) => void;
+  setSelected: (record: RecordBase | null, field: Field | null) => void;
   sendKey: (keyCode: string) => void;
 };
 
@@ -52,6 +53,7 @@ export const useCurrent = defineStore<
       selected: { record: null, field: null },
       edit: { value: null, cursor: null },
       editing: { pre: [], post: [] },
+      keyboardOn: false,
     };
   },
   getters: {
@@ -62,10 +64,10 @@ export const useCurrent = defineStore<
       //console.log({ label, value });
       return label && value ? { label, value } : null;
     },
-    editChars(state): string[] | null {
-      // return state.edit.value ? state.edit.value.split("") : null;
-      return state.edit.value ? state.edit.value.split("") : null;
-    },
+    // editChars(state): string[] | null {
+    //   const result = state.edit.value ? state.edit.value.split("") : [];
+    //   return result;
+    // },
   },
   actions: {
     setId: function (routeId: string) {
@@ -151,6 +153,7 @@ export const useCurrent = defineStore<
             this.edit.cursor = this.edit.value.length;
           }
         }
+        // console.log({ value, cursor });
       }
       if (keyCode === "enter") {
         //! me falta procesar las unidades
@@ -159,12 +162,8 @@ export const useCurrent = defineStore<
           (this.selected.record as any)[
             (this.selected.field as Field).key
           ].value = value;
-          this.selected.record = null;
-          this.selected.field = null;
+          this.setSelected(null, null);
         }
-        // if ((record as any)[field.key].units)
-        //   value += " " + (record as any)[field.key].units.toString();
-        // this.edit.value = value;
       }
     },
     //* --< edit

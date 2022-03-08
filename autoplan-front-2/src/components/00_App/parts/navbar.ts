@@ -47,7 +47,7 @@ export default defineComponent({
         brick.icon = "fa fa-keyboard";
         const { style, setup, clicked, updated } = brick;
         clicked(() => {
-          data.keyboardOn.value = !data.keyboardOn.value;
+          data.current.keyboardOn = !data.current.keyboardOn;
         });
       });
 

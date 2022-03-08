@@ -1,4 +1,4 @@
-import { getCurrentInstance, Ref } from "vue";
+import { getCurrentInstance, Ref, ComputedRef } from "vue";
 import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
 import { Wall } from "../../wallbrick/wallbrick";
 import {
@@ -15,7 +15,7 @@ export function useData(): {
     UseCurrentGetters,
     UseCurrentActions
   >;
-  cursor: Ref<number | null>;
+  chars: ComputedRef<string[]>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }
