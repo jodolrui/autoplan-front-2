@@ -20,12 +20,10 @@ export default defineComponent({
       data.value.value ? data.value.value.split("") : [],
     );
 
-    watch(data.value, () => {
-      alert("value");
-      context.emit("updated", { value: data.value, cursor: data.cursor });
-    });
+    //* si cambiamos la posición del cursor haciendo clic
     watch(data.cursor, () => {
-      context.emit("updated", { value: data.value, cursor: data.cursor });
+      //* dispara el evento "updated" devolviendo la posición del cursor
+      context.emit("updated", data.cursor.value);
     });
 
     onMounted(() => {

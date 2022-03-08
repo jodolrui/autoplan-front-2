@@ -27,7 +27,7 @@ export default compose("Edit", [main]);
   margin-right: -1px;
 }
 
-.cursor-char {
+.cursor {
   border-left: 2px solid var(--fore-color);
   animation: blinker 0.5s ease infinite;
 }

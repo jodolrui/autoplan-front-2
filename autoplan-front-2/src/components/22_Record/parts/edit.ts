@@ -11,19 +11,17 @@ export default defineComponent({
   setup() {
     const data = useData();
     data.editPulse = ref(0);
-    //* si desde el componente Edit se cambió el valor o se movió el cursor
-    data.onEditUpdated = (args: { value: string; cursor: number }) => {
-      const { value, cursor } = args;
-      data.current.edit.value = value;
+    //* si desde el componente Edit se movió el cursor
+    data.onEditUpdated = (cursor: number) => {
       data.current.edit.cursor = cursor;
-      //* incrementa editPulse para refrescar el componente Edit
+      //* incrementamos editPulse para refrescar el componente Edit
       data.controlPulse.value++;
     };
     //* si desde el teclado cambiamos el current.edit.value
     watch(
       () => data.current.edit.value,
       () => {
-        //* incrementa editPulse para refrescar el componente Edit
+        //* incrementamos editPulse para refrescar el componente Edit
         data.editPulse.value++;
       },
     );
@@ -31,7 +29,7 @@ export default defineComponent({
     watch(
       () => data.current.edit.cursor,
       () => {
-        //* incrementa editPulse para refrescar el componente Edit
+        //* incrementamos editPulse para refrescar el componente Edit
         data.editPulse.value++;
       },
     );

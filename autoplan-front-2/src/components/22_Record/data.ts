@@ -25,7 +25,7 @@ export function useData(): {
   >;
   isEditing: ComputedRef<boolean>;
   editPulse: Ref<number>;
-  onEditUpdated: (args: { value: string; cursor: number }) => void;
+  onEditUpdated: (cursor: number) => void;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

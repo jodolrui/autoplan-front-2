@@ -1,17 +1,18 @@
 <!--//* Edit -->
 <div id="edit" class="field field-value">
+  <!-- span de los caracteres -->
   <span
     v-for="(char, i) in chars"
     :key="i"
     :id="`edit-char${i + 1}`"
-    :class="{ 'edit-char': true, 'cursor-char': i===cursor, 'first-char': i===0, 'last-char': i===chars.length-1 }"
+    :class="{ 'edit-char': true, 'cursor': i===cursor }"
     @click="cursor=i">
-    {{char===' ' ? '&nbsp;' : char }}</span
-  >
+    {{char===' ' ? '&nbsp;' : char }}</span>
+  <!-- span especial para cursor en última posición -->
   <span
     id="cursor-end"
-    :class="{ 'cursor-end': true, 'cursor-char': cursor===chars.length }"
-    unselectable="on"
+    :class="{ 'cursor-end': true, 'cursor': cursor===chars.length }"></span>
+    <!-- unselectable="on"
     onselectstart="return false;"
-    onmousedown="return false;"></span>
+    onmousedown="return false;"></span> -->
 </div>
