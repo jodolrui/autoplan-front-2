@@ -1,9 +1,7 @@
 import { defineComponent, Ref, ref, watch, onMounted, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Field, RecordBase } from "../../../helpers/data-interfaces";
-import { useData } from "../data";
-//! quiero mantener este componente independiente de currentStore y de wallbrick
-//! para poder reutilizarlo más fácilmente
+import { useState } from "../state";
+//! mantener independiente de currentStore y de wallbrick para poder reutilizarlo
 
 export default defineComponent({
   props: {
@@ -12,17 +10,17 @@ export default defineComponent({
   },
   emits: ["updated"],
   setup(props, context) {
-    const data = useData();
-    data.value = ref(props.value);
-    data.cursor = ref(props.cursor);
-    data.chars = computed(() =>
-      data.value.value ? data.value.value.split("") : [],
+    const state = useState();
+    state.value = ref(props.value);
+    state.cursor = ref(props.cursor);
+    state.chars = computed(() =>
+      state.value.value ? state.value.value.split("") : [],
     );
 
     //* si cambiamos la posición del cursor haciendo clic
-    watch(data.cursor, () => {
+    watch(state.cursor, () => {
       //* dispara el evento "updated" devolviendo la posición del cursor
-      context.emit("updated", data.cursor.value);
+      context.emit("updated", state.cursor.value);
     });
 
     onMounted(() => {
@@ -44,7 +42,7 @@ export default defineComponent({
           position = 0;
         //* si pulsamos por detrás de los caracteres
         else if (lastSpan?.offsetLeft && event.offsetX > lastSpan?.offsetLeft) {
-          position = data.value.value?.length;
+          position = state.value.value?.length;
         } else {
           //* si pulsamos a la altura de los caracteres
           editDiv?.childNodes.forEach((element: ChildNode, i: number) => {
@@ -60,7 +58,7 @@ export default defineComponent({
             }
           });
         }
-        data.cursor.value = position;
+        state.cursor.value = position;
       });
     });
   },

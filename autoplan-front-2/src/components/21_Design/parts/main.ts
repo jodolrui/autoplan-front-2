@@ -1,6 +1,6 @@
 import { defineComponent, watch, reactive, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { useCurrent } from "../../../stores/useCurrent";
 import Record from "../../22_Record/index.vue";
 import { Brick, Wall } from "../../../wallbrick/wallbrick";
@@ -14,11 +14,11 @@ export default defineComponent({
   },
   emits: ["updated"],
   setup(props, context) {
-    const data = useData();
-    data.designKey = ref(props.designKey);
-    data.current = useCurrent();
-    data.recordPulse = ref(0);
-    watch(data.recordPulse, () => {
+    const state = useState();
+    state.designKey = ref(props.designKey);
+    state.current = useCurrent();
+    state.recordPulse = ref(0);
+    watch(state.recordPulse, () => {
       context.emit("updated");
     });
 

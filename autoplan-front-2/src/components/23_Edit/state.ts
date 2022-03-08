@@ -1,6 +1,6 @@
 import { getCurrentInstance, Ref, ComputedRef } from "vue";
 
-export function useData(): {
+export function useState(): {
   chars: ComputedRef<string[]>;
   value: Ref<string>;
   cursor: Ref<number>;

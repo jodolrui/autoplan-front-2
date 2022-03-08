@@ -1,18 +1,18 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { useData } from "../data";
+import { useState } from "../state";
 import { createBuilder } from "../../../helpers/builder";
 
 export default defineComponent({
   setup() {
-    const data = useData();
-    data.navbarPulse = ref(0);
-    data.navbar = useWall("navbar");
+    const state = useState();
+    state.navbarPulse = ref(0);
+    state.navbar = useWall("navbar");
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => data.navbar);
+    create(() => state.navbar);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -47,7 +47,7 @@ export default defineComponent({
         brick.icon = "fa fa-keyboard";
         const { style, setup, clicked, updated } = brick;
         clicked(() => {
-          data.current.keyboardOn = !data.current.keyboardOn;
+          state.current.keyboardOn = !state.current.keyboardOn;
         });
       });
 

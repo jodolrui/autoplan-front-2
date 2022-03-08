@@ -1,6 +1,6 @@
 import { defineComponent, Ref, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { RecordBase } from "../../../helpers/data-interfaces";
 export default defineComponent({
   props: {
@@ -9,9 +9,9 @@ export default defineComponent({
     path: { type: Array, required: true },
   },
   setup(props) {
-    const data = useData();
-    data.record = props.record as Ref<RecordBase>;
-    data.children = props.children as unknown as Ref<RecordBase[]>;
-    data.path = props.path as unknown as Ref<RecordBase[]>;
+    const state = useState();
+    state.record = props.record as Ref<RecordBase>;
+    state.children = props.children as unknown as Ref<RecordBase[]>;
+    state.path = props.path as unknown as Ref<RecordBase[]>;
   },
 });

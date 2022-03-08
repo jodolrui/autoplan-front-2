@@ -1,7 +1,7 @@
 import { getCurrentInstance, Ref } from "vue";
 import { RecordBase } from "../../helpers/data-interfaces";
 
-export function useData(): {
+export function useState(): {
   // routeId: Ref<string | string[]>;
   record: Ref<RecordBase>;
   children: Ref<RecordBase[]>;

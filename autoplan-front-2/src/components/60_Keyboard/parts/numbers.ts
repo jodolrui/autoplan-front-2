@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
@@ -8,8 +8,8 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   setup() {
     const current = useCurrent();
-    const data = useData();
-    data.numbersPulse = ref(0);
+    const state = useState();
+    state.numbersPulse = ref(0);
 
     const keys = [
       ["#", "€", "&", "_", "-", "1", "2", "3", "?", "*"],
@@ -19,11 +19,11 @@ export default defineComponent({
     ];
 
     for (let row = 0; row < keys.length; row++) {
-      data.numbers[row] = useWall(`numbers${row + 1}`);
+      state.numbers[row] = useWall(`numbers${row + 1}`);
 
       const { create, before, design, after, build } = createBuilder<Wall>();
 
-      create(() => data.numbers[row]);
+      create(() => state.numbers[row]);
       after((wall) => {
         wall.mount();
       });
@@ -84,11 +84,11 @@ export default defineComponent({
 
     //* funciones
     function symbols() {
-      data.panel.value = "symbols";
+      state.panel.value = "symbols";
     }
 
     function letters() {
-      data.panel.value = "letters";
+      state.panel.value = "letters";
     }
   },
 });

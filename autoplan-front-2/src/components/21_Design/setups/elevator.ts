@@ -2,16 +2,16 @@ import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
-import { useData } from "../data";
+import { useState } from "../state";
 import { useCurrent } from "../../../stores/useCurrent";
 import { useProjectData } from "../../../stores/useProjectData";
 // const projectData = useProjectData();
 
 export default function setup() {
-  const data = useData();
+  const state = useState();
   const current = useCurrent();
 
-  data.format = {
+  state.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -35,7 +35,7 @@ export default function setup() {
     isForEmergencyUse: { value: boolean | null };
   };
 
-  data.fields = [
+  state.fields = [
     {
       key: "number",
       label: { caption: "Ascensor #" },
@@ -137,7 +137,7 @@ export default function setup() {
     },
   ];
 
-  data.newRecord = {
+  state.newRecord = {
     __designKey: "stairs",
     __id: "",
     __parentId: current.routeId,
@@ -155,8 +155,8 @@ export default function setup() {
 
   //* rellenamos "desde" y "hasta" con las plantas
   // const floors = projectData.getChildrenByDesign(current.routeId, "floor");
-  // const from = data.fields.find((field) => field.key === "from");
-  // const to = data.fields.find((field) => field.key === "to");
+  // const from = state.fields.find((field) => field.key === "from");
+  // const to = state.fields.find((field) => field.key === "to");
 
   // floors?.forEach((element) => {
   //   from?.control?.options?.push((element as any).name.value);

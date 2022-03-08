@@ -1,6 +1,6 @@
 import { getCurrentInstance, Ref, ComputedRef } from "vue";
-import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
 import { Wall } from "../../wallbrick/wallbrick";
+import { RecordBase } from "../../helpers/data-interfaces";
 import {
   UseCurrentState,
   UseCurrentGetters,
@@ -8,24 +8,18 @@ import {
 } from "../../stores/useCurrent";
 import { Store } from "pinia";
 
-export function useData(): {
-  fields: Field[];
-  record: RecordBase & {
-    [key: string]: { value: any | null; units?: string | null };
-  };
-  table: Wall;
-  tablePulse: Ref<number>;
-  control: Wall;
-  controlPulse: Ref<number>;
+export function useState(): {
+  navbar: Wall;
+  breadcrumbsPulse: Ref<number>;
+  breadcrumbs: Wall;
   current: Store<
     "current",
     UseCurrentState,
     UseCurrentGetters,
     UseCurrentActions
   >;
-  isEditing: ComputedRef<boolean>;
-  editPulse: Ref<number>;
-  onEditUpdated: (cursor: number) => void;
+  designKey: ComputedRef<string | undefined>;
+  goTo: (id: string) => void;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

@@ -1,6 +1,6 @@
 import { defineComponent, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { useProjectData } from "../../../stores/useProjectData";
 import { sampleData } from "../../../helpers/data";
 import Wall from "../../../wallbrick/Wall/index.vue";
@@ -12,9 +12,9 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   components: { Wall, Id, Keyboard, Test },
   setup() {
-    const data = useData();
+    const state = useState();
     const projectData = useProjectData();
     projectData.setData(sampleData);
-    data.current = useCurrent();
+    state.current = useCurrent();
   },
 });

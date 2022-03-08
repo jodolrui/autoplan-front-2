@@ -1,6 +1,6 @@
 import { defineComponent, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 
 import root from "../setups/root";
 import site from "../setups/site";
@@ -16,23 +16,23 @@ import elevator from "../setups/elevator";
 
 export default defineComponent({
   setup() {
-    const data = useData();
+    const state = useState();
 
-    if (data.designKey.value) {
-      if (data.designKey.value === "root") site();
-      if (data.designKey.value === "site") site();
-      if (data.designKey.value === "coordinates") coordinates();
-      if (data.designKey.value === "building") building();
-      if (data.designKey.value === "buildingExit") buildingExit();
-      if (data.designKey.value === "floor") floor();
-      if (data.designKey.value === "floorExit") floorExit();
-      if (data.designKey.value === "floorDoor") floorDoor();
-      if (data.designKey.value === "zone") zone();
-      if (data.designKey.value === "stairs") stairs();
-      if (data.designKey.value === "elevator") elevator();
+    if (state.designKey.value) {
+      if (state.designKey.value === "root") site();
+      if (state.designKey.value === "site") site();
+      if (state.designKey.value === "coordinates") coordinates();
+      if (state.designKey.value === "building") building();
+      if (state.designKey.value === "buildingExit") buildingExit();
+      if (state.designKey.value === "floor") floor();
+      if (state.designKey.value === "floorExit") floorExit();
+      if (state.designKey.value === "floorDoor") floorDoor();
+      if (state.designKey.value === "zone") zone();
+      if (state.designKey.value === "stairs") stairs();
+      if (state.designKey.value === "elevator") elevator();
 
-      data.records = ref(
-        data.current.getChildrenByDesign(data.designKey.value as string),
+      state.records = ref(
+        state.current.getChildrenByDesign(state.designKey.value as string),
       );
     }
   },

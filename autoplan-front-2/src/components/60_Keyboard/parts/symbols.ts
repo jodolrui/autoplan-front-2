@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
@@ -8,8 +8,8 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   setup() {
     const current = useCurrent();
-    const data = useData();
-    data.symbolsPulse = ref(0);
+    const state = useState();
+    state.symbolsPulse = ref(0);
 
     const keys = [
       ["$", "€", "¥", "¢", "©", "®", "#", "£", "~", "¿"],
@@ -19,11 +19,11 @@ export default defineComponent({
     ];
 
     for (let row = 0; row < keys.length; row++) {
-      data.symbols[row] = useWall(`symbols${row + 1}`);
+      state.symbols[row] = useWall(`symbols${row + 1}`);
 
       const { create, before, design, after, build } = createBuilder<Wall>();
 
-      create(() => data.symbols[row]);
+      create(() => state.symbols[row]);
       after((wall) => {
         wall.mount();
       });
@@ -70,9 +70,9 @@ export default defineComponent({
             style.set("grid-area", `1 / ${index + 1}`);
             clicked(() => current.sendKey(brick.code));
             if (element === "symbols")
-              clicked(() => (data.panel.value = "symbols"));
+              clicked(() => (state.panel.value = "symbols"));
             if (element === "letters")
-              clicked(() => (data.panel.value = "letters"));
+              clicked(() => (state.panel.value = "letters"));
           });
         });
 
@@ -84,11 +84,11 @@ export default defineComponent({
 
     //* funciones
     function symbols() {
-      data.panel.value = "symbols";
+      state.panel.value = "symbols";
     }
 
     function letters() {
-      data.panel.value = "letters";
+      state.panel.value = "letters";
     }
   },
 });

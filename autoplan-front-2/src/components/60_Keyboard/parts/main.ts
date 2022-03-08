@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { useProjectData } from "../../../stores/useProjectData";
 import { useCurrent } from "../../../stores/useCurrent";
 import { RecordBase } from "../../../helpers/data-interfaces";
@@ -11,21 +11,21 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   components: { Wall: _Wall },
   setup() {
-    const data = useData();
-    data.edit = {} as any;
-    data.letters = [];
-    data.numbers = [];
-    data.symbols = [];
-    data.shift = ref(false);
-    data.panel = ref("letters");
-    data.current = useCurrent();
-    data.pulse = ref(0);
+    const state = useState();
+    state.edit = {} as any;
+    state.letters = [];
+    state.numbers = [];
+    state.symbols = [];
+    state.shift = ref(false);
+    state.panel = ref("letters");
+    state.current = useCurrent();
+    state.pulse = ref(0);
 
     // let el: HTMLElement | null = null;
     // let value: Ref<any> = ref(null);
     // expose({ value });
-    // watch(data.current.selected, () => {
-    //   const selected = data.current.selected;
+    // watch(state.current.selected, () => {
+    //   const selected = state.current.selected;
     //   if (selected.record && selected.field) {
     //     const datum = selected.record[selected.field.key];
     //     value.value = !datum.units
@@ -35,23 +35,23 @@ export default defineComponent({
     // });
 
     watch(
-      data.current.selected,
+      state.current.selected,
       () => {
-        const selected = data.current.selected;
+        const selected = state.current.selected;
         if (selected && selected.record && selected.field) {
           const datum = (selected.record as unknown as any)[selected.field.key];
-          data.current.edit.value = !datum.units
+          state.current.edit.value = !datum.units
             ? datum.value
             : `${datum.value} ${datum.units}`;
-          // data.cursor.value = data.value.value.length;
+          // state.cursor.value = state.value.value.length;
         }
-        data.pulse.value++;
+        state.pulse.value++;
       },
       { immediate: true },
     );
 
-    data.editCharClick = function (position: number) {
-      data.current.edit.cursor = position;
+    state.editCharClick = function (position: number) {
+      state.current.edit.cursor = position;
     };
   },
 });

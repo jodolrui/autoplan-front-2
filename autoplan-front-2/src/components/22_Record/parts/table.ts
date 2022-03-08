@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { Field, RecordBase } from "../../../helpers/data-interfaces";
 import { createBuilder } from "../../../helpers/builder";
@@ -9,30 +9,30 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   emits: ["updated"],
   setup(props, context) {
-    const data = useData();
+    const state = useState();
     const current = useCurrent();
-    data.tablePulse = ref(0);
+    state.tablePulse = ref(0);
     //* transmitimos el pulse hacia atrás
-    watch(data.tablePulse, () => {
+    watch(state.tablePulse, () => {
       context.emit("updated");
     });
 
-    data.table = useWall("table");
-    const { setup } = data.table;
+    state.table = useWall("table");
+    const { setup } = state.table;
     setup(() => {
       //* al seleccionarse un campo tenemos que refrescar
       watch(
-        () => data.current.selected.field,
+        () => state.current.selected.field,
         () => {
-          data.table.refreshAll();
-          data.tablePulse.value++;
+          state.table.refreshAll();
+          state.tablePulse.value++;
         },
       );
     });
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => data.table);
+    create(() => state.table);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -53,10 +53,10 @@ export default defineComponent({
         brick.mount(wall);
       });
 
-      data.fields.forEach((field: Field, i: number) => {
+      state.fields.forEach((field: Field, i: number) => {
         //* label
         design((brick) => {
-          const elementId: string = `${data.record.__id}_${field.key}_label`;
+          const elementId: string = `${state.record.__id}_${field.key}_label`;
           brick.code = elementId;
           brick.caption = field.label?.caption as string;
           const { classes, style, clicked, setup } = brick;
@@ -64,33 +64,35 @@ export default defineComponent({
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           clicked(() => {
-            data.current.setSelected(null, null);
+            state.current.setSelected(null, null);
           });
         });
 
         //* value
         design((brick) => {
-          const elementId: string = `${data.record.__id}_${field.key}_value`;
+          const elementId: string = `${state.record.__id}_${field.key}_value`;
           brick.code = elementId;
-          brick.caption = !data.record[field.key].units
-            ? data.record[field.key].value
-            : `${data.record[field.key].value} ${data.record[field.key].units}`;
+          brick.caption = !state.record[field.key].units
+            ? state.record[field.key].value
+            : `${state.record[field.key].value} ${
+                state.record[field.key].units
+              }`;
           brick.slot =
-            data.current.selected.record?.__id === data.record.__id &&
-            data.current.selected.field?.key === field.key
+            state.current.selected.record?.__id === state.record.__id &&
+            state.current.selected.field?.key === field.key
               ? "edit"
               : "";
           const { classes, style, clicked, vars, updated, setup } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2`);
-          vars.set("record", data.record);
+          vars.set("record", state.record);
           vars.set("field", field);
           updated((brick: Brick) => {
             //* si es el elemento seleccionado
             if (
-              data.current.selectedElement &&
-              brick.code === data.current.selectedElement.value.id
+              state.current.selectedElement &&
+              brick.code === state.current.selectedElement.value.id
             ) {
               if (style.get("background-color") !== "var(--active-color)")
                 style.set("background-color", "var(--active-color)");
@@ -101,8 +103,8 @@ export default defineComponent({
             }
           });
           clicked(() => {
-            data.current.setSelected(vars.get("record"), vars.get("field"));
-            data.current.keyboardOn = true;
+            state.current.setSelected(vars.get("record"), vars.get("field"));
+            state.current.keyboardOn = true;
           });
         });
       });

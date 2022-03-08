@@ -1,20 +1,20 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { useData } from "../data";
+import { useState } from "../state";
 import { createBuilder } from "../../../helpers/builder";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const data = useData();
-    data.controlPulse = ref(0);
-    data.control = useWall("control");
+    const state = useState();
+    state.controlPulse = ref(0);
+    state.control = useWall("control");
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => data.control);
+    create(() => state.control);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -74,7 +74,7 @@ export default defineComponent({
         const { clicked } = brick;
         clicked(() => {
           router.push({
-            path: `/${data.record?.__id as string}`,
+            path: `/${state.record?.__id as string}`,
           });
         });
       });

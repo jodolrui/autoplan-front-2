@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
@@ -8,8 +8,8 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   setup() {
     const current = useCurrent();
-    const data = useData();
-    data.lettersPulse = ref(0);
+    const state = useState();
+    state.lettersPulse = ref(0);
 
     const keys = [
       ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
@@ -19,11 +19,11 @@ export default defineComponent({
     ];
 
     for (let row = 0; row < keys.length; row++) {
-      data.letters[row] = useWall(`letters${row + 1}`);
+      state.letters[row] = useWall(`letters${row + 1}`);
 
       const { create, before, design, after, build } = createBuilder<Wall>();
 
-      create(() => data.letters[row]);
+      create(() => state.letters[row]);
       after((wall) => {
         wall.mount();
       });
@@ -68,10 +68,10 @@ export default defineComponent({
             style.set("grid-area", `1 / ${index + 1}`);
             updated(() => {
               if (brick.caption.length === 1) {
-                brick.code = data.shift.value
+                brick.code = state.shift.value
                   ? brick.code?.toUpperCase()
                   : brick.code?.toLowerCase();
-                brick.caption = data.shift.value
+                brick.caption = state.shift.value
                   ? brick.caption?.toUpperCase()
                   : brick.caption?.toLowerCase();
               }
@@ -81,9 +81,9 @@ export default defineComponent({
             if (element === "numbers") clicked(numbers);
             if (element === "enter")
               clicked(() => {
-                data.current.sendKey(brick.code);
-                data.current.selected.record = null;
-                data.current.selected.field = null;
+                state.current.sendKey(brick.code);
+                state.current.selected.record = null;
+                state.current.selected.field = null;
               });
           });
         });
@@ -96,14 +96,14 @@ export default defineComponent({
 
     //* funciones
     function shift() {
-      data.shift.value = !data.shift.value;
-      data.letters.forEach((row: Wall) => {
+      state.shift.value = !state.shift.value;
+      state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
     }
 
     function numbers() {
-      data.panel.value = "numbers";
+      state.panel.value = "numbers";
     }
   },
 });

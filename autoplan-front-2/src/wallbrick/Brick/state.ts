@@ -1,7 +1,7 @@
 import { getCurrentInstance, ComputedRef } from "vue";
 import { Brick } from "../wallbrick";
 
-export function useData(): {
+export function useState(): {
   config: Brick;
   classes: ComputedRef<{ [key: string]: any }>;
   style: ComputedRef<{ [key: string]: any }>;

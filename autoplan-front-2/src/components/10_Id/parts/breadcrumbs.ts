@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { useData } from "../data";
+import { useState } from "../state";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { createBuilder } from "../../../helpers/builder";
 import { useRouter } from "vue-router";
@@ -9,13 +9,13 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const data = useData();
-    data.breadcrumbsPulse = ref(0);
-    data.breadcrumbs = useWall("breadcrumbs");
+    const state = useState();
+    state.breadcrumbsPulse = ref(0);
+    state.breadcrumbs = useWall("breadcrumbs");
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => data.breadcrumbs);
+    create(() => state.breadcrumbs);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -55,8 +55,8 @@ export default defineComponent({
         });
       });
 
-      if (data.current.path && data.current.path)
-        data.current.path.forEach((element: RecordBase) => {
+      if (state.current.path && state.current.path)
+        state.current.path.forEach((element: RecordBase) => {
           if (element.__id !== "root")
             design((brick) => {
               brick.code = element.__id;

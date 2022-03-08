@@ -1,5 +1,5 @@
 import { getCurrentInstance } from "vue";
 
-export function useData(): {} {
+export function useState(): {} {
   return getCurrentInstance()?.glueInstance.exposed();
 }

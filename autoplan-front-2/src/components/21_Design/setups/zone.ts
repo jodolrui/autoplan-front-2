@@ -1,14 +1,14 @@
 import { expose, exposed } from "@jodolrui/glue";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
-import { useData } from "../data";
+import { useState } from "../state";
 import { useCurrent } from "../../../stores/useCurrent";
 
 export default function setup() {
-  const data = useData();
+  const state = useState();
   const current = useCurrent();
 
-  data.format = {
+  state.format = {
     desktop: {
       view: "table",
       inlineStyle: {
@@ -29,7 +29,7 @@ export default function setup() {
     usableArea: { value: number | null; units: string | null };
   };
 
-  data.fields = [
+  state.fields = [
     {
       key: "number",
       label: { caption: "Número" },
@@ -105,7 +105,7 @@ export default function setup() {
     },
   ];
 
-  data.newRecord = {
+  state.newRecord = {
     __designKey: "zone",
     __id: "",
     __parentId: current.routeId,

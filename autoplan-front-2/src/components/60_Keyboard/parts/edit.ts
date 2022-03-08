@@ -1,18 +1,18 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { createBuilder } from "../../../helpers/builder";
 
 export default defineComponent({
   setup() {
-    const data = useData();
-    data.editPulse = ref(0);
-    data.edit = useWall("edit");
+    const state = useState();
+    state.editPulse = ref(0);
+    state.edit = useWall("edit");
 
     const { create, before, design, after, build } = createBuilder<Wall>();
 
-    create(() => data.edit);
+    create(() => state.edit);
     after((wall: Wall) => {
       wall.mount();
     });

@@ -1,18 +1,18 @@
 import { defineComponent, ref, computed, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useData } from "../data";
+import { useState } from "../state";
 import { Brick } from "../../wallbrick";
 
 export default defineComponent({
   props: { config: { type: Object, required: true } },
   emits: ["updated"],
   setup(props, context) {
-    const data = useData();
-    data.config = props.config as Brick;
-    data.classes = computed(() => Object.fromEntries(data.config.classes));
-    data.style = computed(() => Object.fromEntries(data.config.style));
-    data.clicked = () => {
-      data.config.__clicked(data.config, data.config.__wall);
+    const state = useState();
+    state.config = props.config as Brick;
+    state.classes = computed(() => Object.fromEntries(state.config.classes));
+    state.style = computed(() => Object.fromEntries(state.config.style));
+    state.clicked = () => {
+      state.config.__clicked(state.config, state.config.__wall);
       context.emit("updated");
     };
   },

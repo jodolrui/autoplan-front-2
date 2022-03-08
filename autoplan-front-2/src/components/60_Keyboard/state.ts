@@ -7,7 +7,7 @@ import {
   UseCurrentActions,
 } from "../../stores/useCurrent";
 
-export function useData(): {
+export function useState(): {
   edit: Wall;
   editPulse: Ref<number>;
   letters: Wall[];

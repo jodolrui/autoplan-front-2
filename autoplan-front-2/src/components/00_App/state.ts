@@ -7,7 +7,7 @@ import {
 } from "../../stores/useCurrent";
 import { Store } from "pinia";
 
-export function useData(): {
+export function useState(): {
   navbar: Wall;
   navbarPulse: Ref<number>;
   current: Store<
