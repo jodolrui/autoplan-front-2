@@ -4,7 +4,6 @@
     designKey="site"
     :collapse="{hidden: false, header: 'Establecimiento'}"
     :options="{canAdd: false, canDelete: false, canMove: false, canEnter: true}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>
 <div v-if="designKey==='site'">
@@ -12,55 +11,46 @@
     designKey="coordinates"
     :collapse="{hidden: false, header: 'Coordenadas'}"
     :options="{canAdd: false, canDelete: false, canMove: false, canEnter: false}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
   <Design
     designKey="building"
     :collapse="{hidden: false, header: 'Edificios'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>
 <div v-if="designKey==='building'">
   <Design
     designKey="floor"
     :collapse="{hidden: false, header: 'Plantas'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
   <Design
     designKey="buildingExit"
     :collapse="{hidden: false, header: 'Salidas de edificio'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
   <Design
     designKey="stairs"
     :collapse="{hidden: false, header: 'Escaleras'}"
     :options="{canAdd: true, canDelete: true, canMove: true, canEnter: false}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
   <Design
     designKey="elevator"
     :collapse="{hidden: false, header: 'Ascensores'}"
     :options="{canAdd: true, canDelete: true, canMove: true, canEnter: false}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>
 <div v-if="designKey==='buildingExit'">
   <Design
     designKey="buildingDoor"
     :collapse="{hidden: false, header: 'Puertas de salidas de edificio'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>
 <div v-if="designKey==='floor'">
   <Design
     designKey="zone"
     :collapse="{hidden: false, header: 'Zonas'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
   <Design
     designKey="floorExit"
     :collapse="{hidden: false, header: 'Salidas de planta'}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>
 <div v-if="designKey==='floorExit'">
@@ -68,6 +58,5 @@
     designKey="floorDoor"
     :collapse="{hidden: false, header: 'Puertas de salidas de planta'}"
     :options="{canAdd: true, canDelete: true, canMove: true, canEnter: false}"
-    :key="designPulse" @updated="designPulse++"
   ></Design>
 </div>

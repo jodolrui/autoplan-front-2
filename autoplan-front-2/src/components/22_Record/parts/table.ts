@@ -13,6 +13,8 @@ export default defineComponent({
     const current = useCurrent();
     state.tablePulse = ref(0);
     //* transmitimos el pulse hacia atrás
+    //! si no pasamos el pulse hacia atrás el edit-box no responde
+    //! pero si lo dejo monta toda la tabla con cada nueva selección
     watch(state.tablePulse, () => {
       context.emit("updated");
     });

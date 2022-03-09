@@ -1,4 +1,6 @@
 <!--//* Design -->
+<!-- //! si quito recordPulse el edit-box no responde bien -->
+<!-- //! pero si lo dejo monta toda la tabla con cada nueva selección -->
 <template v-for="(record, i) in records" :key="recordPulse">
   <Record
     :fields="fields" :record="record" @updated="recordPulse++"

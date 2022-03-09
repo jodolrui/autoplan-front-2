@@ -1,8 +1,7 @@
 <!--//* Id -->
 <div class="sidebar"></div>
 <div id="breadcrumbs" class="breadcrumbs">
-  <Wall :config="breadcrumbs" :key="breadcrumbsPulse" @updated="breadcrumbsPulse++" /></div>
+  <Wall :config="breadcrumbs" /></div>
 <div id="content" class="content">
   <Datagrid />
-  <Keyboard v-if="keyboardOn" />
 </div>
