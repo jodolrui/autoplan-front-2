@@ -5,11 +5,10 @@
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-import edit from "./parts/edit";
 import letters from "./parts/letters";
 import numbers from "./parts/numbers";
 import symbols from "./parts/symbols";
-export default compose("Keyboard", [main, edit, letters, numbers, symbols]);
+export default compose("Keyboard", [main, letters, numbers, symbols]);
 </script>
 
 <style lang="scss">

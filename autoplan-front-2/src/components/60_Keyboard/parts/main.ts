@@ -34,24 +34,24 @@ export default defineComponent({
     //   }
     // });
 
-    watch(
-      state.current.selected,
-      () => {
-        const selected = state.current.selected;
-        if (selected && selected.record && selected.field) {
-          const datum = (selected.record as unknown as any)[selected.field.key];
-          state.current.edit.value = !datum.units
-            ? datum.value
-            : `${datum.value} ${datum.units}`;
-          // state.cursor.value = state.value.value.length;
-        }
-        state.pulse.value++;
-      },
-      { immediate: true },
-    );
+    // watch(
+    //   state.current.selected,
+    //   () => {
+    //     const selected = state.current.selected;
+    //     if (selected && selected.record && selected.field) {
+    //       const datum = (selected.record as unknown as any)[selected.field.key];
+    //       state.current.edit.value = !datum.units
+    //         ? datum.value
+    //         : `${datum.value} ${datum.units}`;
+    //       // state.cursor.value = state.value.value.length;
+    //     }
+    //     state.pulse.value++;
+    //   },
+    //   { immediate: true },
+    // );
 
-    state.editCharClick = function (position: number) {
-      state.current.edit.cursor = position;
-    };
+    // state.editCharClick = function (position: number) {
+    //   state.current.edit.cursor = position;
+    // };
   },
 });

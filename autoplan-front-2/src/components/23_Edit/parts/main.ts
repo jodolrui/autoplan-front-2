@@ -89,29 +89,33 @@ export default defineComponent({
         state.cursor.value = getPosition(event);
       });
 
-      //! activar si quiero que se muestre continuamente el punto de inserción de ratón
-      // editDiv?.addEventListener("click", (event) => {
-      //   // state.cursor.value = getPosition(event);
-      //   state.cursor.value = state.position.value;
-      //   state.isMovingMouse.value = false;
-      // });
-      // editDiv?.addEventListener("mouseover", (event) => {
-      //   state.isMovingMouse.value = true;
-      //   state.position.value = getPosition(event);
-      // });
-      // editDiv?.addEventListener("mouseleave", (event) => {
-      //   state.isMovingMouse.value = false;
-      // });
+      //* punto de inserción del ratón
+      if (false) {
+        editDiv?.addEventListener("click", (event) => {
+          // state.cursor.value = getPosition(event);
+          state.cursor.value = state.position.value;
+          state.isMovingMouse.value = false;
+        });
+        editDiv?.addEventListener("mouseover", (event) => {
+          state.isMovingMouse.value = true;
+          state.position.value = getPosition(event);
+        });
+        editDiv?.addEventListener("mouseleave", (event) => {
+          state.isMovingMouse.value = false;
+        });
+      }
     });
 
-    onMounted(() => {
-      let editDiv: HTMLElement | null;
-      //* getElementById necesita estar en el onMounted
-      editDiv = document.getElementById("edit-box");
-      editDiv?.classList.add("editing");
-      setTimeout(() => {
-        editDiv?.classList.remove("editing");
-      }, 2000);
-    });
+    //* caja de edición emergente
+    if (false)
+      onMounted(() => {
+        let editDiv: HTMLElement | null;
+        //* getElementById necesita estar en el onMounted
+        editDiv = document.getElementById("edit-box");
+        editDiv?.classList.add("editing");
+        setTimeout(() => {
+          editDiv?.classList.remove("editing");
+        }, 2000);
+      });
   },
 });
