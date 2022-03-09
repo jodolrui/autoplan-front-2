@@ -16,5 +16,6 @@ export default defineComponent({
     const projectData = useProjectData();
     projectData.setData(sampleData);
     state.current = useCurrent();
+    state.keyboardPulse = ref(0);
   },
 });

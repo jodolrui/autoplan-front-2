@@ -3,22 +3,19 @@
   <template
     v-if="panel === 'letters'"
     v-for="(row, i) in letters"
-    :key="lettersPulse"
-  >
-    <Wall :config="row" @updated="lettersPulse++" />
+    :key="row.name">
+    <Wall :config="row" />
   </template>
   <template
     v-if="panel === 'numbers'"
     v-for="(row, i) in numbers"
-    :key="numbersPulse"
-  >
-    <Wall :config="row" @updated="numbersPulse++" />
+    :key="row.name">
+    <Wall :config="row" />
   </template>
   <template
     v-if="panel === 'symbols'"
     v-for="(row, i) in symbols"
-    :key="symbolsPulse"
-  >
-    <Wall :config="row" @updated="symbolsPulse++" />
+    :key="row.name">
+    <Wall :config="row" />
   </template>
 </div>

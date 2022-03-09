@@ -16,6 +16,7 @@ export function useState(): {
     UseCurrentGetters,
     UseCurrentActions
   >;
+  keyboardPulse: Ref<number>;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

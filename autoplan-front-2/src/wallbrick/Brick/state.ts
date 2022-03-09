@@ -8,7 +8,6 @@ export function useState(): {
   clicked: () => void;
   mouseDown: () => void;
   mouseUp: () => void;
-  pulse: number;
 } {
   return getCurrentInstance()?.glueInstance.exposed();
 }

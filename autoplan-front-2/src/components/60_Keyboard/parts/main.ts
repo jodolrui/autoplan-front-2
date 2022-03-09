@@ -10,6 +10,7 @@ import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { Wall: _Wall },
+  emits: ["updated"],
   setup() {
     const state = useState();
     state.edit = {} as any;

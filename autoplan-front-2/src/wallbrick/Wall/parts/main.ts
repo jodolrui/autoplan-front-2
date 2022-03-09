@@ -7,14 +7,11 @@ import { useState } from "../state";
 export default defineComponent({
   components: { Brick: _Brick },
   props: { config: { type: Object, required: true } },
-  emits: ["updated"],
   setup(props, context) {
     const state = useState();
     state.config = props.config as Wall;
     state.classes = computed(() => Object.fromEntries(state.config.classes));
     state.style = computed(() => Object.fromEntries(state.config.style));
     state.bricks = computed(() => Object.fromEntries(state.config.bricks));
-    state.pulse = ref(0);
-    watch(state.pulse, () => context.emit("updated"));
   },
 });

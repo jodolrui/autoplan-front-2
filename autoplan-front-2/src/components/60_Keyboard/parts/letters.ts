@@ -14,11 +14,19 @@ export default defineComponent({
     state.graveAccent = ref(false);
     state.dieresis = ref(false);
 
+    // const keys = [
+    //   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "ç", "`"],
+    //   ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "¨", "´"],
+    //   ["shift", "z", "x", "c", "v", "b", "n", "m", "'", "backspace"],
+    //   ["numbers", "·", "spacebar", "-", "enter"],
+    // ];
+
     const keys = [
-      ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "ç", "`"],
-      ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "¨", "´"],
-      ["shift", "z", "x", "c", "v", "b", "n", "m", "'", "backspace"],
-      ["numbers", "·", "spacebar", "-", "enter"],
+      ["@", "#", "/", "-", "·", "'", "`", "´", "¨", "ç"],
+      ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+      ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
+      ["shift", "z", "x", "c", "v", "b", "n", "m", "backspace"],
+      ["numbers", ",", "spacebar", ".", "enter"],
     ];
 
     for (let row = 0; row < keys.length; row++) {
@@ -36,17 +44,17 @@ export default defineComponent({
         style.set("display", "grid");
         style.set("grid-auto-rows", "40px");
         style.set("grid-gap", "3px");
-        if (row <= 1)
+        if (row <= 2)
           wall.style.set(
             "grid-template-columns",
             `repeat(${keys[row].length}, 1fr)`,
           );
-        if (row === 2)
+        if (row === 3)
           wall.style.set(
             "grid-template-columns",
             `2fr repeat(${keys[row].length - 2}, 1fr) 2fr`,
           );
-        if (row === 3)
+        if (row === 4)
           wall.style.set("grid-template-columns", `2fr 1fr 5fr 1fr 2fr`);
 
         const { create, before, design, after, build } = createBuilder<Brick>();
@@ -159,9 +167,9 @@ export default defineComponent({
       state.graveAccent.value = false;
       state.dieresis.value = false;
       state.shift.value = false;
-      state.letters.forEach((row: Wall) => {
-        row.refreshAll();
-      });
+      // state.letters.forEach((row: Wall) => {
+      //   row.refreshAll();
+      // });
     }
 
     function shift() {

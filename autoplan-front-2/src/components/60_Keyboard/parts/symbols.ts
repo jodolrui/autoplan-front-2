@@ -68,7 +68,7 @@ export default defineComponent({
             classes.set("btn", true);
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            clicked(() => current.sendKey(brick.code));
+            clicked(() => current.sendKey(brick.code, brick.caption));
             if (element === "symbols")
               clicked(() => (state.panel.value = "symbols"));
             if (element === "letters")

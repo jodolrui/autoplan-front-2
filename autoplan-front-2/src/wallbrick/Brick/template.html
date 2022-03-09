@@ -3,16 +3,26 @@
   <slot :name="config.slot"></slot>
 </template>
 <template v-else>
-  <button
-    :id="config.code"
-    :class="classes"
-    :style="style"
-    @click="clicked($event)"
-    @mousedown="clicked($event)"
-    @mouseup="clicked($event)"
-    >
-    <div>
-      <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
-    </div>
-  </button>
+  <!-- //! necesito un div "relative" para que funcione el "absolute" del tooltip -->
+  <div style="position: relative">
+    <!-- //! aquí puedo poner un div "absolute" para hacer un tooltip popup -->
+    <!-- <div
+      v-if="config.code==='u'"
+      style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 1px solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
+      <button class="btn">û</button>
+    </div> -->
+    <!-- //! he metido aquí un "width: 100%" -->
+    <button
+      :id="config.code"
+      :class="classes"
+      :style="style"
+      style="width: 100%"
+      @click="clicked($event)"
+      @mousedown="mouseDown($event)"
+      @mouseup="mouseUp($event)">
+      <div>
+        <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
+      </div>
+    </button>
+  </div>
 </template>
