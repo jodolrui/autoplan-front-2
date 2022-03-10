@@ -3,12 +3,14 @@ import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { useState } from "../state";
 import { createBuilder } from "../../__shared/helpers/builder";
-// import { useCurrent } from "../../__shared/stores/useCurrent";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 
 export default defineComponent({
   setup() {
     const state = useState();
     state.navbar = useWall("navbar");
+    const current = useCurrent();
+    expose({ current });
 
     const { create, design, after, build } = createBuilder<Wall>();
 
@@ -47,7 +49,7 @@ export default defineComponent({
         brick.icon = "fa fa-keyboard";
         const { style, setup, clicked, updated } = brick;
         clicked(() => {
-          state.current.keyboardOn = !state.current.keyboardOn;
+          current.keyboardOn = !current.keyboardOn;
         });
       });
 

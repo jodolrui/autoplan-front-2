@@ -5,11 +5,13 @@ import { useState } from "../state";
 import { RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { createBuilder } from "../../__shared/helpers/builder";
 import { useRouter } from "vue-router";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
     const state = useState();
+    const current = useCurrent();
     state.breadcrumbsPulse = ref(0);
     state.breadcrumbs = useWall("breadcrumbs");
 
@@ -55,8 +57,8 @@ export default defineComponent({
         });
       });
 
-      if (state.current.path && state.current.path)
-        state.current.path.forEach((element: RecordBase) => {
+      if (current.path && current.path)
+        current.path.forEach((element: RecordBase) => {
           if (element.__id !== "root")
             design((brick) => {
               brick.code = element.__id;

@@ -10,10 +10,10 @@ export default defineComponent({
   setup() {
     const state = useState();
     const route = useRoute();
-    state.current = useCurrent();
-    state.current.setId(route.params.id as string);
+    const current = useCurrent();
+    current.setId(route.params.id as string);
     state.designKey = computed(() => {
-      return state.current.record?.__designKey;
+      return current.record?.__designKey;
     });
   },
 });
