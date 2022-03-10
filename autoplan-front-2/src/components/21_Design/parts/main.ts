@@ -1,7 +1,7 @@
 import { defineComponent, watch, reactive, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { State } from "../state";
-import { useCurrent } from "../../../stores/useCurrent";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 import Record from "../../22_Record/index.vue";
 import { Brick, Wall } from "../../../wallbrick/wallbrick";
 

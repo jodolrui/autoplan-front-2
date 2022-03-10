@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { RecordBase } from "../helpers/data-interfaces";
+import { RecordBase } from "../interfaces/dataInterfaces";
 
 export type UseProjectDataState = {
   projectData: RecordBase[];

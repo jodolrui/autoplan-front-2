@@ -4,7 +4,7 @@ import {
   UseCurrentState,
   UseCurrentGetters,
   UseCurrentActions,
-} from "../../stores/useCurrent";
+} from "../__shared/stores/useCurrent";
 import { Store } from "pinia";
 
 export type State = {

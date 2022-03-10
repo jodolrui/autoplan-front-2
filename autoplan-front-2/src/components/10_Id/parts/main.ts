@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import { State } from "../state";
 import Datagrid from "../../20_Datagrid/index.vue";
 import Wall from "../../../wallbrick/Wall/index.vue";
-import { useCurrent } from "../../../stores/useCurrent";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 export default defineComponent({
   components: { Wall, Datagrid },
   setup() {

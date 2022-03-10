@@ -3,8 +3,12 @@ import {
   UseCurrentState,
   UseCurrentGetters,
   UseCurrentActions,
-} from "../../stores/useCurrent";
-import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
+} from "../__shared/stores/useCurrent";
+import {
+  Format,
+  Field,
+  RecordBase,
+} from "../__shared/interfaces/dataInterfaces";
 import { Store } from "pinia";
 import { Wall } from "../../helpers/wall-brick";
 

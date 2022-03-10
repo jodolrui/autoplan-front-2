@@ -2,7 +2,7 @@ import { defineComponent, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../wallbrick";
 import { State } from "../state";
-import { createBuilder } from "../../../helpers/builder";
+import { createBuilder } from "../../../components/__shared/helpers/builder";
 
 export default defineComponent({
   setup() {

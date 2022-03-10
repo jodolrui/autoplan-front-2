@@ -1,7 +1,7 @@
 import { defineComponent, Ref, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { State } from "../state";
-import { RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../__shared/helpers/data-interfaces";
 export default defineComponent({
   props: {
     record: { type: Object, required: true },

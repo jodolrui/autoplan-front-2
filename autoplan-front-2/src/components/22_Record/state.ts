@@ -1,11 +1,15 @@
 import { getCurrentInstance, Ref, ComputedRef } from "vue";
-import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
+import {
+  Format,
+  Field,
+  RecordBase,
+} from "../__shared/interfaces/dataInterfaces";
 import { Wall } from "../../wallbrick/wallbrick";
 import {
   UseCurrentState,
   UseCurrentGetters,
   UseCurrentActions,
-} from "../../stores/useCurrent";
+} from "../__shared/stores/useCurrent";
 import { Store } from "pinia";
 
 export type State = {

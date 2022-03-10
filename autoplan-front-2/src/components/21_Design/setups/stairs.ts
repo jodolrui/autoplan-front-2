@@ -1,10 +1,10 @@
 import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { RecordBase } from "../../../helpers/data-interfaces";
+import { RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 import { State } from "../state";
-import { useCurrent } from "../../../stores/useCurrent";
-import { useProjectData } from "../../../stores/useProjectData";
+import { useCurrent } from "../../__shared/stores/useCurrent";
+import { useProjectData } from "../../__shared/stores/useProjectData";
 // const projectData = useProjectData();
 
 export default function setup() {

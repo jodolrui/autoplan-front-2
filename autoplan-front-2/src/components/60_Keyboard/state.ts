@@ -5,7 +5,7 @@ import {
   UseCurrentState,
   UseCurrentGetters,
   UseCurrentActions,
-} from "../../stores/useCurrent";
+} from "../__shared/stores/useCurrent";
 
 export type State = {
   edit: Wall;

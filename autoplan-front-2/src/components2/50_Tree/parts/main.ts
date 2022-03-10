@@ -1,9 +1,9 @@
 import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { State } from "../state";
-import { useProjectData } from "../../../stores/useProjectData";
-import { useCurrent } from "../../../stores/useCurrent";
-import { RecordBase } from "../../../helpers/data-interfaces";
+import { useProjectData } from "../../__shared/stores/useProjectData";
+import { useCurrent } from "../../__shared/stores/useCurrent";
+import { RecordBase } from "../../__shared/helpers/data-interfaces";
 import { defineWall, Wall, WallConfig } from "../../../helpers/wall-brick";
 import _Wall from "../../30_Wall/index.vue";
 import { useRouter } from "vue-router";

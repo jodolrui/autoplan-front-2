@@ -1,4 +1,4 @@
-import { RecordBase } from "./data-interfaces";
+import { RecordBase } from "../interfaces/dataInterfaces";
 
 const root = [
   {

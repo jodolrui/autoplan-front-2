@@ -1,8 +1,8 @@
 import { defineComponent, Ref, ref, watch, computed, ComputedRef } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Field, RecordBase } from "../../../helpers/data-interfaces";
+import { Field, RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { State } from "../state";
-import { useCurrent } from "../../../stores/useCurrent";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 import _Wall from "../../../wallbrick/Wall/index.vue";
 import Edit from "../../23_Edit/index.vue";
 

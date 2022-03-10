@@ -2,8 +2,8 @@ import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { State } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { createBuilder } from "../../../helpers/builder";
-import { useCurrent } from "../../../stores/useCurrent";
+import { createBuilder } from "../../__shared/helpers/builder";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 
 export default defineComponent({
   setup() {

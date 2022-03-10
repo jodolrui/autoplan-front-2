@@ -2,10 +2,9 @@
 
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
-import state from "../__shared/parts/state";
 import main from "./parts/main";
 import navbar from "./parts/navbar";
-export default compose("App", [state, main, navbar]);
+export default compose("App", [main, navbar]);
 </script>
 
 <style lang="scss">

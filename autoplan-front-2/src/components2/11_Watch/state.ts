@@ -1,5 +1,5 @@
 import { getCurrentInstance, Ref } from "vue";
-import { RecordBase } from "../../helpers/data-interfaces";
+import { RecordBase } from "../__shared/helpers/data-interfaces";
 
 export type State = {
   // routeId: Ref<string | string[]>;
