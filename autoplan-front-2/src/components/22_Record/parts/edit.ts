@@ -10,15 +10,16 @@ export default defineComponent({
   components: { Edit },
   setup() {
     const state = useState();
+    const current = useCurrent();
     //* si desde el componente Edit se movió el cursor
     state.onEditUpdated = (cursor: number) => {
-      state.current.edit.cursor = cursor;
+      current.edit.cursor = cursor;
       //* incrementamos editPulse para refrescar el componente Edit
       state.controlPulse.value++;
     };
     //* si desde el teclado cambiamos el current.edit.value
     watch(
-      () => state.current.edit.value,
+      () => current.edit.value,
       () => {
         //* incrementamos editPulse para refrescar el componente Edit
         state.editPulse.value++;
@@ -26,7 +27,7 @@ export default defineComponent({
     );
     //* si desde el teclado cambiamos el current.edit.cursor
     watch(
-      () => state.current.edit.cursor,
+      () => current.edit.cursor,
       () => {
         //* incrementamos editPulse para refrescar el componente Edit
         state.editPulse.value++;

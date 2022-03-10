@@ -1,6 +1,7 @@
 import { defineComponent, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
+import { useCurrent } from "../../__shared/stores/useCurrent";
 
 import root from "../setups/root";
 import site from "../setups/site";
@@ -17,6 +18,7 @@ import elevator from "../setups/elevator";
 export default defineComponent({
   setup() {
     const state = useState();
+    const current = useCurrent();
 
     if (state.designKey.value) {
       if (state.designKey.value === "root") site();
@@ -32,7 +34,7 @@ export default defineComponent({
       if (state.designKey.value === "elevator") elevator();
 
       state.records = ref(
-        state.current.getChildrenByDesign(state.designKey.value as string),
+        current.getChildrenByDesign(state.designKey.value as string),
       );
     }
   },

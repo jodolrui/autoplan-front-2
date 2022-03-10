@@ -17,6 +17,7 @@ export default defineComponent({
     state.record = props.record as RecordBase & {
       [key: string]: { value: any | null; units?: string | null };
     };
-    state.current = useCurrent();
+    const current = useCurrent();
+    expose({ current });
   },
 });

@@ -23,12 +23,6 @@ export function useState() {
     graveAccent: Ref<boolean>;
     dieresis: Ref<boolean>;
     panel: Ref<"letters" | "numbers" | "symbols">;
-    current: Store<
-      "current",
-      UseCurrentState,
-      UseCurrentGetters,
-      UseCurrentActions
-    >;
   }>({
     letters: [],
     lettersPulse: ref(0),

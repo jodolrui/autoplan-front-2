@@ -13,6 +13,5 @@ export default defineComponent({
   emits: ["updated"],
   setup() {
     const state = useState();
-    state.current = useCurrent();
   },
 });

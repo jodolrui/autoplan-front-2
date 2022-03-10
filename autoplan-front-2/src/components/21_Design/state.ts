@@ -16,12 +16,6 @@ import { Wall } from "../../wallbrick/wallbrick";
 export function useState() {
   return defineState<{
     designKey: Ref<string>;
-    current: Store<
-      "current",
-      UseCurrentState,
-      UseCurrentGetters,
-      UseCurrentActions
-    >;
     format: Format;
     fields: Field[];
     newRecord: RecordBase;

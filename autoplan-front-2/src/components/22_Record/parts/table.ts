@@ -23,7 +23,7 @@ export default defineComponent({
     setup(() => {
       //* al seleccionarse un campo tenemos que refrescar
       watch(
-        () => state.current.selected.field,
+        () => current.selected.field,
         () => {
           state.table.refreshAll();
           state.tablePulse.value++;
@@ -65,7 +65,7 @@ export default defineComponent({
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           clicked(() => {
-            state.current.setSelected(null, null);
+            current.setSelected(null, null);
           });
         });
 
@@ -79,8 +79,8 @@ export default defineComponent({
                 state.record[field.key].units
               }`;
           brick.slot =
-            state.current.selected.record?.__id === state.record.__id &&
-            state.current.selected.field?.key === field.key
+            current.selected.record?.__id === state.record.__id &&
+            current.selected.field?.key === field.key
               ? "edit"
               : "";
           const { classes, style, clicked, vars, updated, setup } = brick;
@@ -92,8 +92,8 @@ export default defineComponent({
           updated((brick: Brick) => {
             //* si es el elemento seleccionado
             if (
-              state.current.selectedElement &&
-              brick.code === state.current.selectedElement.value.id
+              current.selectedElement &&
+              brick.code === current.selectedElement.value.id
             ) {
               if (style.get("background-color") !== "var(--active-color)")
                 style.set("background-color", "var(--active-color)");
@@ -104,8 +104,8 @@ export default defineComponent({
             }
           });
           clicked(() => {
-            state.current.setSelected(vars.get("record"), vars.get("field"));
-            state.current.keyboardOn = true;
+            current.setSelected(vars.get("record"), vars.get("field"));
+            current.keyboardOn = true;
           });
         });
       });

@@ -23,12 +23,6 @@ export function useState() {
     tablePulse: Ref<number>;
     control: Wall;
     controlPulse: Ref<number>;
-    current: Store<
-      "current",
-      UseCurrentState,
-      UseCurrentGetters,
-      UseCurrentActions
-    >;
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
     onEditUpdated: (cursor: number) => void;

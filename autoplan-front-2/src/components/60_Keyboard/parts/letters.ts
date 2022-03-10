@@ -125,17 +125,17 @@ export default defineComponent({
             if (element === "enter")
               clicked(() => {
                 typeKey(brick);
-                state.current.selected.record = null;
-                state.current.selected.field = null;
+                current.selected.record = null;
+                current.selected.field = null;
               });
             if (element === "left")
               clicked(() => {
-                if (state.current.edit.cursor > 0) state.current.edit.cursor--;
+                if (current.edit.cursor > 0) current.edit.cursor--;
               });
             if (element === "right")
               clicked(() => {
-                if (state.current.edit.cursor < state.current.edit.value.length)
-                  state.current.edit.cursor++;
+                if (current.edit.cursor < current.edit.value.length)
+                  current.edit.cursor++;
               });
             mouseDown(() => {
               console.log("mousedown");
