@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { State } from "../state";
+import { useState } from "../state";
 import { useProjectData } from "../../__shared/stores/useProjectData";
 import { useCurrent } from "../../__shared/stores/useCurrent";
 import { RecordBase } from "../../__shared/helpers/data-interfaces";
@@ -11,7 +11,7 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   components: { Wall: _Wall },
   setup() {
-    const state = exposed<State>();
+    const state = useState();
     const router = useRouter();
     const projectData = useProjectData();
     const current = useCurrent();

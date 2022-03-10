@@ -1,11 +1,11 @@
 import { expose, exposed } from "@jodolrui/glue";
 import { RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
-import { State } from "../state";
+import { useState } from "../state";
 import { useCurrent } from "../../__shared/stores/useCurrent";
 
 export default function setup() {
-  const state = exposed<State>();
+  const state = useState();
   const current = useCurrent();
 
   state.format = {

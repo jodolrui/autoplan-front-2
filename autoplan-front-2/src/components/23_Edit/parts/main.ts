@@ -8,7 +8,7 @@ import {
   onUpdated,
 } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { State } from "../state";
+import { useState } from "../state";
 //! mantener independiente de currentStore y de wallbrick para poder reutilizarlo
 
 export default defineComponent({
@@ -18,7 +18,7 @@ export default defineComponent({
   },
   emits: ["updated"],
   setup(props, context) {
-    const state = exposed<State>();
+    const state = useState();
     state.value = ref(props.value);
     state.cursor = ref(props.cursor);
     state.position = ref(0);

@@ -1,9 +1,12 @@
-import { getCurrentInstance, Ref, ComputedRef } from "vue";
+import { defineState } from "../__shared/helpers/defineState";
+import { Ref, ComputedRef } from "vue";
 
-export type State = {
-  chars: ComputedRef<string[]>;
-  value: Ref<string>;
-  cursor: Ref<number>;
-  position: Ref<number>;
-  isMovingMouse: Ref<boolean>;
-};
+export function useState() {
+  return defineState<{
+    chars: ComputedRef<string[]>;
+    value: Ref<string>;
+    cursor: Ref<number>;
+    position: Ref<number>;
+    isMovingMouse: Ref<boolean>;
+  }>({});
+}

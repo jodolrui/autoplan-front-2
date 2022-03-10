@@ -1,13 +1,13 @@
 import { defineComponent, ref, computed, watch, onMounted } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { State } from "../state";
+import { useState } from "../state";
 import { Brick } from "../../wallbrick";
 
 export default defineComponent({
   props: { config: { type: Object, required: true } },
   emits: ["updated"],
   setup(props, context) {
-    const state = exposed<State>();
+    const state = useState();
     state.config = props.config as Brick;
     state.classes = computed(() => Object.fromEntries(state.config.classes));
     state.style = computed(() => Object.fromEntries(state.config.style));

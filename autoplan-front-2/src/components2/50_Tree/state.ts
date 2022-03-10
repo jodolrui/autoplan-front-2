@@ -1,3 +1,5 @@
-import { getCurrentInstance } from "vue";
+import { defineState } from "../../components/__shared/helpers/defineState";
 
-export type State = {};
+export function useState() {
+  return defineState<{}>({});
+}
