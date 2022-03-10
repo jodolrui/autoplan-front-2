@@ -21,9 +21,7 @@ export function useState() {
     >;
     keyboardPulse: Ref<number>;
   }>({
-    navbar: {} as Wall,
     navbarPulse: ref(0),
-    current: {} as any,
     keyboardPulse: ref(0),
   });
 }

@@ -9,7 +9,6 @@ export default defineComponent({
   setup() {
     const current = useCurrent();
     const state = useState();
-    state.symbolsPulse = ref(0);
 
     const keys = [
       ["$", "€", "¥", "¢", "©", "®", "#", "£", "~", "¿"],

@@ -9,10 +9,6 @@ export default defineComponent({
   setup() {
     const current = useCurrent();
     const state = useState();
-    state.lettersPulse = ref(0);
-    state.acuteAccent = ref(false);
-    state.graveAccent = ref(false);
-    state.dieresis = ref(false);
 
     // const keys = [
     //   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "ç", "`"],

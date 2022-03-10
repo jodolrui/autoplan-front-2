@@ -25,7 +25,6 @@ export default defineComponent({
     state.chars = computed(() =>
       state.value.value ? state.value.value.split("") : [],
     );
-    state.isMovingMouse = ref(false);
 
     watch(
       () => state.value.value,

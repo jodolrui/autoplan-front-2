@@ -9,7 +9,6 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const state = useState();
-    state.controlPulse = ref(0);
     state.control = useWall("control");
 
     const { create, design, after, build } = createBuilder<Wall>();

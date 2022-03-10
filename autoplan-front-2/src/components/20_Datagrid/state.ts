@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref, ComputedRef } from "vue";
+import { Ref, ComputedRef, ref } from "vue";
 import { Wall } from "../../wallbrick/wallbrick";
 import {
   UseCurrentState,
@@ -21,5 +21,7 @@ export function useState() {
     designKey: ComputedRef<string | undefined>;
     goTo: (id: string) => void;
     designPulse: Ref<number>;
-  }>({});
+  }>({
+    designPulse: ref(0),
+  });
 }

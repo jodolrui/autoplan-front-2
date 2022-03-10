@@ -10,7 +10,6 @@ export default defineComponent({
   components: { Edit },
   setup() {
     const state = useState();
-    state.editPulse = ref(0);
     //* si desde el componente Edit se movió el cursor
     state.onEditUpdated = (cursor: number) => {
       state.current.edit.cursor = cursor;

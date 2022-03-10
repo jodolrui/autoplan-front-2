@@ -8,8 +8,6 @@ import { createBuilder } from "../../__shared/helpers/builder";
 export default defineComponent({
   setup() {
     const state = useState();
-    // state.current = useCurrent();
-    state.navbarPulse = ref(0);
     state.navbar = useWall("navbar");
 
     const { create, design, after, build } = createBuilder<Wall>();

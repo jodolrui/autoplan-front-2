@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref, ComputedRef } from "vue";
+import { Ref, ComputedRef, ref } from "vue";
 import {
   Format,
   Field,
@@ -32,5 +32,9 @@ export function useState() {
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
     onEditUpdated: (cursor: number) => void;
-  }>({});
+  }>({
+    tablePulse: ref(0),
+    controlPulse: ref(0),
+    editPulse: ref(0),
+  });
 }

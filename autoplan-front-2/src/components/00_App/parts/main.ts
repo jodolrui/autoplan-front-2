@@ -11,14 +11,9 @@ import { useState } from "../state";
 export default defineComponent({
   components: { Wall, Id, Keyboard },
   setup() {
-    // const state = useState();
     const state = useState();
+    state.current = useCurrent();
     const projectData = useProjectData();
     projectData.setData(sampleData);
-    console.log(state.current);
-
-    state.current = useCurrent();
-    console.log(state.current);
-    state.keyboardPulse = ref(0);
   },
 });

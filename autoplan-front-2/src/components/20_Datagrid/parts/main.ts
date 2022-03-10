@@ -15,6 +15,5 @@ export default defineComponent({
     state.designKey = computed(() => {
       return state.current.record?.__designKey;
     });
-    state.designPulse = ref(0);
   },
 });

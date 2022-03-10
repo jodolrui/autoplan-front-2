@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref } from "vue";
+import { Ref, ref } from "vue";
 import {
   UseCurrentState,
   UseCurrentGetters,
@@ -28,5 +28,7 @@ export function useState() {
     records: Ref<RecordBase[] | null>;
     control: Wall;
     recordPulse: Ref<number>;
-  }>({});
+  }>({
+    recordPulse: ref(0),
+  });
 }

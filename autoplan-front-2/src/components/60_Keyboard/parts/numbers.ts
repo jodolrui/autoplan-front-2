@@ -9,7 +9,6 @@ export default defineComponent({
   setup() {
     const current = useCurrent();
     const state = useState();
-    state.numbersPulse = ref(0);
 
     const keys = [
       ["#", "€", "&", "_", "-", "1", "2", "3", "?", "*"],

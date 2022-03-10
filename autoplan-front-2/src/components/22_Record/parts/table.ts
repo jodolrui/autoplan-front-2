@@ -11,7 +11,6 @@ export default defineComponent({
   setup(props, context) {
     const state = useState();
     const current = useCurrent();
-    state.tablePulse = ref(0);
     //* transmitimos el pulse hacia atrás
     //! si no pasamos el pulse hacia atrás el edit-box no responde
     //! pero si lo dejo monta toda la tabla con cada nueva selección

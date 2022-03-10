@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref, ComputedRef } from "vue";
+import { Ref, ComputedRef, ref, computed } from "vue";
 import { Wall } from "../../wallbrick/wallbrick";
 import { RecordBase } from "../__shared/interfaces/dataInterfaces";
 import {
@@ -11,7 +11,6 @@ import { Store } from "pinia";
 
 export function useState() {
   return defineState<{
-    navbar: Wall;
     breadcrumbsPulse: Ref<number>;
     breadcrumbs: Wall;
     current: Store<
@@ -22,5 +21,7 @@ export function useState() {
     >;
     designKey: ComputedRef<string | undefined>;
     goTo: (id: string) => void;
-  }>({});
+  }>({
+    breadcrumbsPulse: ref(0),
+  });
 }

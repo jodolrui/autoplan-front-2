@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref, ComputedRef } from "vue";
+import { Ref, ComputedRef, ref } from "vue";
 
 export function useState() {
   return defineState<{
@@ -8,5 +8,7 @@ export function useState() {
     cursor: Ref<number>;
     position: Ref<number>;
     isMovingMouse: Ref<boolean>;
-  }>({});
+  }>({
+    isMovingMouse: ref(false),
+  });
 }

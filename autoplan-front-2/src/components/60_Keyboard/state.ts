@@ -1,5 +1,5 @@
 import { defineState } from "../__shared/helpers/defineState";
-import { Ref } from "vue";
+import { Ref, ref } from "vue";
 import { Wall } from "../../wallbrick/wallbrick";
 import { Store } from "pinia";
 import {
@@ -29,7 +29,17 @@ export function useState() {
       UseCurrentGetters,
       UseCurrentActions
     >;
-    pulse: Ref<number>;
-    editCharClick: (position: number) => void;
-  }>({});
+  }>({
+    letters: [],
+    lettersPulse: ref(0),
+    acuteAccent: ref(false),
+    graveAccent: ref(false),
+    dieresis: ref(false),
+    numbers: [],
+    numbersPulse: ref(0),
+    symbols: [],
+    symbolsPulse: ref(0),
+    shift: ref(false),
+    panel: ref("letters"),
+  });
 }
