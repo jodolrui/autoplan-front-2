@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useState } from "../state";
+import { State } from "../state";
 import { useProjectData } from "../../../stores/useProjectData";
 import { useCurrent } from "../../../stores/useCurrent";
 import { RecordBase } from "../../../helpers/data-interfaces";
@@ -12,7 +12,7 @@ export default defineComponent({
   components: { Wall: _Wall },
   emits: ["updated"],
   setup() {
-    const state = useState();
+    const state = exposed<State>();
     state.edit = {} as any;
     state.letters = [];
     state.numbers = [];

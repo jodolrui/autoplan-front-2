@@ -2,13 +2,13 @@ import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
-import { useState } from "../state";
+import { State } from "../state";
 import { useCurrent } from "../../../stores/useCurrent";
 import { useProjectData } from "../../../stores/useProjectData";
 // const projectData = useProjectData();
 
 export default function setup() {
-  const state = useState();
+  const state = exposed<State>();
   const current = useCurrent();
 
   state.format = {

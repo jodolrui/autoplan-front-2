@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { useState } from "../state";
+import { State } from "../state";
 import { RecordBase } from "../../../helpers/data-interfaces";
 import { createBuilder } from "../../../helpers/builder";
 import { useRouter } from "vue-router";
@@ -9,7 +9,7 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const state = useState();
+    const state = exposed<State>();
     state.breadcrumbsPulse = ref(0);
     state.breadcrumbs = useWall("breadcrumbs");
 

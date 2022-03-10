@@ -1,12 +1,12 @@
 import { defineComponent, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../wallbrick";
-import { useState } from "../state";
+import { State } from "../state";
 import { createBuilder } from "../../../helpers/builder";
 
 export default defineComponent({
   setup() {
-    const state = useState();
+    const state = exposed<State>();
     state.pulse = ref(0);
     state.test2 = useWall("test2");
 

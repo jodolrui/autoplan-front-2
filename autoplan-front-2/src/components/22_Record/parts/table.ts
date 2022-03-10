@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useState } from "../state";
+import { State } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { Field, RecordBase } from "../../../helpers/data-interfaces";
 import { createBuilder } from "../../../helpers/builder";
@@ -9,7 +9,7 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   emits: ["updated"],
   setup(props, context) {
-    const state = useState();
+    const state = exposed<State>();
     const current = useCurrent();
     state.tablePulse = ref(0);
     //* transmitimos el pulse hacia atrás

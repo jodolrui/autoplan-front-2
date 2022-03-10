@@ -8,7 +8,7 @@ import {
 } from "../../stores/useCurrent";
 import { Store } from "pinia";
 
-export function useState(): {
+export type State = {
   fields: Field[];
   record: RecordBase & {
     [key: string]: { value: any | null; units?: string | null };
@@ -26,6 +26,4 @@ export function useState(): {
   isEditing: ComputedRef<boolean>;
   editPulse: Ref<number>;
   onEditUpdated: (cursor: number) => void;
-} {
-  return getCurrentInstance()?.glueInstance.exposed();
-}
+};

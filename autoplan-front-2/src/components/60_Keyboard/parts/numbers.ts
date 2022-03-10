@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useState } from "../state";
+import { State } from "../state";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
 import { createBuilder } from "../../../helpers/builder";
 import { useCurrent } from "../../../stores/useCurrent";
@@ -8,7 +8,7 @@ import { useCurrent } from "../../../stores/useCurrent";
 export default defineComponent({
   setup() {
     const current = useCurrent();
-    const state = useState();
+    const state = exposed<State>();
     state.numbersPulse = ref(0);
 
     const keys = [

@@ -8,7 +8,7 @@ import {
 } from "../../stores/useCurrent";
 import { Store } from "pinia";
 
-export function useState(): {
+export type State = {
   navbar: Wall;
   breadcrumbsPulse: Ref<number>;
   breadcrumbs: Wall;
@@ -20,6 +20,4 @@ export function useState(): {
   >;
   designKey: ComputedRef<string | undefined>;
   goTo: (id: string) => void;
-} {
-  return getCurrentInstance()?.glueInstance.exposed();
-}
+};

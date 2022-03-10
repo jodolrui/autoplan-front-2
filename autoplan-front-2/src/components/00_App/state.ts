@@ -7,7 +7,7 @@ import {
 } from "../../stores/useCurrent";
 import { Store } from "pinia";
 
-export function useState(): {
+export type State = {
   navbar: Wall;
   navbarPulse: Ref<number>;
   current: Store<
@@ -17,6 +17,4 @@ export function useState(): {
     UseCurrentActions
   >;
   keyboardPulse: Ref<number>;
-} {
-  return getCurrentInstance()?.glueInstance.exposed();
-}
+};

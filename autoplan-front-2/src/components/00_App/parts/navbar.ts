@@ -1,12 +1,12 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
-import { useState } from "../state";
+import { State } from "../state";
 import { createBuilder } from "../../../helpers/builder";
 
 export default defineComponent({
   setup() {
-    const state = useState();
+    const state = exposed<State>();
     state.navbarPulse = ref(0);
     state.navbar = useWall("navbar");
 

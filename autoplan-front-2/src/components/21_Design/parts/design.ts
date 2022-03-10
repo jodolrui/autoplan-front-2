@@ -1,6 +1,6 @@
 import { defineComponent, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { useState } from "../state";
+import { State } from "../state";
 
 import root from "../setups/root";
 import site from "../setups/site";
@@ -16,7 +16,7 @@ import elevator from "../setups/elevator";
 
 export default defineComponent({
   setup() {
-    const state = useState();
+    const state = exposed<State>();
 
     if (state.designKey.value) {
       if (state.designKey.value === "root") site();

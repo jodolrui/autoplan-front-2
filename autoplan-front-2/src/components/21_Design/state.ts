@@ -8,7 +8,7 @@ import { Format, Field, RecordBase } from "../../helpers/data-interfaces";
 import { Store } from "pinia";
 import { Wall } from "../../helpers/wall-brick";
 
-export function useState(): {
+export type State = {
   designKey: Ref<string>;
   current: Store<
     "current",
@@ -22,6 +22,4 @@ export function useState(): {
   records: Ref<RecordBase[] | null>;
   control: Wall;
   recordPulse: Ref<number>;
-} {
-  return getCurrentInstance()?.glueInstance.exposed();
-}
+};

@@ -1,7 +1,7 @@
 import { defineComponent, Ref, ref, watch, computed, ComputedRef } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Field, RecordBase } from "../../../helpers/data-interfaces";
-import { useState } from "../state";
+import { State } from "../state";
 import { useCurrent } from "../../../stores/useCurrent";
 import _Wall from "../../../wallbrick/Wall/index.vue";
 import Edit from "../../23_Edit/index.vue";
@@ -9,7 +9,7 @@ import Edit from "../../23_Edit/index.vue";
 export default defineComponent({
   components: { Edit },
   setup() {
-    const state = useState();
+    const state = exposed<State>();
     state.editPulse = ref(0);
     //* si desde el componente Edit se movió el cursor
     state.onEditUpdated = (cursor: number) => {

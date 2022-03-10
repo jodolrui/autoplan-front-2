@@ -7,7 +7,7 @@ import {
   UseCurrentActions,
 } from "../../stores/useCurrent";
 
-export function useState(): {
+export type State = {
   edit: Wall;
   editPulse: Ref<number>;
   letters: Wall[];
@@ -29,6 +29,4 @@ export function useState(): {
   >;
   pulse: Ref<number>;
   editCharClick: (position: number) => void;
-} {
-  return getCurrentInstance()?.glueInstance.exposed();
-}
+};
