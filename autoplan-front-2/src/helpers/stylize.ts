@@ -14,7 +14,7 @@ function kebabize(str: string) {
     .join("");
 }
 
-export function composeClass(obj: { [key: string]: any }): {
+export function classize(obj: { [key: string]: any }): {
   [key: string]: any;
 } {
   let result: any = {};
@@ -29,7 +29,7 @@ export function composeClass(obj: { [key: string]: any }): {
   return result;
 }
 
-export function composeStyle(obj: { [key: string]: any }): {
+export function stylize(obj: { [key: string]: any }): {
   [key: string]: any;
 } {
   let result: any = {};

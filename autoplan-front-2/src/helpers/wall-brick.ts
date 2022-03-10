@@ -1,6 +1,6 @@
 import { Ref, ref, reactive, watch } from "vue";
 import _ from "lodash";
-import { spread } from "./composeStyle";
+import { spread } from "./stylize";
 
 export type BrickConfig = {
   code?: string;
