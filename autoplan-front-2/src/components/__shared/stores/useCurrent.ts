@@ -2,7 +2,7 @@ import { defineStore, Store } from "pinia";
 import { watch } from "vue";
 import { RecordBase } from "../interfaces/dataInterfaces";
 import { Field } from "../interfaces/dataInterfaces";
-import { Brick } from "../../../wallbrick/wallbrick";
+import { Brick } from "../modules/wallbrick/wallbrick";
 import {
   useProjectData,
   UseProjectDataState,

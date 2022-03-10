@@ -3,10 +3,10 @@ import { expose, exposed } from "@jodolrui/glue";
 import { Field, RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { useState } from "../state";
 import { useCurrent } from "../../__shared/stores/useCurrent";
-import _Wall from "../../../wallbrick/Wall/index.vue";
+import Wall from "../../__shared/modules/wallbrick/Wall/index.vue";
 
 export default defineComponent({
-  components: { Wall: _Wall },
+  components: { Wall },
   props: {
     fields: { type: Array, required: true },
     record: { type: Object, required: true },

@@ -1,4 +1,4 @@
-import { defineState } from "../../components/__shared/helpers/defineState";
+import { defineState } from "../../../helpers/defineState";
 import { ComputedRef, Ref } from "vue";
 import { Wall, Brick } from "../wallbrick";
 

@@ -11,7 +11,7 @@ import {
   RecordBase,
 } from "../__shared/interfaces/dataInterfaces";
 import { Store } from "pinia";
-import { Wall } from "../../wallbrick/wallbrick";
+import { Wall } from "../__shared/modules/wallbrick/wallbrick";
 
 export function useState() {
   return defineState<{

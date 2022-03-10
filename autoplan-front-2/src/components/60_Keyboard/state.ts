@@ -1,6 +1,6 @@
 import { defineState } from "../__shared/helpers/defineState";
 import { Ref, ref } from "vue";
-import { Wall } from "../../wallbrick/wallbrick";
+import { Wall } from "../__shared/modules/wallbrick/wallbrick";
 import { Store } from "pinia";
 import {
   UseCurrentState,

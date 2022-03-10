@@ -1,6 +1,11 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
+import {
+  Brick,
+  Wall,
+  useWall,
+  useBrick,
+} from "../../__shared/modules/wallbrick/wallbrick";
 import { useState } from "../state";
 import { createBuilder } from "../../__shared/helpers/builder";
 import { useRouter } from "vue-router";

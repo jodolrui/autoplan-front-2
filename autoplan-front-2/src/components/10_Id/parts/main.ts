@@ -3,7 +3,7 @@ import { expose, exposed } from "@jodolrui/glue";
 import { useRoute } from "vue-router";
 import { useState } from "../state";
 import Datagrid from "../../20_Datagrid/index.vue";
-import Wall from "../../../wallbrick/Wall/index.vue";
+import Wall from "../../__shared/modules/wallbrick/Wall/index.vue";
 import { useCurrent } from "../../__shared/stores/useCurrent";
 export default defineComponent({
   components: { Wall, Datagrid },

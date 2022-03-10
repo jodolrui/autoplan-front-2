@@ -1,15 +1,10 @@
 import { defineComponent, ref, computed, watch, reactive, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-import { useProjectData } from "../../__shared/stores/useProjectData";
-import { useCurrent } from "../../__shared/stores/useCurrent";
-import { RecordBase } from "../../__shared/interfaces/dataInterfaces";
-import { Wall } from "../../../wallbrick/wallbrick";
-import _Wall from "../../../wallbrick/Wall/index.vue";
-import { useRouter } from "vue-router";
+import Wall from "../../__shared/modules/wallbrick/Wall/index.vue";
 
 export default defineComponent({
-  components: { Wall: _Wall },
+  components: { Wall },
   emits: ["updated"],
   setup() {
     const state = useState();

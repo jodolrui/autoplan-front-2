@@ -5,7 +5,7 @@ import {
   Field,
   RecordBase,
 } from "../__shared/interfaces/dataInterfaces";
-import { Wall } from "../../wallbrick/wallbrick";
+import { Wall } from "../__shared/modules/wallbrick/wallbrick";
 import {
   UseCurrentState,
   UseCurrentGetters,

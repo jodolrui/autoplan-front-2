@@ -1,6 +1,6 @@
 import { defineState } from "../__shared/helpers/defineState";
 import { Ref, ComputedRef, ref, computed } from "vue";
-import { Wall } from "../../wallbrick/wallbrick";
+import { Wall } from "../__shared/modules/wallbrick/wallbrick";
 
 export function useState() {
   return defineState<{

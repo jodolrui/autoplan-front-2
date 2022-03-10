@@ -4,7 +4,6 @@ import { useRoute } from "vue-router";
 import { useState } from "../state";
 import Design from "../../21_Design/index.vue";
 import { useCurrent } from "../../__shared/stores/useCurrent";
-import { Brick, Wall } from "../../../wallbrick/wallbrick";
 export default defineComponent({
   components: { Design },
   setup() {

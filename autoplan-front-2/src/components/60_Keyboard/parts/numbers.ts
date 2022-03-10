@@ -1,7 +1,12 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-import { Brick, Wall, useWall, useBrick } from "../../../wallbrick/wallbrick";
+import {
+  Brick,
+  Wall,
+  useWall,
+  useBrick,
+} from "../../__shared/modules/wallbrick/wallbrick";
 import { createBuilder } from "../../__shared/helpers/builder";
 import { useCurrent } from "../../__shared/stores/useCurrent";
 
