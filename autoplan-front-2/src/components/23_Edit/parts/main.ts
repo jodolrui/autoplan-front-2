@@ -1,3 +1,5 @@
+//! intenté que Edit leyera directamente de current y me daba problemas de refresco
+//! por eso lo mantengo independiente de current y lo dejo con propiedades y eventos
 import {
   defineComponent,
   Ref,
@@ -9,7 +11,6 @@ import {
 } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-//! mantener independiente de currentStore y de wallbrick para poder reutilizarlo
 
 export default defineComponent({
   props: {
@@ -29,7 +30,6 @@ export default defineComponent({
     watch(
       () => state.value.value,
       () => {
-        //* dispara el evento "updated" devolviendo la posición del cursor
         const editBox = document.getElementById("edit-box");
         if (editBox) {
           editBox.classList.add("editing");

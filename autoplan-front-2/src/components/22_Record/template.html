@@ -1,7 +1,12 @@
 <!--//* Record -->
 <Wall :config="control" :key="controlPulse" @updated="controlPulse++" />
-<Wall :config="table" :key="tablePulse" @updated="tablePulse++" >
+<Wall :config="table" :key="tablePulse" @updated="tablePulse++">
   <template v-slot:edit>
-    <Edit :value="current.edit.value" :cursor="current.edit.cursor"  :key="current.edit.value" />
+    <Edit
+      :value="current.edit.value"
+      :cursor="current.edit.cursor"
+      :key="current.edit.value"
+      @updated="current.edit.cursor=$event"
+      />
   </template>
 </Wall>

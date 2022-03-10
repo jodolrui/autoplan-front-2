@@ -4,9 +4,10 @@ import { Field, RecordBase } from "../../__shared/interfaces/dataInterfaces";
 import { useState } from "../state";
 import { useCurrent } from "../../__shared/stores/useCurrent";
 import Wall from "../../__shared/modules/wallbrick/Wall/index.vue";
+import Edit from "../../23_Edit/index.vue";
 
 export default defineComponent({
-  components: { Wall },
+  components: { Wall, Edit },
   props: {
     fields: { type: Array, required: true },
     record: { type: Object, required: true },

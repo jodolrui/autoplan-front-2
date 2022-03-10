@@ -82,11 +82,12 @@ export default compose("Edit", [stylize, main]);
   transform: scale(2);
   /* border: 0.5px solid var(--border-color); */
   /* box-shadow: 0px 0px 10px var(--border-color); */
-  background-color: lightgoldenrodyellow !important;
+  /* background-color: lightgoldenrodyellow !important; */
   border: none !important;
   opacity: 0.8;
   /* background-color: var(--active-color); */
   /* animation: open 0.1s ease-in-out 1; */
+  z-index: 1;
 }
 
 @keyframes open {
