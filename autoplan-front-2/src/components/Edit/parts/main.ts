@@ -11,24 +11,26 @@ import {
 } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
+import { useCurrent } from "../../shared/stores/useCurrent";
 
 export default defineComponent({
-  props: {
-    value: { type: String, required: true },
-    cursor: { type: Number, required: true },
-  },
-  emits: ["updated"],
+  // props: {
+  //   value: { type: String, required: true },
+  //   cursor: { type: Number, required: true },
+  // },
+  // emits: ["updated"],
   setup(props, context) {
+    const current = useCurrent();
+    expose({ current });
     const state = useState();
-    state.value = ref(props.value);
-    state.cursor = ref(props.cursor);
-    state.position = ref(0);
+    // state.value = ref(props.value);
+    // state.cursor = ref(props.cursor);
     state.chars = computed(() =>
-      state.value.value ? state.value.value.split("") : [],
+      current.edit.value ? current.edit.value.split("") : [],
     );
 
     watch(
-      () => state.value.value,
+      () => current.edit.value,
       () => {
         const editBox = document.getElementById("edit-box");
         if (editBox) {
@@ -41,10 +43,13 @@ export default defineComponent({
     );
 
     //* si cambiamos la posición del cursor haciendo clic
-    watch(state.cursor, () => {
-      //* dispara el evento "updated" devolviendo la posición del cursor
-      context.emit("updated", state.cursor.value);
-    });
+    watch(
+      () => current.edit.cursor,
+      () => {
+        //* dispara el evento "updated" devolviendo la posición del cursor
+        // context.emit("updated", current.edit.cursor);
+      },
+    );
 
     onMounted(() => {
       let editDiv: HTMLElement | null;
@@ -66,7 +71,7 @@ export default defineComponent({
           position = 0;
         //* si pulsamos por detrás de los caracteres
         else if (lastSpan?.offsetLeft && event.offsetX > lastSpan?.offsetLeft) {
-          position = state.value.value?.length;
+          position = current.edit.value?.length;
         } else {
           //* si pulsamos a la altura de los caracteres
           editDiv?.childNodes.forEach((element: ChildNode, i: number) => {
@@ -85,14 +90,14 @@ export default defineComponent({
         return position;
       }
       editDiv?.addEventListener("click", (event) => {
-        state.cursor.value = getPosition(event);
+        current.edit.cursor = getPosition(event);
       });
 
       //* punto de inserción del ratón
       if (false) {
         editDiv?.addEventListener("click", (event) => {
-          // state.cursor.value = getPosition(event);
-          state.cursor.value = state.position.value;
+          // current.edit.cursor = getPosition(event);
+          current.edit.cursor = state.position.value;
           state.isMovingMouse.value = false;
         });
         editDiv?.addEventListener("mouseover", (event) => {

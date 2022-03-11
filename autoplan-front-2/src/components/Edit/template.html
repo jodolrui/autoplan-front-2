@@ -7,7 +7,7 @@
       :id="`edit-char${i + 1}`"
       :class="classize({
         editChar: true, 
-        cursor: i===cursor, 
+        cursor: i===current.edit.cursor, 
         position: i===position && isMovingMouse 
       })">
       {{char===' ' ? '&nbsp;' : char }}
@@ -16,7 +16,7 @@
       id="cursor-end"
       :class="classize({ 
         cursorEnd: true, 
-        cursor: cursor===chars.length,
+        cursor: current.edit.cursor===chars.length,
         position: position===chars.length && isMovingMouse
       })">
     </span>
