@@ -4,11 +4,8 @@ import { Wall } from "../shared/modules/wallbrick/wallbrick";
 
 export function useState() {
   return defineState<{
-    breadcrumbsPulse: Ref<number>;
     breadcrumbs: Wall;
     designKey: ComputedRef<string | undefined>;
     goTo: (id: string) => void;
-  }>({
-    breadcrumbsPulse: ref(0),
-  });
+  }>({});
 }

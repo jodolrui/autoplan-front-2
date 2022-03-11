@@ -7,8 +7,5 @@ export function useState() {
     navbar: Wall;
     breadcrumbs: Wall;
     designKey: ComputedRef<string | undefined>;
-    designPulse: Ref<number>;
-  }>({
-    designPulse: ref(0),
-  });
+  }>({});
 }

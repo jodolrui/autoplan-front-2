@@ -10,14 +10,9 @@ import {
 
 export function useState() {
   return defineState<{
-    edit: Wall;
-    editPulse: Ref<number>;
     letters: Wall[];
-    lettersPulse: Ref<number>;
     numbers: Wall[];
-    numbersPulse: Ref<number>;
     symbols: Wall[];
-    symbolsPulse: Ref<number>;
     shift: Ref<boolean>;
     acuteAccent: Ref<boolean>;
     graveAccent: Ref<boolean>;
@@ -25,14 +20,11 @@ export function useState() {
     panel: Ref<"letters" | "numbers" | "symbols">;
   }>({
     letters: [],
-    lettersPulse: ref(0),
     acuteAccent: ref(false),
     graveAccent: ref(false),
     dieresis: ref(false),
     numbers: [],
-    numbersPulse: ref(0),
     symbols: [],
-    symbolsPulse: ref(0),
     shift: ref(false),
     panel: ref("letters"),
   });
