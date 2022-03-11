@@ -14,17 +14,10 @@ import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
 
 export default defineComponent({
-  // props: {
-  //   value: { type: String, required: true },
-  //   cursor: { type: Number, required: true },
-  // },
-  // emits: ["updated"],
   setup(props, context) {
     const current = useCurrent();
     expose({ current });
     const state = useState();
-    // state.value = ref(props.value);
-    // state.cursor = ref(props.cursor);
     state.chars = computed(() =>
       current.edit.value ? current.edit.value.split("") : [],
     );
@@ -39,15 +32,6 @@ export default defineComponent({
             editBox.classList.remove("editing");
           }, 10);
         }
-      },
-    );
-
-    //* si cambiamos la posición del cursor haciendo clic
-    watch(
-      () => current.edit.cursor,
-      () => {
-        //* dispara el evento "updated" devolviendo la posición del cursor
-        // context.emit("updated", current.edit.cursor);
       },
     );
 

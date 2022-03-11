@@ -16,7 +16,7 @@ export type Brick = {
   slot: string;
   classes: Collection<string | boolean>;
   style: Collection<string | boolean>;
-  vars: Map<string, any>;
+  vars: Collection<any>;
   setup: (callback: (brick: Brick, wall: Wall) => void) => void;
   __setup: (brick: Brick, wall: Wall) => void;
   clicked: (callback: (brick: Brick, wall: Wall) => void) => void;
@@ -92,7 +92,26 @@ export function useBrick(code?: string): Brick {
       this.keys.splice(position);
     },
   };
-  brick.vars = new Map() as Map<string, any>;
+  brick.vars = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: Object) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
   brick.__setup = () => {};
   brick.setup = (callback: (brick: Brick, wall: Wall) => void) => {
     brick.__setup = (brick: Brick, wall: Wall) => {
