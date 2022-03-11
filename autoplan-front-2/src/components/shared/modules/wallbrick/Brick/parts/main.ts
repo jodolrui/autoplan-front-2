@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, watch, onMounted } from "vue";
+import { defineComponent, ref, computed, watch, onMounted, Ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { Brick } from "../../wallbrick";
@@ -9,27 +9,32 @@ export default defineComponent({
   setup(props, context) {
     const state = useState();
     state.config = props.config as Brick;
-    state.classes = computed(() => Object.fromEntries(state.config.classes));
-    state.style = computed(() => Object.fromEntries(state.config.style));
+    state.classes = computed(() => {
+      const result: { [key: string]: string | boolean } = {};
+      for (let i = 0; i <= state.config.classes.items.length; i++) {
+        result[state.config.classes.keys[i]] = state.config.classes.items[i];
+      }
+      return result;
+    });
+    state.style = computed(() => {
+      const result: { [key: string]: string | boolean } = {};
+      for (let i = 0; i <= state.config.style.items.length; i++) {
+        result[state.config.style.keys[i]] = state.config.style.items[i];
+      }
+      return result;
+    });
     state.clicked = () => {
-      console.log("clicked");
-
       state.config.__clicked(state.config, state.config.__wall);
-      // context.emit("updated"); //! esto hace que el brick se vuelva a montar
     };
     state.mouseDown = () => {
-      // console.log("mouseDown");
-      // state.config.__mouseDown(state.config, state.config.__wall);
-      // context.emit("updated"); //! esto hace que el brick se vuelva a montar
+      state.config.__mouseDown(state.config, state.config.__wall);
     };
     state.mouseUp = () => {
-      // console.log("mouseUp");
-      // state.config.__mouseUp(state.config, state.config.__wall);
-      // context.emit("updated"); //! esto hace que el brick se vuelva a montar
+      state.config.__mouseUp(state.config, state.config.__wall);
     };
 
     onMounted(() => {
-      console.log("brick mounted " + state.config.caption);
+      console.log(state.config.code);
     });
   },
 });

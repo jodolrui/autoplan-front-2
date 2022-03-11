@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, watch } from "vue";
+import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import {
@@ -23,14 +23,14 @@ export default defineComponent({
       context.emit("updated");
     });
 
-    state.table = ref(useWall("table"));
-    const { setup } = state.table.value;
+    state.table = reactive(useWall("table"));
+    const { setup } = state.table;
     setup(() => {
       //* al seleccionarse un campo tenemos que refrescar
       watch(
         () => current.selected.field,
         () => {
-          state.table.value.refreshAll();
+          state.table.refreshAll();
           state.tablePulse.value++;
         },
       );
@@ -38,7 +38,7 @@ export default defineComponent({
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => state.table.value);
+    create(() => state.table);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -109,6 +109,7 @@ export default defineComponent({
             }
           });
           clicked(() => {
+            brick.style.set("background-color", "var(--active-color)");
             current.setSelected(vars.get("record"), vars.get("field"));
             current.keyboardOn = true;
           });

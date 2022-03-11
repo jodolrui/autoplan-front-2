@@ -15,7 +15,7 @@ export function useState() {
     record: RecordBase & {
       [key: string]: { value: any | null; units?: string | null };
     };
-    table: Ref<Wall>;
+    table: Wall;
     tablePulse: Ref<number>;
     control: Wall;
     controlPulse: Ref<number>;

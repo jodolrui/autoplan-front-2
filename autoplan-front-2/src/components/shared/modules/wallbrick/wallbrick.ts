@@ -1,13 +1,21 @@
 import { Ref, ref, reactive, watch } from "vue";
-import _ from "lodash";
+
+export type Collection<T> = {
+  items: T[];
+  keys: string[];
+  set: (key: string, obj: T) => void;
+  get: (key: string) => T;
+  has: (key: string) => boolean;
+  delete: (key: string) => void;
+};
 
 export type Brick = {
   code: string;
   caption: string;
   icon: string;
   slot: string;
-  classes: Map<string, boolean | string>;
-  style: Map<string, boolean | string>;
+  classes: Collection<string | boolean>;
+  style: Collection<string | boolean>;
   vars: Map<string, any>;
   setup: (callback: (brick: Brick, wall: Wall) => void) => void;
   __setup: (brick: Brick, wall: Wall) => void;
@@ -25,10 +33,11 @@ export type Brick = {
 };
 
 export type Wall = {
+  pulse: number;
   name: string;
-  classes: Map<string, boolean | string>;
-  style: Map<string, boolean | string>;
-  bricks: Map<string, Brick>;
+  classes: Collection<string | boolean>;
+  style: Collection<string | boolean>;
+  bricks: Collection<Brick>;
   setup: (callback: (wall: Wall) => void) => void;
   __setup: (wall: Wall) => void;
   updated: (callback: (wall: Wall) => void) => void;
@@ -43,8 +52,46 @@ const bricks: Brick[] = [];
 export function useBrick(code?: string): Brick {
   const brick: Brick = {} as any;
   if (code) brick.code = code;
-  brick.classes = new Map() as Map<string, boolean | string>;
-  brick.style = new Map() as Map<string, boolean | string>;
+  brick.classes = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: string | boolean) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
+  brick.style = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: string | boolean) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
   brick.vars = new Map() as Map<string, any>;
   brick.__setup = () => {};
   brick.setup = (callback: (brick: Brick, wall: Wall) => void) => {
@@ -92,15 +139,6 @@ export function useBrick(code?: string): Brick {
   brick.refresh = () => {
     brick.__updated(brick, brick.__wall);
   };
-  // bricks.push(brick);
-  //* _.cloneDeep(brick) reacciona a cualquier cambio en todo el objeto brick
-  // watch(
-  //   () => _.cloneDeep(brick),
-  //   () => {
-  //     alert("brick watched");
-  //     // if (brick.__refresh) brick.__refresh();
-  //   },
-  // );
   return brick;
 }
 
@@ -108,10 +146,68 @@ const walls: Wall[] = [];
 
 export function useWall(name: string): Wall {
   const wall: Wall = {} as any;
+  wall.pulse = 0;
   if (name) wall.name = name;
-  wall.classes = new Map() as Map<string, boolean | string>;
-  wall.style = new Map() as Map<string, boolean | string>;
-  wall.bricks = new Map() as Map<string, Brick>;
+  wall.classes = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: string | boolean) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
+  wall.style = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: string | boolean) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
+  wall.bricks = {
+    items: reactive([]),
+    keys: [],
+    set: function (key: string, item: Brick) {
+      this.items.push(item);
+      this.keys.push(key);
+    },
+    get: function (key: string) {
+      const position = this.keys.indexOf(key);
+      return this.items[position];
+    },
+    has: function (key: string) {
+      return this.keys.indexOf(key) >= 0;
+    },
+    delete: function (key: string) {
+      const position = this.keys.indexOf(key);
+      this.items.splice(position);
+      this.keys.splice(position);
+    },
+  };
   wall.__setup = () => {};
   wall.setup = (callback: (wall: Wall) => void) => {
     wall.__setup = (wall: Wall) => {
@@ -127,7 +223,7 @@ export function useWall(name: string): Wall {
   wall.mount = () => {
     wall.__setup(wall);
     wall.__updated(wall);
-    wall.bricks.forEach((brick: Brick) => {
+    wall.bricks.items.forEach((brick: Brick) => {
       brick.__updated(brick, wall);
     });
   };
@@ -136,18 +232,9 @@ export function useWall(name: string): Wall {
   };
   wall.refreshAll = () => {
     wall.__updated(wall);
-    wall.bricks.forEach((brick: Brick) => {
+    wall.bricks.items.forEach((brick: Brick) => {
       brick.__updated(brick, wall);
     });
   };
-  // walls.push(wall);
-  //* _.cloneDeep(wall) reacciona a cualquier cambio en todo el objeto wall
-  // watch(
-  //   () => _.cloneDeep(wall),
-  //   () => {
-  //     alert("wall watched");
-  //     // if (wall.__refresh) wall.__refresh();
-  //   },
-  // );
   return wall;
 }

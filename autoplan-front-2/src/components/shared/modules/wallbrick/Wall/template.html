@@ -1,11 +1,11 @@
 <!--//* Wall -->
 <div :class="classes" :style="style">
-  <template v-for="(brick, i) in bricks" :key="brick.code">
+  <template v-for="(brick, i) in config.bricks.items" :key="brick.code">
     <template v-if="brick.slot">
       <slot :name="brick.slot"></slot>
     </template>
     <template v-else>
-      <Brick :config="brick"/>  
+      <Brick :config="brick" />
     </template>
   </template>
 </div>

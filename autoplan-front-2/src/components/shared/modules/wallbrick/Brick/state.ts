@@ -1,5 +1,5 @@
 import { defineState } from "../../../helpers/defineState";
-import { ComputedRef } from "vue";
+import { ComputedRef, Ref } from "vue";
 import { Brick } from "../wallbrick";
 
 export function useState() {

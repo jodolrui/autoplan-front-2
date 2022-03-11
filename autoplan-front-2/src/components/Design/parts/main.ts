@@ -16,7 +16,7 @@ export default defineComponent({
     state.designKey = ref(props.designKey);
     state.recordPulse = ref(0);
     watch(state.recordPulse, () => {
-      context.emit("updated");
+      // context.emit("updated");
     });
 
     const collapse: Object = props.collapse
