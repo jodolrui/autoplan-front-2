@@ -88,6 +88,14 @@ export default defineComponent({
             current.selected.field?.key === field.key
               ? "edit"
               : "";
+          // brick.type = "Edit";
+          //! con html no consigo que funcione el evento click
+          // brick.html = `<button
+          // id="${brick.code}"
+          // class="field ${i === 0 ? "field-first" : ""}"
+          // style="width: 100%;" @click="clicked($event)">
+          //   ${brick.caption}
+          // </button>`;
           const { classes, style, clicked, vars, updated, setup } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
