@@ -11,8 +11,13 @@
       style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 1px solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
       <button class="btn">û</button>
     </div> -->
+    
+    <!-- <component :is="config.type" :class="classes">
+      <slot></slot>
+    </component> -->
     <!-- //! he metido aquí un "width: 100%" -->
     <button
+      v-if="!config.html"
       :id="config.code"
       :class="classes"
       :style="style"
@@ -24,5 +29,6 @@
         <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
       </div>
     </button>
+    <div v-if="config.html" v-html="config.html"></div>
   </div>
 </template>

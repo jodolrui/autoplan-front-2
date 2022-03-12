@@ -14,6 +14,7 @@ export type Brick = {
   caption: string;
   icon: string;
   slot: string;
+  html: string;
   classes: Collection<string | boolean>;
   style: Collection<string | boolean>;
   vars: Collection<any>;
@@ -52,6 +53,11 @@ const bricks: Brick[] = [];
 export function useBrick(code?: string): Brick {
   const brick: Brick = {} as any;
   if (code) brick.code = code;
+  else brick.code = "";
+  brick.caption = "";
+  brick.icon = "";
+  brick.slot = "";
+  brick.html = "";
   brick.classes = {
     items: reactive([]),
     keys: [],
