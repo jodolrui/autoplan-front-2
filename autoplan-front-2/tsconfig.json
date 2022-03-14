@@ -9,7 +9,12 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    //! añadí esto para ver si funcionaba la arroba @
+    // "baseUrl": "src",
+    // "paths": {
+    //   "@/*": ["./*"]
+    // }
   },
   //! elimino de typescript los archivos *.vue
   // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]

@@ -6,27 +6,25 @@
   <!-- //! necesito un div "relative" para que funcione el "absolute" del tooltip -->
   <div style="position: relative">
     <!-- //! aquí puedo poner un div "absolute" para hacer un tooltip popup -->
-    <!-- <div
-      v-if="config.code==='u'"
-      style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 1px solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
-      <button class="btn">û</button>
-    </div> -->
-    
-    <!-- <component :is="config.type" :class="classes">
-      <slot></slot>
-    </component> -->
+    <template v-if="dynamicComponent">
+      <!-- <component :is="dynamicComponent" style="width: 100%; height: 100%;" :config="config" :class="classes" :style="style" @click="clicked($event)" /> -->
+      <component :is="dynamicComponent" style="width: 100%; height: 100%;" :config="config" :class="classes" :style="style" />
+    </template>
     <!-- //! he metido aquí un "width: 100%" -->
     <button
-      v-if="!config.html"
+      v-if="!dynamicComponent"
       :id="config.code"
       :class="classes"
       :style="style"
       style="width: 100%"
-      @click="clicked($event)">
+      @click="clicked($event)"
+      @mousedown="mouseDown($event)"
+      @mouseup="mouseUp($event)">
       <div>
         <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
       </div>
     </button>
-    <div v-if="config.html" v-html="config.html"></div>
+    <!-- //! para inyectar html directamente -->
+    <!-- <div v-if="config.html" v-html="config.html"></div> -->
   </div>
 </template>

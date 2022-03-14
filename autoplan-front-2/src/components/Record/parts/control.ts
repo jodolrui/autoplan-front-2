@@ -51,36 +51,31 @@ export default defineComponent({
       design((brick) => {
         brick.code = "move-up";
         brick.icon = "fa fa-angle-up";
-        const { clicked } = brick;
       });
 
       design((brick) => {
         brick.code = "move-down";
         brick.icon = "fa fa-angle-down";
-        const { clicked } = brick;
       });
 
       design((brick) => {
         brick.code = "delete";
         brick.icon = "fa fa-trash";
-        const { clicked } = brick;
       });
 
       design((brick) => {
         brick.code = "add";
         brick.icon = "fa fa-plus";
-        const { clicked } = brick;
       });
 
       design((brick) => {
         brick.code = "enter";
         brick.icon = "fa fa-angle-double-right";
-        const { clicked } = brick;
-        clicked(() => {
+        brick.clicked = () => {
           router.push({
             path: `/${state.record?.__id as string}`,
           });
-        });
+        };
       });
 
       build();

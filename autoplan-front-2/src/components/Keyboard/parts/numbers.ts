@@ -70,13 +70,13 @@ export default defineComponent({
             if (element === "symbols") brick.caption = "{@=";
             if (element === "letters") brick.caption = "abc";
             if (element === "enter") brick.icon = "fa fa-check";
-            const { classes, style, clicked } = brick;
+            let { classes, style } = brick;
             classes.set("btn", true);
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            clicked(() => current.sendKey(brick.code, brick.caption));
-            if (element === "symbols") clicked(symbols);
-            if (element === "letters") clicked(letters);
+            brick.clicked = () => current.sendKey(brick.code, brick.caption);
+            if (element === "symbols") brick.clicked = symbols;
+            if (element === "letters") brick.clicked = letters;
           });
         });
 

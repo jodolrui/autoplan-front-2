@@ -24,8 +24,8 @@ export default defineComponent({
     });
 
     state.table = reactive(useWall("table"));
-    const { setup } = state.table;
-    setup(() => {
+    let { setup } = state.table;
+    setup = () => {
       //* al seleccionarse un campo tenemos que refrescar
       watch(
         () => current.selected.field,
@@ -34,7 +34,7 @@ export default defineComponent({
           state.tablePulse.value++;
         },
       );
-    });
+    };
 
     const { create, design, after, build } = createBuilder<Wall>();
 
@@ -65,13 +65,13 @@ export default defineComponent({
           const elementId: string = `${state.record.__id}_${field.key}_label`;
           brick.code = elementId;
           brick.caption = field.label?.caption as string;
-          const { classes, style, clicked, setup } = brick;
+          let { classes, style } = brick;
           classes.set("field-label", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
-          clicked(() => {
+          brick.clicked = () => {
             current.setSelected(null, null);
-          });
+          };
         });
 
         //* value
@@ -88,7 +88,7 @@ export default defineComponent({
             current.selected.field?.key === field.key
               ? "edit"
               : "";
-          // brick.type = "Edit";
+          brick.component = "Test1";
           //! con html no consigo que funcione el evento click
           // brick.html = `<button
           // id="${brick.code}"
@@ -96,13 +96,13 @@ export default defineComponent({
           // style="width: 100%;" @click="clicked($event)">
           //   ${brick.caption}
           // </button>`;
-          const { classes, style, clicked, vars, updated, setup } = brick;
+          let { classes, style, vars } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2`);
           vars.set("record", state.record);
           vars.set("field", field);
-          updated((brick: Brick) => {
+          brick.updated = (brick: Brick) => {
             //* si es el elemento seleccionado
             if (
               current.selectedElement &&
@@ -115,12 +115,12 @@ export default defineComponent({
               if (style.get("background-color") !== "inherit")
                 style.set("background-color", "inherit");
             }
-          });
-          clicked(() => {
+          };
+          brick.clicked = () => {
             brick.style.set("background-color", "var(--active-color)");
             current.setSelected(vars.get("record"), vars.get("field"));
             current.keyboardOn = true;
-          });
+          };
         });
       });
 

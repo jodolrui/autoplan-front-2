@@ -15,251 +15,235 @@ export type Brick = {
   icon: string;
   slot: string;
   html: string;
+  component: string;
   classes: Collection<string | boolean>;
   style: Collection<string | boolean>;
   vars: Collection<any>;
-  setup: (callback: (brick: Brick, wall: Wall) => void) => void;
   __setup: (brick: Brick, wall: Wall) => void;
-  clicked: (callback: (brick: Brick, wall: Wall) => void) => void;
+  setup: (brick: Brick, wall: Wall) => void;
   __clicked: (brick: Brick, wall: Wall) => void;
-  mouseDown: (callback: (brick: Brick, wall: Wall) => void) => void;
-  __mouseDown: (brick: Brick, wall: Wall) => void;
-  mouseUp: (callback: (brick: Brick, wall: Wall) => void) => void;
-  __mouseUp: (brick: Brick, wall: Wall) => void;
-  updated: (callback: (brick: Brick, wall: Wall) => void) => void;
+  clicked: (brick: Brick, wall: Wall) => void;
   __updated: (brick: Brick, wall: Wall) => void;
+  updated: (brick: Brick, wall: Wall) => void;
   mount: (container: Wall | Map<string, Brick>) => void;
-  __wall: Wall;
+  wall: Wall;
   refresh: () => void;
 };
 
 export type Wall = {
-  pulse: number;
   name: string;
   classes: Collection<string | boolean>;
   style: Collection<string | boolean>;
   bricks: Collection<Brick>;
-  setup: (callback: (wall: Wall) => void) => void;
   __setup: (wall: Wall) => void;
-  updated: (callback: (wall: Wall) => void) => void;
+  setup: (wall: Wall) => void;
   __updated: (wall: Wall) => void;
+  updated: (wall: Wall) => void;
   mount: () => void;
   refresh: () => void;
   refreshAll: () => void;
 };
 
-const bricks: Brick[] = [];
-
 export function useBrick(code?: string): Brick {
-  const brick: Brick = {} as any;
-  if (code) brick.code = code;
-  else brick.code = "";
-  brick.caption = "";
-  brick.icon = "";
-  brick.slot = "";
-  brick.html = "";
-  brick.classes = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: string | boolean) {
-      this.items.push(item);
-      this.keys.push(key);
+  const brick: Brick = {
+    code: code ? code : "",
+    caption: "",
+    icon: "",
+    slot: "",
+    html: "",
+    component: "",
+    wall: {} as Wall,
+    classes: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: string | boolean) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    style: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: string | boolean) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
+    vars: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: Object) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
+    __setup: () => {},
+    get setup() {
+      return this.__setup;
     },
-  };
-  brick.style = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: string | boolean) {
-      this.items.push(item);
-      this.keys.push(key);
+    set setup(callback: (brick: Brick, wall: Wall) => void) {
+      this.__setup = callback;
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    __clicked: () => {},
+    get clicked() {
+      return this.__clicked;
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
+    set clicked(callback: (brick: Brick, wall: Wall) => void) {
+      this.__clicked = callback;
     },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
+    __updated: () => {},
+    get updated() {
+      return this.__updated;
     },
-  };
-  brick.vars = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: Object) {
-      this.items.push(item);
-      this.keys.push(key);
+    set updated(callback: (brick: Brick, wall: Wall) => void) {
+      this.__updated = callback;
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    mount: function (container: Wall | Map<string, Brick>) {
+      if ((container as Wall).bricks) {
+        this.wall = container as Wall;
+        this.__setup(brick, container as Wall);
+        (container as Wall).bricks.set(this.code, brick);
+        this.__updated(brick, container as Wall);
+      } else {
+        (container as Map<string, Brick>).set(this.code, brick);
+      }
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
+    refresh: function () {
+      this.updated(brick, this.wall);
     },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
-    },
-  };
-  brick.__setup = () => {};
-  brick.setup = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__setup = (brick: Brick, wall: Wall) => {
-      callback(brick, wall);
-    };
-  };
-  brick.__clicked = () => {};
-  brick.clicked = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__clicked = (brick: Brick, wall: Wall) => {
-      callback(brick, wall);
-      wall.refreshAll();
-    };
-  };
-  brick.__mouseDown = () => {};
-  brick.mouseDown = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__mouseDown = (brick: Brick, wall: Wall) => {
-      callback(brick, wall);
-      wall.refreshAll();
-    };
-  };
-  brick.__mouseUp = () => {};
-  brick.mouseUp = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__mouseUp = (brick: Brick, wall: Wall) => {
-      callback(brick, wall);
-      wall.refreshAll();
-    };
-  };
-  brick.__updated = () => {};
-  brick.updated = (callback: (brick: Brick, wall: Wall) => void) => {
-    brick.__updated = (brick: Brick, wall: Wall) => {
-      callback(brick, wall);
-    };
-  };
-  brick.mount = (container: Wall | Map<string, Brick>) => {
-    if ((container as Wall).bricks) {
-      brick.__wall = container as Wall;
-      brick.__setup(brick, container as Wall);
-      (container as Wall).bricks.set(brick.code, brick);
-      brick.__updated(brick, container as Wall);
-    } else {
-      (container as Map<string, Brick>).set(brick.code, brick);
-    }
-  };
-  brick.refresh = () => {
-    brick.__updated(brick, brick.__wall);
   };
   return brick;
 }
 
-const walls: Wall[] = [];
-
 export function useWall(name: string): Wall {
-  const wall: Wall = {} as any;
-  wall.pulse = 0;
-  if (name) wall.name = name;
-  wall.classes = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: string | boolean) {
-      this.items.push(item);
-      this.keys.push(key);
+  const wall: Wall = {
+    name: name ? name : "",
+    classes: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: string | boolean) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    style: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: string | boolean) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
+    bricks: {
+      items: reactive([]),
+      keys: [],
+      set: function (key: string, item: Brick) {
+        this.items.push(item);
+        this.keys.push(key);
+      },
+      get: function (key: string) {
+        const position = this.keys.indexOf(key);
+        return this.items[position];
+      },
+      has: function (key: string) {
+        return this.keys.indexOf(key) >= 0;
+      },
+      delete: function (key: string) {
+        const position = this.keys.indexOf(key);
+        this.items.splice(position);
+        this.keys.splice(position);
+      },
     },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
+    __setup: () => {},
+    get setup() {
+      return this.__setup;
     },
-  };
-  wall.style = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: string | boolean) {
-      this.items.push(item);
-      this.keys.push(key);
+    set setup(callback: (wall: Wall) => void) {
+      this.__setup = callback;
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    __updated: () => {},
+    get updated() {
+      return this.__updated;
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
+    set updated(callback: (wall: Wall) => void) {
+      this.__updated = callback;
     },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
+    mount: () => {
+      wall.__setup(wall);
+      wall.__updated(wall);
+      wall.bricks.items.forEach((brick: Brick) => {
+        brick.__updated(brick, wall);
+      });
     },
-  };
-  wall.bricks = {
-    items: reactive([]),
-    keys: [],
-    set: function (key: string, item: Brick) {
-      this.items.push(item);
-      this.keys.push(key);
+    refresh: () => {
+      wall.__updated(wall);
     },
-    get: function (key: string) {
-      const position = this.keys.indexOf(key);
-      return this.items[position];
+    refreshAll: () => {
+      wall.__updated(wall);
+      wall.bricks.items.forEach((brick: Brick) => {
+        brick.__updated(brick, wall);
+      });
     },
-    has: function (key: string) {
-      return this.keys.indexOf(key) >= 0;
-    },
-    delete: function (key: string) {
-      const position = this.keys.indexOf(key);
-      this.items.splice(position);
-      this.keys.splice(position);
-    },
-  };
-  wall.__setup = () => {};
-  wall.setup = (callback: (wall: Wall) => void) => {
-    wall.__setup = (wall: Wall) => {
-      callback(wall);
-    };
-  };
-  wall.__updated = () => {};
-  wall.updated = (callback: (wall: Wall) => void) => {
-    wall.__updated = (wall: Wall) => {
-      callback(wall);
-    };
-  };
-  wall.mount = () => {
-    wall.__setup(wall);
-    wall.__updated(wall);
-    wall.bricks.items.forEach((brick: Brick) => {
-      brick.__updated(brick, wall);
-    });
-  };
-  wall.refresh = () => {
-    wall.__updated(wall);
-  };
-  wall.refreshAll = () => {
-    wall.__updated(wall);
-    wall.bricks.items.forEach((brick: Brick) => {
-      brick.__updated(brick, wall);
-    });
   };
   return wall;
 }

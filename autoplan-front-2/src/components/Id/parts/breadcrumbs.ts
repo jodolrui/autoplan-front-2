@@ -17,7 +17,6 @@ export default defineComponent({
     const router = useRouter();
     const state = useState();
     const current = useCurrent();
-    state.breadcrumbsPulse = ref(0);
     state.breadcrumbs = useWall("breadcrumbs");
 
     const { create, design, after, build } = createBuilder<Wall>();
@@ -54,12 +53,11 @@ export default defineComponent({
       design((brick) => {
         brick.code = "root";
         brick.icon = "fas fa-home";
-        const { classes, clicked } = brick;
-        classes.set("btn-square", true);
-        classes.set("rounded-circle", true);
-        clicked(() => {
+        brick.classes.set("btn-square", true);
+        brick.classes.set("rounded-circle", true);
+        brick.clicked = () => {
           router.push({ path: `/${brick.code}` });
-        });
+        };
       });
 
       if (current.path && current.path)
@@ -68,10 +66,9 @@ export default defineComponent({
             design((brick) => {
               brick.code = element.__id;
               brick.caption = element.__breadcrumb;
-              const { clicked } = brick;
-              clicked(() => {
+              brick.clicked = () => {
                 router.push({ path: `/${brick.code}` });
-              });
+              };
             });
         });
 

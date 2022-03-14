@@ -52,37 +52,37 @@ export default defineComponent({
       design((brick) => {
         brick.code = "toggle-keyboard";
         brick.icon = "fa fa-keyboard";
-        const { style, setup, clicked, updated } = brick;
-        clicked(() => {
+        brick.component = "RoundButton";
+        brick.clicked = () => {
           current.keyboardOn = !current.keyboardOn;
-        });
+        };
       });
 
       design((brick) => {
         brick.code = "toggle-dark";
         brick.icon = "fa fa-adjust";
-        const { clicked, updated } = brick;
-        updated(() => {
+        brick.component = "RoundButton";
+        brick.updated = () => {
           var body = document.body;
           brick.classes.set(
             "btn-primary",
             body.classList.contains("dark-mode"),
           );
-        });
-        clicked(() => {
+        };
+        brick.clicked = () => {
           var body = document.body;
           if (body.classList.contains("dark-mode"))
             body.classList.remove("dark-mode");
           else body.classList.add("dark-mode");
           brick.refresh();
-        });
+        };
       });
 
       design((brick) => {
         brick.code = "toggle-fullscreen";
         brick.icon = "fas fa-expand";
-        const { clicked } = brick;
-        clicked(() => {
+        brick.component = "RoundButton";
+        brick.clicked = () => {
           if (document.fullscreen)
             document
               .exitFullscreen()
@@ -100,7 +100,7 @@ export default defineComponent({
                 })
                 .catch((error) => {});
           }
-        });
+        };
       });
 
       build();

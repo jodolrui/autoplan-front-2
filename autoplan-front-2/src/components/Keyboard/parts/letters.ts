@@ -78,12 +78,11 @@ export default defineComponent({
             if (element === "up") brick.icon = "fa fa-caret-up";
             if (element === "down") brick.icon = "fa fa-caret-down";
             if (element === "right") brick.icon = "fa fa-caret-right";
-            const { classes, style, updated, clicked, mouseDown, mouseUp } =
-              brick;
+            let { classes, style } = brick;
             classes.set("btn", true);
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            updated(() => {
+            brick.updated = () => {
               if (brick.caption.length === 1) {
                 if ("aeiou".includes(brick.code)) {
                   brick.caption = "aeiou".charAt("aeiou".indexOf(brick.code));
@@ -118,36 +117,30 @@ export default defineComponent({
                     state.shift.value ? "var(--active-color)" : "inherit",
                   );
               }
-            });
-            clicked(() => {
+            };
+            brick.clicked = () => {
               typeKey(brick);
-            });
-            if (element === "shift") clicked(shift);
-            if (element === "`") clicked(graveAccent);
-            if (element === "´") clicked(acuteAccent);
-            if (element === "¨") clicked(dieresis);
-            if (element === "numbers") clicked(numbers);
+            };
+            if (element === "shift") brick.clicked = shift;
+            if (element === "`") brick.clicked = graveAccent;
+            if (element === "´") brick.clicked = acuteAccent;
+            if (element === "¨") brick.clicked = dieresis;
+            if (element === "numbers") brick.clicked = numbers;
             if (element === "enter")
-              clicked(() => {
+              brick.clicked = () => {
                 typeKey(brick);
                 current.selected.record = null;
                 current.selected.field = null;
-              });
+              };
             if (element === "left")
-              clicked(() => {
+              brick.clicked = () => {
                 if (current.edit.cursor > 0) current.edit.cursor--;
-              });
+              };
             if (element === "right")
-              clicked(() => {
+              brick.clicked = () => {
                 if (current.edit.cursor < current.edit.value.length)
                   current.edit.cursor++;
-              });
-            mouseDown(() => {
-              console.log("mousedown");
-            });
-            mouseUp(() => {
-              console.log("mouseup");
-            });
+              };
           });
         });
 
