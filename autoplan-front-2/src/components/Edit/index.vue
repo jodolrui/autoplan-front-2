@@ -12,6 +12,7 @@ export default compose("Edit", [stylize, main]);
 #edit-box-container {
   position: relative;
   overflow:visible;
+  height: 100%;
 }
 
 #edit-box {

@@ -107,6 +107,7 @@ body {
   padding-top: auto;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
+  padding-top: 9px;
   text-align: center;
   white-space: nowrap;
   cursor: pointer;

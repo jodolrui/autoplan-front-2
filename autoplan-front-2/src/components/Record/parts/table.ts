@@ -70,7 +70,7 @@ export default defineComponent({
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           brick.clicked = () => {
-            current.setSelected(null, null);
+            current.setSelected(null, null, null);
           };
         });
 
@@ -83,38 +83,35 @@ export default defineComponent({
             : `${state.record[field.key].value} ${
                 state.record[field.key].units
               }`;
-          brick.slot =
-            current.selected.record?.__id === state.record.__id &&
-            current.selected.field?.key === field.key
-              ? "edit"
-              : "";
-          // brick.component = "Test1";
-
+          brick.component = "Test1";
           let { classes, style, vars } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2`);
           vars.set("record", state.record);
           vars.set("field", field);
-          brick.updated = (brick: Brick) => {
-            //* si es el elemento seleccionado
-            if (
-              current.selectedElement &&
-              brick.id === current.selectedElement.value.id
-            ) {
-              if (style.get("background-color") !== "var(--active-color)")
-                style.set("background-color", "var(--active-color)");
-            } else {
-              //* si NO es el elemento seleccionado
-              if (style.get("background-color") !== "inherit")
-                style.set("background-color", "inherit");
-            }
+          brick.setup = () => {
+            watch(
+              () => current.selected,
+              () => {
+                if (
+                  current.selected.brick &&
+                  current.selected.brick.id === brick.id
+                ) {
+                  brick.style.set("background-color", "var(--active-color)");
+                  brick.component = "Edit";
+                } else {
+                  brick.style.set("background-color", "var(--bg-color)");
+                  brick.component = "Test1";
+                }
+                //! no he tenido más remedio que añadir un pulse
+                current.pulse++;
+              },
+            );
           };
           brick.clicked = () => {
-            // brick.style.set("background-color", "var(--active-color)");
-            current.setSelected(vars.get("record"), vars.get("field"));
+            current.setSelected(vars.get("record"), vars.get("field"), brick);
             current.keyboardOn = true;
-            brick.component = "Test1";
           };
         });
       });

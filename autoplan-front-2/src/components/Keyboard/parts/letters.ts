@@ -129,8 +129,6 @@ export default defineComponent({
             if (element === "enter")
               brick.clicked = () => {
                 typeKey(brick);
-                current.selected.record = null;
-                current.selected.field = null;
               };
             if (element === "left")
               brick.clicked = () => {

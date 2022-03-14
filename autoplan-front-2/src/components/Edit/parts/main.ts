@@ -22,18 +22,18 @@ export default defineComponent({
       current.edit.value ? current.edit.value.split("") : [],
     );
 
-    watch(
-      () => current.edit.value,
-      () => {
-        const editBox = document.getElementById("edit-box");
-        if (editBox) {
-          editBox.classList.add("editing");
-          setTimeout(() => {
-            editBox.classList.remove("editing");
-          }, 10);
-        }
-      },
-    );
+    // watch(
+    //   () => current.edit.value,
+    //   () => {
+    //     const editBox = document.getElementById("edit-box");
+    //     if (editBox) {
+    //       editBox.classList.add("editing");
+    //       setTimeout(() => {
+    //         editBox.classList.remove("editing");
+    //       }, 10);
+    //     }
+    //   },
+    // );
 
     onMounted(() => {
       let editDiv: HTMLElement | null;

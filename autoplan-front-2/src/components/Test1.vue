@@ -4,12 +4,13 @@ const props = defineProps({
 });
 const config = props.config;
 function clicked() {
-  alert("clicked");
+  config.clicked();
 }
 </script>
 
 <template>
-  <div @click="clicked($event)">
+  <div :class="config.classes.toLiteral()" :style="config.style.toLiteral()" @click="clicked($event)">
     {{ config.caption }}
   </div>
 </template>
+

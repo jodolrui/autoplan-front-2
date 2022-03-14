@@ -18,10 +18,12 @@ export type UseCurrentState = {
   selected: {
     record: RecordBase | null;
     field: Field | null;
+    brick: Brick | null;
   };
   edit: { value: string; cursor: number };
   editing: { pre: string[]; post: string[] };
   keyboardOn: boolean;
+  pulse: number;
 };
 
 export type UseCurrentGetters = {
@@ -34,7 +36,11 @@ export type UseCurrentGetters = {
 export type UseCurrentActions = {
   setId: (routeId: string) => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
-  setSelected: (record: RecordBase | null, field: Field | null) => void;
+  setSelected: (
+    record: RecordBase | null,
+    field: Field | null,
+    brick: Brick | null,
+  ) => void;
   sendKey: (keyCode: string, keyCaption: string) => void;
 };
 
@@ -50,10 +56,11 @@ export const useCurrent = defineStore<
       record: null,
       children: null,
       path: null,
-      selected: { record: null, field: null },
+      selected: { record: null, field: null, brick: null },
       edit: { value: "", cursor: 0 },
       editing: { pre: [], post: [] },
       keyboardOn: false,
+      pulse: 0,
     };
   },
   getters: {
@@ -106,8 +113,12 @@ export const useCurrent = defineStore<
       return found ? found : null;
     },
     //* --> edit
-    setSelected: function (record: RecordBase | null, field: Field | null) {
-      this.selected = { record, field: field as any };
+    setSelected: function (
+      record: RecordBase | null,
+      field: Field | null,
+      brick: Brick | null,
+    ) {
+      this.selected = { record, field: field as any, brick };
       if (record && field) {
         let value: string = (record as any)[field.key].value.toString();
         if ((record as any)[field.key].units)
@@ -165,7 +176,7 @@ export const useCurrent = defineStore<
           (this.selected.record as any)[
             (this.selected.field as Field).key
           ].value = value;
-          this.setSelected(null, null);
+          this.setSelected(null, null, null);
         }
       }
     },
