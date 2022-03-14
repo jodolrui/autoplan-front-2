@@ -7,6 +7,9 @@ export type Collection<T> = {
   get: (key: string) => T;
   has: (key: string) => boolean;
   delete: (key: string) => void;
+  toLiteral: () => {
+    [key: string]: T;
+  };
 };
 
 export type Brick = {
@@ -72,6 +75,13 @@ export function useBrick(code?: string): Brick {
         this.items.splice(position);
         this.keys.splice(position);
       },
+      toLiteral: function () {
+        const result: { [key: string]: string | boolean } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
+      },
     },
     style: {
       items: reactive([]),
@@ -91,6 +101,13 @@ export function useBrick(code?: string): Brick {
         const position = this.keys.indexOf(key);
         this.items.splice(position);
         this.keys.splice(position);
+      },
+      toLiteral: function () {
+        const result: { [key: string]: string | boolean } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
       },
     },
     vars: {
@@ -112,6 +129,13 @@ export function useBrick(code?: string): Brick {
         this.items.splice(position);
         this.keys.splice(position);
       },
+      toLiteral: function () {
+        const result: { [key: string]: string | boolean } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
+      },
     },
     __setup: () => {},
     get setup() {
@@ -120,19 +144,22 @@ export function useBrick(code?: string): Brick {
     set setup(callback: (brick: Brick, wall: Wall) => void) {
       this.__setup = callback;
     },
-    __clicked: () => {},
-    get clicked() {
-      return this.__clicked;
-    },
-    set clicked(callback: (brick: Brick, wall: Wall) => void) {
-      this.__clicked = callback;
-    },
     __updated: () => {},
     get updated() {
       return this.__updated;
     },
     set updated(callback: (brick: Brick, wall: Wall) => void) {
       this.__updated = callback;
+    },
+    __clicked: () => {},
+    get clicked() {
+      return (brick: Brick, wall: Wall) => {
+        this.__clicked(brick, wall);
+        this.updated(brick, wall);
+      };
+    },
+    set clicked(callback: (brick: Brick, wall: Wall) => void) {
+      this.__clicked = callback;
     },
     mount: function (container: Wall | Map<string, Brick>) {
       if ((container as Wall).bricks) {
@@ -173,6 +200,13 @@ export function useWall(name: string): Wall {
         this.items.splice(position);
         this.keys.splice(position);
       },
+      toLiteral: function () {
+        const result: { [key: string]: string | boolean } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
+      },
     },
     style: {
       items: reactive([]),
@@ -193,6 +227,13 @@ export function useWall(name: string): Wall {
         this.items.splice(position);
         this.keys.splice(position);
       },
+      toLiteral: function () {
+        const result: { [key: string]: string | boolean } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
+      },
     },
     bricks: {
       items: reactive([]),
@@ -212,6 +253,13 @@ export function useWall(name: string): Wall {
         const position = this.keys.indexOf(key);
         this.items.splice(position);
         this.keys.splice(position);
+      },
+      toLiteral: function () {
+        const result: { [key: string]: Brick } = {};
+        for (let i = 0; i <= this.items.length; i++) {
+          result[this.keys[i]] = this.items[i];
+        }
+        return result;
       },
     },
     __setup: () => {},
@@ -246,4 +294,19 @@ export function useWall(name: string): Wall {
     },
   };
   return wall;
+}
+
+function composeClass(classes: Collection<string | boolean>) {
+  const result: { [key: string]: string | boolean } = {};
+  for (let i = 0; i <= classes.items.length; i++) {
+    result[classes.keys[i]] = classes.items[i];
+  }
+  return result;
+}
+function composeStyle(style: Collection<string | boolean>) {
+  const result: { [key: string]: string | boolean } = {};
+  for (let i = 0; i <= style.items.length; i++) {
+    result[style.keys[i]] = style.items[i];
+  }
+  return result;
 }

@@ -19,21 +19,6 @@ export default defineComponent({
     const state = useState();
     //! Parece que este reactive no hace falta si viene con un reactive del padre
     state.config = reactive(props.config) as Wall;
-    state.classes = computed(() => {
-      const result: { [key: string]: string | boolean } = {};
-      for (let i = 0; i <= state.config.classes.items.length; i++) {
-        result[state.config.classes.keys[i]] = state.config.classes.items[i];
-      }
-      return result;
-    });
-    state.style = computed(() => {
-      const result: { [key: string]: string | boolean } = {};
-      for (let i = 0; i <= state.config.style.items.length; i++) {
-        result[state.config.style.keys[i]] = state.config.style.items[i];
-      }
-      return result;
-    });
-
     watch(state.config, () => {
       // alert("state.config watched");
     });

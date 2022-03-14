@@ -11,22 +11,22 @@
       style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 1px solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
       <button class="btn">û</button>
     </div> -->
-    
-    <!-- <component :is="config.type" :class="classes">
+    <component v-if="config.component" :is="config.component" :config="config">
       <slot></slot>
-    </component> -->
-    <!-- //! he metido aquí un "width: 100%" -->
-    <button
-      v-if="!config.html"
-      :id="config.code"
-      :class="classes"
-      :style="style"
-      style="width: 100%"
-      @click="clicked($event)">
-      <div>
-        <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
-      </div>
-    </button>
-    <div v-if="config.html" v-html="config.html"></div>
+    </component>
+    <template v-else>
+      <div v-if="config.html" v-html="config.html"></div>
+      <button
+        v-else
+        :id="config.code"
+        :class="config.classes.toLiteral()"
+        :style="config.style.toLiteral()"
+        style="width: 100%"
+        @click="clicked($event)">
+        <div>
+          <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}
+        </div>
+      </button>
+    </template>
   </div>
 </template>

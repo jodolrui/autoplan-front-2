@@ -88,14 +88,8 @@ export default defineComponent({
             current.selected.field?.key === field.key
               ? "edit"
               : "";
-          brick.component = "Test1";
-          //! con html no consigo que funcione el evento click
-          // brick.html = `<button
-          // id="${brick.code}"
-          // class="field ${i === 0 ? "field-first" : ""}"
-          // style="width: 100%;" @click="clicked($event)">
-          //   ${brick.caption}
-          // </button>`;
+          // brick.component = "Test1";
+
           let { classes, style, vars } = brick;
           classes.set("field-value", true);
           if (i === 0) classes.set("field-first", true);
@@ -117,9 +111,10 @@ export default defineComponent({
             }
           };
           brick.clicked = () => {
-            brick.style.set("background-color", "var(--active-color)");
+            // brick.style.set("background-color", "var(--active-color)");
             current.setSelected(vars.get("record"), vars.get("field"));
             current.keyboardOn = true;
+            brick.component = "Test1";
           };
         });
       });

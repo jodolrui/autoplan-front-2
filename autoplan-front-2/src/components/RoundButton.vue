@@ -11,8 +11,8 @@ function clicked() {
 <template>
   <button
     :id="config.code"
-    :class="classes"
-    :style="style"
+    :class="config.classes.toLiteral()"
+    :style="config.style.toLiteral()"
     @click="clicked($event)">
     <div>
       <i :class="config.icon"></i>
