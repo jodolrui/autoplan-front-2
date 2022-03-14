@@ -12,11 +12,13 @@ export default compose("Edit", [stylize, main]);
 #edit-box-container {
   position: relative;
   overflow:visible;
-  height: 100%;
+  min-height: 2.2rem !important; 
+  height: 100% !important;
 }
 
 #edit-box {
-  height: 100%;
+  min-height: 2.2rem !important; 
+  height: 100% !important;
   width: 100%;
   text-align: center;
   padding-top: 9px;
@@ -97,6 +99,46 @@ export default compose("Edit", [stylize, main]);
   }
   100% {
     transform: scale(1.9);
+  }
+}
+
+
+.cell {
+  display: inline-block;
+  min-height: 2.2rem;
+  height: 100%;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-top: 0.7rem;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  &.first-row {
+    border-top: 1px solid var(--border-color);
+  }
+  &.first-col {
+    border-right: 1px solid var(--border-color);
+  }
+  color: var(--fore-color);
+  background-image: none;
+  -webkit-appearance: button;
+  text-transform: none;
+  overflow: visible;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  box-sizing: inherit;
+  /* scroll para poder ver el contenido entero */
+  overflow-x: auto;
+  &.second-col {
+    /* añador código */
+  }
+  /* elimina el azul del toque en móviles */
+  -webkit-tap-highlight-color: transparent;
+  &.selected {
+    background-color: var(--active-color) !important;
   }
 }
 </style>

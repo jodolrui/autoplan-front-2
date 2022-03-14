@@ -12,7 +12,7 @@
       <button class="btn">û</button>
     </div> -->
     <template v-if="config.component">
-      <component :is="config.component" style="width: 100%; height: 100%;" :config="config" />
+      <component :is="config.component" style="width: 100%;" :config="config" :index="index" :count="count" />
     </template>
     <template v-else>
       <template v-if="config.html">
@@ -23,7 +23,7 @@
           :id="config.id"
           :class="config.classes.toLiteral()"
           :style="config.style.toLiteral()"
-          style="width: 100%"
+          style="width: 100%;"
           @click="clicked($event)">
           <div>
             <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}

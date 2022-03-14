@@ -65,7 +65,7 @@ body {
 .btn {
   /* @include noselect(); */
   display: inline-block;
-  height: 2.2rem;
+  height: 2.2rem !important;
   padding-top: auto;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
@@ -86,7 +86,7 @@ body {
   margin: 0;
   box-sizing: inherit;
   &.btn-square {
-    width: 2.2rem;
+    width: 2.2rem !important;
     padding-left: 0.6rem;
     padding-right: 0.6rem;
     &.rounded-circle {
@@ -103,7 +103,9 @@ body {
 .field {
   /* @include noselect(); */
   display: inline-block;
-  height: 2.2rem;
+  min-height: 2.2rem;
+  height: 100%;
+  /* width: 100% !important; */
   padding-top: auto;
   padding-left: 0.8rem;
   padding-right: 0.8rem;

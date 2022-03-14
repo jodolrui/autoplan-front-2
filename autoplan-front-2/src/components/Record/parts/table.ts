@@ -53,7 +53,6 @@ export default defineComponent({
       create(useBrick);
       before((brick: Brick) => {
         const { classes } = brick;
-        classes.set("field", true);
       });
       after((brick: Brick) => {
         brick.mount(wall);
@@ -65,8 +64,8 @@ export default defineComponent({
           const elementId: string = `${state.record.__id}_${field.key}_label`;
           brick.id = elementId;
           brick.caption = field.label?.caption as string;
+          brick.component = "Cell";
           let { classes, style } = brick;
-          classes.set("field-label", true);
           if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           brick.clicked = () => {
@@ -83,10 +82,8 @@ export default defineComponent({
             : `${state.record[field.key].value} ${
                 state.record[field.key].units
               }`;
-          brick.component = "Test1";
+          brick.component = "Cell";
           let { classes, style, vars } = brick;
-          classes.set("field-value", true);
-          if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 2`);
           vars.set("record", state.record);
           vars.set("field", field);
@@ -98,11 +95,11 @@ export default defineComponent({
                   current.selected.brick &&
                   current.selected.brick.id === brick.id
                 ) {
-                  brick.style.set("background-color", "var(--active-color)");
+                  brick.classes.set("selected", true);
                   brick.component = "Edit";
                 } else {
-                  brick.style.set("background-color", "var(--bg-color)");
-                  brick.component = "Test1";
+                  brick.classes.delete("selected");
+                  brick.component = "Cell";
                 }
                 //! no he tenido más remedio que añadir un pulse
                 current.pulse++;

@@ -5,7 +5,7 @@
       <slot :name="brick.slot"></slot>
     </template>
     <template v-else>
-      <Brick :config="brick" />
+      <Brick :config="brick" :index="i+1" :count="config.bricks.items.length" />
     </template>
   </template>
 </div>

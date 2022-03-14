@@ -43,7 +43,6 @@ export default defineComponent({
         brick.classes.set("btn", true);
         brick.classes.set("btn-square", true);
         brick.classes.set("rounded-circle", true);
-        brick.classes.set("btn-primary", false);
       });
       after((brick: Brick) => {
         brick.mount(wall);
