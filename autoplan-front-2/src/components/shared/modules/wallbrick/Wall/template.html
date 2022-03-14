@@ -1,6 +1,6 @@
 <!--//* Wall -->
 <div :class="config.classes.toLiteral()" :style="config.style.toLiteral()">
-  <template v-for="(brick, i) in config.bricks.items" :key="brick.code">
+  <template v-for="(brick, i) in config.bricks.items" :key="brick.id">
     <template v-if="brick.slot">
       <slot :name="brick.slot"></slot>
     </template>

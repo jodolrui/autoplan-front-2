@@ -50,7 +50,7 @@ export default defineComponent({
       });
 
       design((brick) => {
-        brick.code = "toggle-keyboard";
+        brick.id = "toggle-keyboard";
         brick.icon = "fa fa-keyboard";
         brick.component = "RoundButton";
         brick.clicked = () => {
@@ -59,7 +59,7 @@ export default defineComponent({
       });
 
       design((brick) => {
-        brick.code = "toggle-dark";
+        brick.id = "toggle-dark";
         brick.icon = "fa fa-adjust";
         brick.component = "RoundButton";
         brick.updated = () => {
@@ -79,7 +79,7 @@ export default defineComponent({
       });
 
       design((brick) => {
-        brick.code = "toggle-fullscreen";
+        brick.id = "toggle-fullscreen";
         brick.icon = "fas fa-expand";
         brick.component = "RoundButton";
         brick.clicked = () => {

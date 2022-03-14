@@ -68,7 +68,7 @@ export default defineComponent({
         const keysRow = keys[row];
         keysRow.forEach((element: string, index: number) => {
           design((brick) => {
-            brick.code = element;
+            brick.id = element;
             brick.caption = element.length === 1 ? element : "";
             if (element === "shift") brick.icon = "fa fa-arrow-up";
             if (element === "backspace") brick.icon = "fa fa-backspace";
@@ -84,34 +84,34 @@ export default defineComponent({
             style.set("grid-area", `1 / ${index + 1}`);
             brick.updated = () => {
               if (brick.caption.length === 1) {
-                if ("aeiou".includes(brick.code)) {
-                  brick.caption = "aeiou".charAt("aeiou".indexOf(brick.code));
+                if ("aeiou".includes(brick.id)) {
+                  brick.caption = "aeiou".charAt("aeiou".indexOf(brick.id));
                   if (state.acuteAccent.value)
-                    brick.caption = "áéíóú".charAt("aeiou".indexOf(brick.code));
+                    brick.caption = "áéíóú".charAt("aeiou".indexOf(brick.id));
                   if (state.graveAccent.value)
-                    brick.caption = "àèìòù".charAt("aeiou".indexOf(brick.code));
+                    brick.caption = "àèìòù".charAt("aeiou".indexOf(brick.id));
                   if (state.dieresis.value)
-                    brick.caption = "äëïöü".charAt("aeiou".indexOf(brick.code));
+                    brick.caption = "äëïöü".charAt("aeiou".indexOf(brick.id));
                 }
                 brick.caption = state.shift.value
                   ? brick.caption?.toUpperCase()
                   : brick.caption?.toLowerCase();
-                if (brick.code === "´")
+                if (brick.id === "´")
                   brick.style.set(
                     "background-color",
                     state.acuteAccent.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.code === "`")
+                if (brick.id === "`")
                   brick.style.set(
                     "background-color",
                     state.graveAccent.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.code === "¨")
+                if (brick.id === "¨")
                   brick.style.set(
                     "background-color",
                     state.dieresis.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.code === "shift")
+                if (brick.id === "shift")
                   brick.style.set(
                     "background-color",
                     state.shift.value ? "var(--active-color)" : "inherit",
@@ -156,7 +156,7 @@ export default defineComponent({
       setTimeout(() => {
         brick.classes.set("pressed", false);
       }, 1);
-      current.sendKey(brick.code, brick.caption);
+      current.sendKey(brick.id, brick.caption);
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
       state.dieresis.value = false;

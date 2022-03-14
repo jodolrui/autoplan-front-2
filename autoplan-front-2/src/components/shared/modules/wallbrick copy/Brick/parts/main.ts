@@ -45,7 +45,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      console.log(state.config.code);
+      console.log(state.config.id);
     });
   },
 });

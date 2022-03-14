@@ -1,6 +1,6 @@
 <!--//* Wall -->
 <div :class="composeClass(config.classes)" :style="composeStyle(config.style)">
-  <template v-for="(brick, i) in config.bricks.items" :key="brick.code">
+  <template v-for="(brick, i) in config.bricks.items" :key="brick.id">
     <template v-if="brick.slot">
       <slot :name="brick.slot"></slot>
     </template>

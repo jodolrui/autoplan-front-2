@@ -51,12 +51,12 @@ export default defineComponent({
 
       //* root
       design((brick) => {
-        brick.code = "root";
+        brick.id = "root";
         brick.icon = "fas fa-home";
         brick.classes.set("btn-square", true);
         brick.classes.set("rounded-circle", true);
         brick.clicked = () => {
-          router.push({ path: `/${brick.code}` });
+          router.push({ path: `/${brick.id}` });
         };
       });
 
@@ -64,10 +64,10 @@ export default defineComponent({
         current.path.forEach((element: RecordBase) => {
           if (element.__id !== "root")
             design((brick) => {
-              brick.code = element.__id;
+              brick.id = element.__id;
               brick.caption = element.__breadcrumb;
               brick.clicked = () => {
-                router.push({ path: `/${brick.code}` });
+                router.push({ path: `/${brick.id}` });
               };
             });
         });

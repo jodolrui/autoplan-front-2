@@ -63,7 +63,7 @@ export default defineComponent({
         const keysRow = keys[row];
         keysRow.forEach((element: string, index: number) => {
           design((brick) => {
-            brick.code = element;
+            brick.id = element;
             brick.caption = element.length === 1 ? element : "";
             if (element === "shift") brick.icon = "fa fa-arrow-up";
             if (element === "backspace") brick.icon = "fa fa-backspace";
@@ -74,7 +74,7 @@ export default defineComponent({
             classes.set("btn", true);
             classes.set("btn-key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            brick.clicked = () => current.sendKey(brick.code, brick.caption);
+            brick.clicked = () => current.sendKey(brick.id, brick.caption);
             if (element === "symbols") brick.clicked = symbols;
             if (element === "letters") brick.clicked = letters;
           });

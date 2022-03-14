@@ -63,7 +63,7 @@ export default defineComponent({
         //* label
         design((brick) => {
           const elementId: string = `${state.record.__id}_${field.key}_label`;
-          brick.code = elementId;
+          brick.id = elementId;
           brick.caption = field.label?.caption as string;
           let { classes, style } = brick;
           classes.set("field-label", true);
@@ -77,7 +77,7 @@ export default defineComponent({
         //* value
         design((brick) => {
           const elementId: string = `${state.record.__id}_${field.key}_value`;
-          brick.code = elementId;
+          brick.id = elementId;
           brick.caption = !state.record[field.key].units
             ? state.record[field.key].value
             : `${state.record[field.key].value} ${
@@ -100,7 +100,7 @@ export default defineComponent({
             //* si es el elemento seleccionado
             if (
               current.selectedElement &&
-              brick.code === current.selectedElement.value.id
+              brick.id === current.selectedElement.value.id
             ) {
               if (style.get("background-color") !== "var(--active-color)")
                 style.set("background-color", "var(--active-color)");

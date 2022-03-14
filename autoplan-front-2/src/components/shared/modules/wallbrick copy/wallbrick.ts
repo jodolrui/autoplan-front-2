@@ -10,7 +10,7 @@ export type Collection<T> = {
 };
 
 export type Brick = {
-  code: string;
+  id: string;
   component: string;
   caption: string;
   icon: string;
@@ -51,10 +51,10 @@ export type Wall = {
 
 const bricks: Brick[] = [];
 
-export function useBrick(code?: string): Brick {
+export function useBrick(id?: string): Brick {
   const brick: Brick = {} as any;
-  if (code) brick.code = code;
-  else brick.code = "";
+  if (id) brick.id = id;
+  else brick.id = "";
   brick.component = "";
   brick.caption = "";
   brick.icon = "";
@@ -157,10 +157,10 @@ export function useBrick(code?: string): Brick {
     if ((container as Wall).bricks) {
       brick.wall = container as Wall;
       brick.setup(brick, container as Wall);
-      (container as Wall).bricks.set(brick.code, brick);
+      (container as Wall).bricks.set(brick.id, brick);
       brick.updated(brick, container as Wall);
     } else {
-      (container as Map<string, Brick>).set(brick.code, brick);
+      (container as Map<string, Brick>).set(brick.id, brick);
     }
   };
   brick.refresh = () => {

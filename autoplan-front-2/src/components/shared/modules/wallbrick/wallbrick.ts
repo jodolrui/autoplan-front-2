@@ -13,7 +13,7 @@ export type Collection<T> = {
 };
 
 export type Brick = {
-  code: string;
+  id: string;
   caption: string;
   icon: string;
   slot: string;
@@ -47,9 +47,9 @@ export type Wall = {
   refreshAll: () => void;
 };
 
-export function useBrick(code?: string): Brick {
+export function useBrick(id?: string): Brick {
   const brick: Brick = {
-    code: code ? code : "",
+    id: id ? id : "",
     caption: "",
     icon: "",
     slot: "",
@@ -165,10 +165,10 @@ export function useBrick(code?: string): Brick {
       if ((container as Wall).bricks) {
         this.wall = container as Wall;
         this.__setup(brick, container as Wall);
-        (container as Wall).bricks.set(this.code, brick);
+        (container as Wall).bricks.set(this.id, brick);
         this.__updated(brick, container as Wall);
       } else {
-        (container as Map<string, Brick>).set(this.code, brick);
+        (container as Map<string, Brick>).set(this.id, brick);
       }
     },
     refresh: function () {

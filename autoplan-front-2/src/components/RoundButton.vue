@@ -10,7 +10,7 @@ function clicked() {
 
 <template>
   <button
-    :id="config.code"
+    :id="config.id"
     :class="config.classes.toLiteral()"
     :style="config.style.toLiteral()"
     @click="clicked($event)">
