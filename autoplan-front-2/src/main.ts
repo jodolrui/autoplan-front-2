@@ -11,7 +11,7 @@ import {
 } from "vue-router";
 import Cell from "./components/Cell.vue";
 import Test2 from "./components/Test2.vue";
-import Edit from "./components/Edit.vue";
+import Edit from "./components/Edit/index.vue";
 import RoundButton from "./components/RoundButton.vue";
 
 const pinia = createPinia();

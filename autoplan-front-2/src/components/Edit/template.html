@@ -1,26 +1,26 @@
 <!--//* Edit -->
-<div id="edit-box-container">
-  <div id="edit-box" class="cell">
-    <span
-      v-for="(char, i) in chars"
-      :key="i"
-      :id="`edit-char${i + 1}`"
-      :class="classize({
-        editChar: true, 
-        cursor: i===current.edit.cursor, 
-        position: i===position && isMovingMouse 
-      })"
-      :style="config.style.toLiteral()">
-      {{char===' ' ? '&nbsp;' : char }}
-    </span>
-    <span
-      id="cursor-end"
-      :class="classize({ 
-        cursorEnd: true, 
-        cursor: current.edit.cursor===chars.length,
-        position: position===chars.length && isMovingMouse
-      })"
-      :style="config.style.toLiteral()">
-    </span>
-  </div>
+<div id="edit-box" :class="classes" :style="config.style.toLiteral()">
+  <span
+    v-for="(char, i) in chars"
+    :key="i"
+    :id="`edit-char${i + 1}`"
+    :class="
+      {
+        'edit-char': true,
+        cursor: i === current.edit.cursor,
+      }
+    "
+    :style="config.style.toLiteral()">
+    {{ char === " " ? "&nbsp;" : char }}
+  </span>
+  <span
+    id="cursor-end"
+    :class="
+      {
+        'cursor-end': true,
+        cursor: current.edit.cursor === chars.length,
+      }
+    "
+    :style="config.style.toLiteral()">
+  </span>
 </div>

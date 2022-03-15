@@ -12,8 +12,14 @@ import {
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
+import { Brick } from "../../shared/modules/wallbrick/wallbrick";
 
 export default defineComponent({
+  props: {
+    config: { type: Object, required: true },
+    index: { type: Number, required: true },
+    count: { type: Number, required: true },
+  },
   setup(props, context) {
     const current = useCurrent();
     expose({ current });
@@ -21,19 +27,18 @@ export default defineComponent({
     state.chars = computed(() =>
       current.edit.value ? current.edit.value.split("") : [],
     );
-
-    // watch(
-    //   () => current.edit.value,
-    //   () => {
-    //     const editBox = document.getElementById("edit-box");
-    //     if (editBox) {
-    //       editBox.classList.add("editing");
-    //       setTimeout(() => {
-    //         editBox.classList.remove("editing");
-    //       }, 10);
-    //     }
-    //   },
-    // );
+    state.config = props.config as Brick;
+    state.index = props.index;
+    state.count = props.count;
+    function clicked() {
+      state.config.clicked(state.config, state.config.wall);
+    }
+    state.classes = state.config.classes.toLiteral();
+    state.classes["cell"] = true;
+    state.classes["edit"] = true;
+    state.classes["first-row"] = state.index <= 2;
+    state.classes["first-col"] = state.index % 2 !== 0;
+    state.classes["second-col"] = state.index % 2 === 0;
 
     onMounted(() => {
       let editDiv: HTMLElement | null;
@@ -76,34 +81,6 @@ export default defineComponent({
       editDiv?.addEventListener("click", (event) => {
         current.edit.cursor = getPosition(event);
       });
-
-      //* punto de inserción del ratón
-      if (false) {
-        editDiv?.addEventListener("click", (event) => {
-          // current.edit.cursor = getPosition(event);
-          current.edit.cursor = state.position.value;
-          state.isMovingMouse.value = false;
-        });
-        editDiv?.addEventListener("mouseover", (event) => {
-          state.isMovingMouse.value = true;
-          state.position.value = getPosition(event);
-        });
-        editDiv?.addEventListener("mouseleave", (event) => {
-          state.isMovingMouse.value = false;
-        });
-      }
     });
-
-    //* caja de edición emergente
-    if (false)
-      onMounted(() => {
-        let editDiv: HTMLElement | null;
-        //* getElementById necesita estar en el onMounted
-        editDiv = document.getElementById("edit-box");
-        editDiv?.classList.add("editing");
-        setTimeout(() => {
-          editDiv?.classList.remove("editing");
-        }, 2000);
-      });
   },
 });
