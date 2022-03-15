@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import { useCurrent } from "./shared/stores/useCurrent"
+import { computed, onMounted, ref } from "vue";
+import { useCurrent } from "./shared/stores/useCurrent";
 const current = useCurrent();
 const props = defineProps({
   config: { type: Object, required: true },
@@ -13,7 +13,7 @@ const count = props.count;
 function clicked() {
   config.clicked();
 }
-const classes = config.classes.toLiteral()
+const classes = config.classes.toLiteral();
 classes["cell"] = true;
 classes["edit"] = true;
 classes["first-row"] = index <= 2;
@@ -36,9 +36,7 @@ onMounted(() => {
     firstSpan = document.getElementById(
       editDiv?.firstElementChild?.id as string,
     );
-    lastSpan = document.getElementById(
-      editDiv?.lastElementChild?.id as string,
-    );
+    lastSpan = document.getElementById(editDiv?.lastElementChild?.id as string);
     //* si pulsamos por delante de los caracteres
     if (firstSpan?.offsetLeft && event.offsetX < firstSpan?.offsetLeft)
       position = 0;
@@ -66,15 +64,34 @@ onMounted(() => {
     current.edit.cursor = getPosition(event);
   });
 });
-
 </script>
 
 <template>
-  <div
-    :class="classes"
-    :style="config.style.toLiteral()"
-    @click="clicked($event)"
-  >{{ config.caption }}</div>
+  <div id="edit-box" :class="classes" :style="config.style.toLiteral()">
+    <span
+      v-for="(char, i) in chars"
+      :key="i"
+      :id="`edit-char${i + 1}`"
+      :class="
+        {
+          'edit-char': true,
+          cursor: i === current.edit.cursor,
+        }
+      "
+      :style="config.style.toLiteral()">
+      {{ char === " " ? "&nbsp;" : char }}
+    </span>
+    <span
+      id="cursor-end"
+      :class="
+        {
+          'cursor-end': true,
+          cursor: current.edit.cursor === chars.length,
+        }
+      "
+      :style="config.style.toLiteral()">
+    </span>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -114,6 +131,46 @@ onMounted(() => {
   -webkit-tap-highlight-color: transparent;
   &.selected {
     background-color: var(--active-color) !important;
+  }
+}
+
+.edit-char {
+  border-left: 2px solid transparent;
+  /* compensamos el espacio añadido por el border-left */
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.cursor {
+  border-left: 2px solid var(--fore-color);
+  animation: blinker 0.5s ease infinite;
+}
+
+.cursor-end {
+  border-left: 2px solid transparent;
+  /* compensamos el espacio añadido por el border-left */
+  /* margin-left: -1px;
+  margin-right: -1px; */
+  //* para que no sea seleccionable
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+}
+
+@keyframes blinker {
+  0% {
+    border-left: 2px solid var(--fore-color);
+  }
+  33% {
+    border-left: 2px solid var(--fore-color);
+  }
+  66% {
+    border-left: 2px solid transparent;
+  }
+  100% {
+    border-left: 2px solid transparent;
   }
 }
 </style>

@@ -75,34 +75,6 @@ export default compose("Edit", [stylize, main]);
     border-left: 2px solid transparent;
   }
 }
-
-.editing {
-  position: sticky;
-  display: block;
-  top: 0%;
-  left: -50%;
-  width: 100%;
-  transform: scale(2);
-  /* border: 0.5px solid var(--border-color); */
-  /* box-shadow: 0px 0px 10px var(--border-color); */
-  /* background-color: lightgoldenrodyellow !important; */
-  border: none !important;
-  opacity: 0.8;
-  /* background-color: var(--active-color); */
-  /* animation: open 0.1s ease-in-out 1; */
-  z-index: 1;
-}
-
-@keyframes open {
-  0% {
-    transform: translateX(50%);
-  }
-  100% {
-    transform: scale(1.9);
-  }
-}
-
-
 .cell {
   display: inline-block;
   min-height: 2.2rem;

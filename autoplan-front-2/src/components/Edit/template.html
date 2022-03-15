@@ -1,6 +1,6 @@
 <!--//* Edit -->
 <div id="edit-box-container">
-  <div id="edit-box" class="field field-value">
+  <div id="edit-box" class="cell">
     <span
       v-for="(char, i) in chars"
       :key="i"
@@ -9,7 +9,8 @@
         editChar: true, 
         cursor: i===current.edit.cursor, 
         position: i===position && isMovingMouse 
-      })">
+      })"
+      :style="config.style.toLiteral()">
       {{char===' ' ? '&nbsp;' : char }}
     </span>
     <span
@@ -18,7 +19,8 @@
         cursorEnd: true, 
         cursor: current.edit.cursor===chars.length,
         position: position===chars.length && isMovingMouse
-      })">
+      })"
+      :style="config.style.toLiteral()">
     </span>
   </div>
 </div>

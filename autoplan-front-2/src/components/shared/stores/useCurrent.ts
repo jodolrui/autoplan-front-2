@@ -176,6 +176,7 @@ export const useCurrent = defineStore<
           (this.selected.record as any)[
             (this.selected.field as Field).key
           ].value = value;
+          if (this.selected.brick) this.selected.brick.caption = value;
           this.setSelected(null, null, null);
         }
       }
