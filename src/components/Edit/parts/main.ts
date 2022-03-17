@@ -1,5 +1,3 @@
-//! intenté que Edit leyera directamente de current y me daba problemas de refresco
-//! por eso lo mantengo independiente de current y lo dejo con propiedades y eventos
 import {
   defineComponent,
   Ref,
