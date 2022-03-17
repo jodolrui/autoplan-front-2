@@ -225,7 +225,8 @@ export const useCurrent = defineStore<
         this.children.forEach((element: RecordBase, i: number) => {
           if (element.__id === record.__id) index = i;
         });
-        if (index) this.children.splice(index, 1);
+        //* hacemos if (index !== null) porque si index === 0 if (index) seria false
+        if (index !== null) this.children.splice(index, 1);
         this.orderChildren();
       }
     },

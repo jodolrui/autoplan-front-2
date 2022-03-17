@@ -2,18 +2,23 @@ import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
+import {
+  Format,
+  Field,
+  RecordBase,
+} from "../../shared/interfaces/dataInterfaces";
 
 import root from "../setups/root";
-import site from "../setups/site";
-import coordinates from "../setups/coordinates";
-import building from "../setups/building";
-import buildingExit from "../setups/buildingExit";
-import floor from "../setups/floor";
-import floorExit from "../setups/floorExit";
-import floorDoor from "../setups/floorDoor";
-import zone from "../setups/zone";
-import stairs from "../setups/stairs";
-import elevator from "../setups/elevator";
+import site from "../../designs/site";
+import coordinates from "../../designs/coordinates";
+import building from "../../designs/building";
+import buildingExit from "../../designs/buildingExit";
+import floor from "../../designs/floor";
+import floorExit from "../../designs/floorExit";
+import floorDoor from "../../designs/floorDoor";
+import zone from "../../designs/zone";
+import stairs from "../../designs/stairs";
+import elevator from "../../designs/elevator";
 
 export default defineComponent({
   setup() {
@@ -24,24 +29,26 @@ export default defineComponent({
       return state.record.__designKey;
     });
 
+    type Design = { format: Format; fields: Field[]; newRecord: RecordBase };
+
+    let design: Design = {} as Design;
+
     if (state.designKey.value) {
-      if (state.designKey.value === "root") site();
-      if (state.designKey.value === "site") site();
-      if (state.designKey.value === "coordinates") coordinates();
-      if (state.designKey.value === "building") building();
-      if (state.designKey.value === "buildingExit") buildingExit();
-      if (state.designKey.value === "floor") floor();
-      if (state.designKey.value === "floorExit") floorExit();
-      if (state.designKey.value === "floorDoor") floorDoor();
-      if (state.designKey.value === "zone") zone();
-      if (state.designKey.value === "stairs") stairs();
-      if (state.designKey.value === "elevator") elevator();
+      if (state.designKey.value === "root") design = site;
+      if (state.designKey.value === "site") design = site;
+      if (state.designKey.value === "coordinates") design = coordinates;
+      if (state.designKey.value === "building") design = building;
+      if (state.designKey.value === "buildingExit") design = buildingExit;
+      if (state.designKey.value === "floor") design = floor;
+      if (state.designKey.value === "floorExit") design = floorExit;
+      if (state.designKey.value === "floorDoor") design = floorDoor;
+      if (state.designKey.value === "zone") design = zone;
+      if (state.designKey.value === "stairs") design = stairs;
+      if (state.designKey.value === "elevator") design = elevator;
 
-      // console.log("&", state.fields);
-
-      // state.records = ref(
-      //   current.getChildrenByDesign(state.designKey.value as string),
-      // );
+      state.format = design.format;
+      state.fields = design.fields;
+      state.newRecord = design.newRecord;
     }
   },
 });
