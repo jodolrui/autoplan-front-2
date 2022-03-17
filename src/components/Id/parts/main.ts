@@ -3,10 +3,9 @@ import { expose, exposed } from "@jodolrui/glue";
 import { useRoute } from "vue-router";
 import { useState } from "../state";
 import Recordset from "../../Recordset/index.vue";
-import Wall from "../../shared/modules/wallbrick/Wall/index.vue";
 import { useCurrent } from "../../shared/stores/useCurrent";
 export default defineComponent({
-  components: { Wall, Recordset },
+  components: { Recordset },
   setup() {
     const state = useState();
     const route = useRoute();

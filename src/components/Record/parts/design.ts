@@ -37,7 +37,7 @@ export default defineComponent({
       if (state.designKey.value === "stairs") stairs();
       if (state.designKey.value === "elevator") elevator();
 
-      console.log("&", state.fields);
+      // console.log("&", state.fields);
 
       // state.records = ref(
       //   current.getChildrenByDesign(state.designKey.value as string),

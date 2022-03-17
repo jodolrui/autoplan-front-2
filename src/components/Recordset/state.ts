@@ -5,7 +5,7 @@ import { RecordBase } from "../shared/interfaces/dataInterfaces";
 
 export function useState() {
   return defineState<{
-    records: Ref<RecordBase[] | null>;
+    records: ComputedRef<RecordBase[] | null>;
     recordPulse: Ref<number>;
   }>({
     recordPulse: ref(0),

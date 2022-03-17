@@ -9,9 +9,11 @@ import {
 import { useState } from "../state";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
+import { useCurrent } from "../../shared/stores/useCurrent";
 
 export default defineComponent({
   setup() {
+    const current = useCurrent();
     const router = useRouter();
     const state = useState();
     state.control = useWall("control");
@@ -43,6 +45,7 @@ export default defineComponent({
         classes.set("btn", true);
         classes.set("btn-square", true);
         classes.set("rounded-circle", true);
+        brick.vars.set("record", state.record);
       });
       after((brick: Brick) => {
         brick.mount(wall);
@@ -51,16 +54,28 @@ export default defineComponent({
       design((brick) => {
         brick.id = "move-up";
         brick.icon = "fa fa-angle-up";
+        brick.clicked = () => {
+          if (brick.vars.get("record"))
+            current.moveUp(brick.vars.get("record"));
+        };
       });
 
       design((brick) => {
         brick.id = "move-down";
         brick.icon = "fa fa-angle-down";
+        brick.clicked = () => {
+          if (brick.vars.get("record"))
+            current.moveDown(brick.vars.get("record"));
+        };
       });
 
       design((brick) => {
         brick.id = "delete";
         brick.icon = "fa fa-trash";
+        brick.clicked = () => {
+          if (brick.vars.get("record"))
+            current.delete(brick.vars.get("record"));
+        };
       });
 
       design((brick) => {

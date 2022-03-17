@@ -35,6 +35,7 @@ export type UseCurrentGetters = {
 
 export type UseCurrentActions = {
   setId: (routeId: string) => void;
+  orderChildren: () => void;
   getChildrenByDesign: (designKey: string) => RecordBase[] | null;
   setSelected: (
     record: RecordBase | null,
@@ -42,6 +43,10 @@ export type UseCurrentActions = {
     brick: Brick | null,
   ) => void;
   sendKey: (keyCode: string, keyCaption: string) => void;
+  move: (record: RecordBase, step: number) => void;
+  moveUp: (record: RecordBase) => void;
+  moveDown: (record: RecordBase) => void;
+  delete: (record: RecordBase) => void;
 };
 
 export const useCurrent = defineStore<
@@ -92,16 +97,28 @@ export const useCurrent = defineStore<
       //* buscamos los hijos
       this.children = projectData.getChildren(this.routeId as string);
       //* ordenamos hijos primero por __designKey y segundo por __order
-      if (this.children)
-        this.children.sort((a: RecordBase, b: RecordBase) => {
-          if (a.__designKey === b.__designKey) {
-            return a.__order === b.__order ? 0 : a.__order < b.__order ? -1 : 1;
-          } else {
-            return a.__designKey.localeCompare(b.__designKey);
-          }
-        });
+      if (this.children) this.orderChildren();
       //* buscamos el path
       this.path = projectData.getPath(this.routeId as string);
+    },
+    orderChildren: function () {
+      if (this.children) {
+        this.children.sort((a: RecordBase, b: RecordBase) => {
+          //* ordenamos por __order
+          return a.__order === b.__order ? 0 : a.__order < b.__order ? -1 : 1;
+          //* ordenamos primero por __designKey y segundo por __order
+          // if (a.__designKey === b.__designKey) {
+          //   return a.__order === b.__order ? 0 : a.__order < b.__order ? -1 : 1;
+          // } else {
+          //   return a.__designKey.localeCompare(b.__designKey);
+          // }
+        });
+        let order: number = 0;
+        this.children?.forEach((element: RecordBase) => {
+          element.__order = order;
+          order++;
+        });
+      }
     },
     getChildrenByDesign: function (designKey: string): RecordBase[] | null {
       const found = this.children?.filter((element: RecordBase) => {
@@ -182,5 +199,35 @@ export const useCurrent = defineStore<
       }
     },
     //* --< edit
+    move: function (record: RecordBase, step: number) {
+      if (this.children) {
+        console.log({ children: this.children });
+        const found = this.children.find((element: RecordBase) => {
+          return element.__order === record.__order + step;
+        });
+        if (found) {
+          record.__order += step;
+          found.__order -= step;
+          this.orderChildren();
+        }
+        console.log({ children: this.children });
+      }
+    },
+    moveDown: function (record: RecordBase) {
+      this.move(record, 1);
+    },
+    moveUp: function (record: RecordBase) {
+      this.move(record, -1);
+    },
+    delete: function (record: RecordBase) {
+      let index: number | null = null;
+      if (this.children) {
+        this.children.forEach((element: RecordBase, i: number) => {
+          if (element.__id === record.__id) index = i;
+        });
+        if (index) this.children.splice(index, 1);
+        this.orderChildren();
+      }
+    },
   },
 });

@@ -1,7 +1,5 @@
-import { createApp } from "vue";
+import { createApp, InjectionKey } from "vue";
 import { createPinia } from "pinia";
-import App from "./components/App/index.vue";
-import Id from "./components/Id/index.vue";
 import {
   createRouter,
   Router,
@@ -9,6 +7,9 @@ import {
   RouterHistory,
   createWebHistory,
 } from "vue-router";
+import App from "./components/App/index.vue";
+import Id from "./components/Id/index.vue";
+import _Wall from "./components/shared/modules/wallbrick/Wall/index.vue";
 import Cell from "./components/Cell.vue";
 import Edit from "./components/Edit/index.vue";
 import RoundButton from "./components/RoundButton.vue";
@@ -25,7 +26,7 @@ const router: Router = createRouter({ history, routes });
 const app = createApp(App);
 app.use(router);
 app.use(pinia);
-//* componentes globales para los brick
+app.component("Wall", _Wall);
 app.component("Cell", Cell);
 app.component("RoundButton", RoundButton);
 app.component("Edit", Edit);
