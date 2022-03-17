@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
@@ -20,6 +20,10 @@ export default defineComponent({
     const state = useState();
     const current = useCurrent();
 
+    state.designKey = computed(() => {
+      return state.record.__designKey;
+    });
+
     if (state.designKey.value) {
       if (state.designKey.value === "root") site();
       if (state.designKey.value === "site") site();
@@ -33,9 +37,11 @@ export default defineComponent({
       if (state.designKey.value === "stairs") stairs();
       if (state.designKey.value === "elevator") elevator();
 
-      state.records = ref(
-        current.getChildrenByDesign(state.designKey.value as string),
-      );
+      console.log("&", state.fields);
+
+      // state.records = ref(
+      //   current.getChildrenByDesign(state.designKey.value as string),
+      // );
     }
   },
 });

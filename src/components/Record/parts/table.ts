@@ -10,6 +10,7 @@ import {
 import { Field, RecordBase } from "../../shared/interfaces/dataInterfaces";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
+//! los controles Cell y Edit se cargan desde el main.ts principal
 
 export default defineComponent({
   emits: ["updated"],

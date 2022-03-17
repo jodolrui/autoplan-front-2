@@ -10,20 +10,20 @@ const count = props.count;
 function clicked() {
   config.clicked();
 }
-const classes = config.classes.toLiteral()
+const classes = config.classes.toLiteral();
 classes["cell"] = true;
 classes["first-row"] = index <= 2;
 classes["first-col"] = index % 2 !== 0;
 classes["second-col"] = index % 2 === 0;
-
 </script>
 
 <template>
   <div
     :class="classes"
     :style="config.style.toLiteral()"
-    @click="clicked($event)"
-  >{{ config.caption }}</div>
+    @click="clicked($event)">
+    {{ config.caption }}
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -31,6 +31,7 @@ classes["second-col"] = index % 2 === 0;
   display: inline-block;
   min-height: 2.2rem;
   height: 100%;
+  max-width: 50vw;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
   padding-top: 0.7rem;

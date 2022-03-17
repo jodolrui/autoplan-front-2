@@ -5,12 +5,9 @@ import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
 import control from "./parts/control";
 import table from "./parts/table";
+import design from "./parts/design";
 
-export default compose("Record", [
-  main,
-  control,
-  table,
-]);
+export default compose("Record", [main, design, control, table]);
 </script>
 
 <style scoped>

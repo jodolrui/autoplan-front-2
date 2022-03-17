@@ -22,6 +22,9 @@ export function useState() {
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
     onEditUpdated: (cursor: number) => void;
+    designKey: ComputedRef<string | undefined>;
+    format: Format;
+    newRecord: RecordBase;
   }>({
     tablePulse: ref(0),
     controlPulse: ref(0),

@@ -10,7 +10,6 @@ import {
   createWebHistory,
 } from "vue-router";
 import Cell from "./components/Cell.vue";
-import Test2 from "./components/Test2.vue";
 import Edit from "./components/Edit/index.vue";
 import RoundButton from "./components/RoundButton.vue";
 
@@ -28,7 +27,6 @@ app.use(router);
 app.use(pinia);
 //* componentes globales para los brick
 app.component("Cell", Cell);
-app.component("Test2", Test2);
 app.component("RoundButton", RoundButton);
 app.component("Edit", Edit);
 
