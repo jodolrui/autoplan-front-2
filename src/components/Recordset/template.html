@@ -1,3 +1,4 @@
 <template v-for="(record, i) in records" :key="recordPulse">
   <Record :record="record" @updated="recordPulse++" />
 </template>
+<Wall :config="control" />

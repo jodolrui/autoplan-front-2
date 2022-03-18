@@ -9,6 +9,8 @@ import {
   UseProjectDataGetters,
   UseProjectDataActions,
 } from "./useProjectData";
+import { getDesign, Design } from "../../designs/getDesign";
+import { v4 as uuidv4 } from "uuid";
 
 export type UseCurrentState = {
   routeId: string;
@@ -47,6 +49,7 @@ export type UseCurrentActions = {
   moveUp: (record: RecordBase) => void;
   moveDown: (record: RecordBase) => void;
   delete: (record: RecordBase) => void;
+  newRecord: (designKey: string, beforeRecord?: RecordBase) => void;
 };
 
 export const useCurrent = defineStore<
@@ -229,6 +232,35 @@ export const useCurrent = defineStore<
         if (index !== null) this.children.splice(index, 1);
         this.orderChildren();
       }
+    },
+    newRecord: function (
+      designKey: string,
+      beforeRecord: RecordBase | undefined,
+    ) {
+      if (!this.children) this.children = [];
+      const design: Design = getDesign(designKey);
+      //! JSON.stringify/parse only work with Number and String and Object literal without function or Symbol properties
+      const newRecord: RecordBase = JSON.parse(
+        JSON.stringify(design.newRecord),
+      );
+      newRecord.__id = uuidv4();
+      if (beforeRecord) {
+        newRecord.__order = beforeRecord.__order;
+
+        this.children.forEach((element: RecordBase) => {
+          if (element.__order >= newRecord.__order) element.__order++;
+        });
+      } else {
+        newRecord.__order =
+          Math.max.apply(
+            Math,
+            this.children.map((obj: RecordBase) => {
+              return obj.__order;
+            }),
+          ) + 1;
+      }
+      this.children.push(newRecord);
+      this.orderChildren();
     },
   },
 });

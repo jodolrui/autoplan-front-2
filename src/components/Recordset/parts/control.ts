@@ -45,37 +45,9 @@ export default defineComponent({
         classes.set("btn", true);
         classes.set("btn-square", true);
         classes.set("rounded-circle", true);
-        brick.vars.set("record", state.record);
       });
       after((brick: Brick) => {
         brick.mount(wall);
-      });
-
-      design((brick) => {
-        brick.id = "move-up";
-        brick.icon = "fa fa-angle-up";
-        brick.clicked = () => {
-          if (brick.vars.get("record"))
-            current.moveUp(brick.vars.get("record"));
-        };
-      });
-
-      design((brick) => {
-        brick.id = "move-down";
-        brick.icon = "fa fa-angle-down";
-        brick.clicked = () => {
-          if (brick.vars.get("record"))
-            current.moveDown(brick.vars.get("record"));
-        };
-      });
-
-      design((brick) => {
-        brick.id = "delete";
-        brick.icon = "fa fa-trash";
-        brick.clicked = () => {
-          if (brick.vars.get("record"))
-            current.delete(brick.vars.get("record"));
-        };
       });
 
       design((brick) => {
@@ -83,23 +55,8 @@ export default defineComponent({
         brick.icon = "fa fa-plus";
         brick.clicked = () => {
           //! tengo que crear la manera de seleccionar el designKey
-          const designKey: string = brick.vars.get("record").__designKey;
-          if (brick.vars.get("record")) {
-            current.newRecord(
-              brick.vars.get("record").__designKey,
-              brick.vars.get("record"),
-            );
-          }
-        };
-      });
-
-      design((brick) => {
-        brick.id = "enter";
-        brick.icon = "fa fa-angle-double-right";
-        brick.clicked = () => {
-          router.push({
-            path: `/${state.record?.__id as string}`,
-          });
+          const designKey: string = "building";
+          current.newRecord(designKey);
         };
       });
 

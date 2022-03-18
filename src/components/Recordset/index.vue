@@ -3,7 +3,8 @@
 <script lang="ts">
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
-export default compose("Recordset", [main]);
+import control from "./parts/control";
+export default compose("Recordset", [main, control]);
 </script>
 
 <style></style>
