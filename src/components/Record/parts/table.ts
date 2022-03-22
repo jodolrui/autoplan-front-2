@@ -67,7 +67,7 @@ export default defineComponent({
           brick.caption = field.label?.caption as string;
           brick.component = "Cell";
           let { classes, style } = brick;
-          if (i === 0) classes.set("field-first", true);
+          // if (i === 0) classes.set("field-first", true);
           style.set("grid-area", `${i + 1} / 1`);
           brick.clicked = () => {
             current.setSelected(null, null, null);

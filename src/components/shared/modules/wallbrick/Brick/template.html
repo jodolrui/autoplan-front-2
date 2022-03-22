@@ -8,11 +8,16 @@
     <!-- //! aquí puedo poner un div "absolute" para hacer un tooltip popup -->
     <!-- <div
       v-if="config.id==='u'"
-      style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 1px solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
+      style="position: absolute; left: -10px; top: -48px; color: var(--fore-color); border: 0.1rem solid var(--border-color); background-color: var(--bg-color); padding: 5px; z-index: 999;">
       <button class="btn">û</button>
     </div> -->
     <template v-if="config.component">
-      <component :is="config.component" style="width: 100%;" :config="config" :index="index" :count="count" />
+      <component
+        :is="config.component"
+        style="width: 100%"
+        :config="config"
+        :index="index"
+        :count="count" />
     </template>
     <template v-else>
       <template v-if="config.html">
@@ -23,7 +28,7 @@
           :id="config.id"
           :class="config.classes.toLiteral()"
           :style="config.style.toLiteral()"
-          style="width: 100%;"
+          style="width: 100%"
           @click="clicked($event)">
           <div>
             <i v-if="config.icon" :class="config.icon"></i> {{config.caption}}

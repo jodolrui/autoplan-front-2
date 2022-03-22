@@ -13,7 +13,7 @@ function clicked() {
 const classes = config.classes.toLiteral();
 classes["cell"] = true;
 classes["is-first-row"] = index <= 2;
-classes["first-col"] = index % 2 !== 0;
+classes["is-first-col"] = index % 2 !== 0;
 classes["is-second-col"] = index % 2 === 0;
 </script>
 

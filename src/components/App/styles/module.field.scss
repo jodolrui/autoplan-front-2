@@ -12,12 +12,12 @@
   white-space: nowrap;
   cursor: pointer;
   background-color: var(--bg-color);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 0.1rem solid var(--border-color);
   &.field-first {
-    border-top: 1px solid var(--border-color);
+    border-top: 0.1rem solid var(--border-color);
   }
   &.field-label {
-    border-right: 1px solid var(--border-color);
+    border-right: 0.1rem solid var(--border-color);
   }
   color: var(--fore-color);
   background-image: none;

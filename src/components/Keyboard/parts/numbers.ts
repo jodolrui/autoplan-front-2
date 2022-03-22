@@ -33,10 +33,8 @@ export default defineComponent({
       });
 
       design((wall) => {
-        let { style } = wall;
-        style.set("display", "grid");
-        style.set("grid-auto-rows", "40px");
-        style.set("grid-gap", "3px");
+        let { classes } = wall;
+        classes.set("m-keyboard__panel", true);
         if (row <= 1)
           wall.style.set(
             "grid-template-columns",
@@ -71,8 +69,7 @@ export default defineComponent({
             if (element === "letters") brick.caption = "abc";
             if (element === "enter") brick.icon = "fa fa-check";
             let { classes, style } = brick;
-            classes.set("btn", true);
-            classes.set("btn-key", true);
+            classes.set("m-keyboard__key", true);
             style.set("grid-area", `1 / ${index + 1}`);
             brick.clicked = () => current.sendKey(brick.id, brick.caption);
             if (element === "symbols") brick.clicked = symbols;

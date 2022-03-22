@@ -14,15 +14,8 @@ function clicked() {
     :class="config.classes.toLiteral()"
     :style="config.style.toLiteral()"
     @click="clicked($event)">
-    <i :class="config.icon"></i>
+    {{ config.caption }}
   </button>
 </template>
 
-<style scoped lang="scss">
-button {
-  display: inline-block;
-  width: 2.5rem !important;
-  height: 2.5rem !important;
-  border-radius: 100%;
-}
-</style>
+<style scoped lang="scss"></style>

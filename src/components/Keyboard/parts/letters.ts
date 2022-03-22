@@ -41,10 +41,8 @@ export default defineComponent({
       });
 
       design((wall) => {
-        let { style } = wall;
-        style.set("display", "grid");
-        style.set("grid-auto-rows", "40px");
-        style.set("grid-gap", "3px");
+        let { classes } = wall;
+        classes.set("m-keyboard__panel", true);
         if (row <= 2)
           wall.style.set(
             "grid-template-columns",
@@ -79,8 +77,7 @@ export default defineComponent({
             if (element === "down") brick.icon = "fa fa-caret-down";
             if (element === "right") brick.icon = "fa fa-caret-right";
             let { classes, style } = brick;
-            classes.set("btn", true);
-            classes.set("btn-key", true);
+            classes.set("m-keyboard__key", true);
             style.set("grid-area", `1 / ${index + 1}`);
             brick.updated = () => {
               if (brick.caption.length === 1) {
@@ -150,10 +147,6 @@ export default defineComponent({
 
     //* funciones
     function typeKey(brick: Brick) {
-      brick.classes.set("pressed", true);
-      setTimeout(() => {
-        brick.classes.set("pressed", false);
-      }, 1);
       current.sendKey(brick.id, brick.caption);
       state.acuteAccent.value = false;
       state.graveAccent.value = false;

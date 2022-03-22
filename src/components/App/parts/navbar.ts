@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import {
   Brick,
@@ -26,8 +26,8 @@ export default defineComponent({
 
     design((wall) => {
       let { classes } = wall;
-      classes.set("toolbar", true);
-      classes.set("is-right-justified", true);
+      classes.set("m-toolbar", true);
+      classes.set("s-flex-right", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 
@@ -40,6 +40,14 @@ export default defineComponent({
         brick.id = "toggle-keyboard";
         brick.icon = "fa fa-keyboard";
         brick.component = "RoundButton";
+        brick.setup = () => {
+          watch(
+            () => current.keyboardOn,
+            (value: boolean) => {
+              brick.classes.set("s-active", value);
+            },
+          );
+        };
         brick.clicked = () => {
           current.keyboardOn = !current.keyboardOn;
         };
@@ -51,10 +59,7 @@ export default defineComponent({
         brick.component = "RoundButton";
         brick.updated = () => {
           var body = document.body;
-          brick.classes.set(
-            "btn-primary",
-            body.classList.contains("dark-theme"),
-          );
+          brick.classes.set("s-active", body.classList.contains("dark-theme"));
         };
         brick.clicked = () => {
           var body = document.body;
@@ -69,6 +74,9 @@ export default defineComponent({
         brick.id = "toggle-fullscreen";
         brick.icon = "fas fa-expand";
         brick.component = "RoundButton";
+        brick.updated = () => {
+          brick.classes.set("s-active", document.fullscreen);
+        };
         brick.clicked = () => {
           if (document.fullscreen)
             document

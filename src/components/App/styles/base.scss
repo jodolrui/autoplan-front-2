@@ -1,6 +1,43 @@
 * {
-  font-size: 100%;
-  @media (min-width: 600px) {
-    font-size: 110%;
+  color: var(--fore-color);
+}
+
+/* font-size en html para utilizar rem */
+html {
+  font-size: 14px;
+}
+@media (min-width: 700px) {
+  html {
+    font-size: 24px;
   }
+}
+
+button {
+  display: inline-block;
+  height: 2.5rem !important;
+  border-radius: 0.4rem;
+  padding-top: 0.1rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  border: 0.1rem solid var(--border-color);
+  color: var(--fore-color);
+  background-image: none;
+  box-shadow: 0 0.1rem 0.1rem var(--shadow-color);
+  -webkit-appearance: button;
+  text-transform: none;
+  overflow: visible;
+  margin: 0;
+  box-sizing: inherit;
+  /* elimina la posibilidad de seleccionar el texto */
+  user-select: none;
+  -webkit-user-select: none;
+  /* elimina el azul del toque en móviles */
+  -webkit-tap-highlight-color: transparent;
+}
+button:active {
+  background-color: var(--active-color);
 }

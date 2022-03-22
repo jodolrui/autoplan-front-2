@@ -35,25 +35,29 @@ body {
 }
 @media (min-width: 700px) {
   .app {
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
+    width: 700px;
+    border-left: 0.1rem solid var(--border-color);
+    border-right: 0.1rem solid var(--border-color);
   }
 }
 
 header {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 0.1rem solid var(--border-color);
 }
 
 nav {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 0.1rem solid var(--border-color);
 }
 
 article {
+  /* muestra la barra de scroll sólo si hace falta (crea movimientos en el width) */
   overflow-y: auto;
+  /* muestra siempre la barra de scroll */
+  /* overflow-y: scroll; */
 }
 
 footer {
-  border-top: 1px solid var(--border-color);
+  border-top: 0.1rem solid var(--border-color);
 }
 
 section {

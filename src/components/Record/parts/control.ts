@@ -29,8 +29,8 @@ export default defineComponent({
 
     design((wall) => {
       let { classes } = wall;
-      classes.set("toolbar", true);
-      classes.set("is-right-justified", true);
+      classes.set("m-toolbar", true);
+      classes.set("s-flex-right", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 

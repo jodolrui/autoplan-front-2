@@ -1,11 +1,7 @@
-.is-right-justified {
+.s-active {
+  background-color: var(--active-color) !important;
+}
+
+.s-flex-right {
   justify-content: flex-end;
-}
-
-.is-first-row {
-  border-top: 1px solid var(--border-color);
-}
-
-.is-second-col {
-  border-left: 1px solid var(--border-color);
 }

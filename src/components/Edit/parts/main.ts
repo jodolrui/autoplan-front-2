@@ -35,7 +35,7 @@ export default defineComponent({
     state.classes["cell"] = true;
     state.classes["edit"] = true;
     state.classes["is-first-row"] = state.index <= 2;
-    state.classes["first-col"] = state.index % 2 !== 0;
+    state.classes["is-first-col"] = state.index % 2 !== 0;
     state.classes["is-second-col"] = state.index % 2 === 0;
 
     onMounted(() => {

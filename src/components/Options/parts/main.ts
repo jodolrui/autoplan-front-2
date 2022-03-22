@@ -45,7 +45,7 @@ export default defineComponent({
 
       create(useBrick);
       before((brick: Brick) => {
-        brick.classes.set("btn", true);
+        // brick.classes.set("btn", true);
         // brick.classes.set("btn-square", true);
         // brick.classes.set("rounded-circle", true);
       });
