@@ -1,0 +1,36 @@
+#keyboard {
+  /* position: fixed; */
+  left: 0px;
+  bottom: 0px;
+  padding: 3px;
+  padding-bottom: 3px;
+  background-color: var(--bg-color);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 3px;
+  width: auto;
+  /* border-top: 1px solid var(--border-color); */
+}
+
+button.btn-key {
+  height: 100%;
+  padding: 0px;
+  font-size: 14pt;
+  &:active {
+    background-color: var(--active-color) !important;
+  }
+}
+
+.pressed {
+  animation: active 1s ease 1;
+}
+
+@keyframes active {
+  0% {
+    background-color: var(--active-color);
+  }
+  100% {
+    background-color: inherit;
+  }
+}

@@ -1,4 +1,9 @@
-import { Format, Field, RecordBase } from "../shared/interfaces/dataInterfaces";
+import {
+  Format,
+  Field,
+  RecordBase,
+  ChildDesign,
+} from "../shared/interfaces/dataInterfaces";
 
 import site from "../designs/site";
 import coordinates from "../designs/coordinates";
@@ -11,7 +16,12 @@ import zone from "../designs/zone";
 import stairs from "../designs/stairs";
 import elevator from "../designs/elevator";
 
-export type Design = { format: Format; fields: Field[]; newRecord: RecordBase };
+export type Design = {
+  format: Format;
+  fields: Field[];
+  newRecord: RecordBase;
+  childDesigns: ChildDesign[];
+};
 
 export function getDesign(designKey: string): Design {
   let result: Design = {} as Design;

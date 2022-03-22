@@ -25,9 +25,11 @@ export function useState() {
     designKey: ComputedRef<string | undefined>;
     format: Format;
     newRecord: RecordBase;
+    selectOn: Ref<boolean>;
   }>({
     tablePulse: ref(0),
     controlPulse: ref(0),
     editPulse: ref(0),
+    selectOn: ref(false),
   });
 }

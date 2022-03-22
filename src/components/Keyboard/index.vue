@@ -1,7 +1,7 @@
 <template src="./template.html"></template>
 
-//! quito lang="ts" para evitar errores de typescript 
-//! y elimino de tsconfig.json los archivos *.vue
+//! quito lang="ts" para evitar errores de typescript //! y elimino de
+tsconfig.json los archivos *.vue
 <script>
 import { compose } from "@jodolrui/glue";
 import main from "./parts/main";
@@ -24,7 +24,7 @@ export default compose("Keyboard", [main, letters, numbers, symbols]);
   grid-template-rows: auto;
   grid-gap: 3px;
   width: auto;
-  border-top: 1px solid var(--border-color);
+  /* border-top: 1px solid var(--border-color); */
 }
 
 button.btn-key {
@@ -68,5 +68,4 @@ button.btn-key {
     opacity: 0;
   }
 }
-
 </style>

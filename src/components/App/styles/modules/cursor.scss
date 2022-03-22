@@ -1,0 +1,32 @@
+.cursor {
+  border-left: 2px solid var(--fore-color);
+  animation: blinker 0.5s ease infinite;
+}
+
+.cursor-end {
+  border-left: 2px solid transparent;
+  /* compensamos el espacio añadido por el border-left */
+  /* margin-left: -1px;
+  margin-right: -1px; */
+  /* // * para que no sea seleccionable */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+}
+
+@keyframes blinker {
+  0% {
+    border-left: 2px solid var(--fore-color);
+  }
+  33% {
+    border-left: 2px solid var(--fore-color);
+  }
+  66% {
+    border-left: 2px solid transparent;
+  }
+  100% {
+    border-left: 2px solid transparent;
+  }
+}

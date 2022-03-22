@@ -1,43 +1,35 @@
-body {
-  overflow: hidden;
+/* //* necesario para que el background-color aparezca bien en fullscreen */
+#app:fullscreen {
+  background-color: var(--bg-color);
+}
+.dark-mode #app:fullscreen {
+  background-color: var(--bg-color);
 }
 
-.container {
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 1fr;
-  /* header body footer */
-  grid-template-rows: auto 1fr auto;
+/* --> variables */
+#app {
+  --width: 100%;
+  --max-width: 500px;
+  --border: none;
 }
-
-.header {
-  /* border-bottom: 1px solid var(--border-color); */
+//* min-width debe ser igual a var(--max-width) sin variable
+@media (min-width: 600px) {
+  #app {
+    --width: var(--max-width);
+    --border: 1px solid var(--border-color);
+  }
+  .dark-mode #app {
+    --border: 1px solid var(--border-color);
+  }
 }
-
-.sidebar {
-  /* border-right: 1px solid var(--border-color); */
-  grid-area: 1 / 1 / span 2 / span 1;
-  /* background-color:aqua; */
+/* --< variables */
+#app {
+  width: var(--width);
+  margin-left: calc(50% - var(--width) / 2);
+  margin-right: calc(50% - var(--width) / 2);
+  border-left: var(--border);
+  border-right: var(--border);
 }
-
-.footer {
-  /* border-top: 1px solid var(--border-color); */
-}
-
-.body {
-  display: grid;
-  /* breadcrumbs content */
-  grid-template-rows: auto 1fr;
-  /* sidebar content */
-  grid-template-columns: 0px 1fr;
-  overflow: hidden;
-}
-
-.content {
-  overflow-y: auto;
-}
-
-p {
-  max-width: 600px;
+.dark-mode #app {
+  /* background-color: var(--dm-bg-color); */
 }

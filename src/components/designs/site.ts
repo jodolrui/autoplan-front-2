@@ -1,5 +1,11 @@
 import { expose, exposed } from "@jodolrui/glue";
-import { RecordBase, Format, Field } from "../shared/interfaces/dataInterfaces";
+import {
+  RecordBase,
+  Format,
+  Field,
+  ChildDesign,
+} from "../shared/interfaces/dataInterfaces";
+import { Design } from "./getDesign";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 
 const format: Format = {
@@ -85,4 +91,8 @@ const newRecord: Record = {
   province: { value: null },
 } as Record;
 
-export default { format, fields, newRecord };
+const childDesigns: ChildDesign[] = [] as ChildDesign[];
+
+const design: Design = { format, fields, newRecord, childDesigns };
+
+export default design;

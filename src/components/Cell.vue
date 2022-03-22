@@ -26,44 +26,4 @@ classes["second-col"] = index % 2 === 0;
   </div>
 </template>
 
-<style scoped lang="scss">
-.cell {
-  display: inline-block;
-  min-height: 2.2rem;
-  height: 100%;
-  max-width: 50vw;
-  padding-left: 0.8rem;
-  padding-right: 0.8rem;
-  padding-top: 0.7rem;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-  background-color: var(--bg-color);
-  border-bottom: 1px solid var(--border-color);
-  &.first-row {
-    border-top: 1px solid var(--border-color);
-  }
-  &.first-col {
-    border-right: 1px solid var(--border-color);
-  }
-  color: var(--fore-color);
-  background-image: none;
-  -webkit-appearance: button;
-  text-transform: none;
-  overflow: visible;
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-  box-sizing: inherit;
-  /* scroll para poder ver el contenido entero */
-  overflow-x: auto;
-  &.second-col {
-    /* añador código */
-  }
-  /* elimina el azul del toque en móviles */
-  -webkit-tap-highlight-color: transparent;
-  &.selected {
-    background-color: var(--active-color) !important;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

@@ -1,0 +1,37 @@
+.btn {
+  /* @include noselect(); */
+  display: inline-block;
+  height: 2.2rem !important;
+  padding-top: auto;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.4rem;
+  color: var(--fore-color);
+  background-image: none;
+  box-shadow: 0 0.2rem 0.2rem var(--shadow-color);
+  -webkit-appearance: button;
+  text-transform: none;
+  overflow: visible;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  box-sizing: inherit;
+  &.btn-square {
+    width: 2.2rem !important;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    &.rounded-circle {
+      border-radius: 100%;
+    }
+  }
+  /* elimina la posibilidad de seleccionar el texto */
+  user-select: none;
+  -webkit-user-select: none;
+  /* elimina el azul del toque en móviles */
+  -webkit-tap-highlight-color: transparent;
+}

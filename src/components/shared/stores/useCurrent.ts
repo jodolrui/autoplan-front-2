@@ -25,6 +25,7 @@ export type UseCurrentState = {
   edit: { value: string; cursor: number };
   editing: { pre: string[]; post: string[] };
   keyboardOn: boolean;
+  selectOn: boolean;
   pulse: number;
 };
 
@@ -68,6 +69,7 @@ export const useCurrent = defineStore<
       edit: { value: "", cursor: 0 },
       editing: { pre: [], post: [] },
       keyboardOn: false,
+      selectOn: false,
       pulse: 0,
     };
   },

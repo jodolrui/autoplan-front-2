@@ -1,6 +1,12 @@
 import { watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { RecordBase, Format, Field } from "../shared/interfaces/dataInterfaces";
+import {
+  RecordBase,
+  Format,
+  Field,
+  ChildDesign,
+} from "../shared/interfaces/dataInterfaces";
+import { Design } from "./getDesign";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 
 import { useProjectData } from "../shared/stores/useProjectData";
@@ -163,7 +169,11 @@ const newRecord: Record = {
   protected: { value: null },
 } as Record;
 
-export default { format, fields, newRecord };
+const childDesigns: ChildDesign[] = [] as ChildDesign[];
+
+const design: Design = { format, fields, newRecord, childDesigns };
+
+export default design;
 
 //* rellenamos "desde" y "hasta" con las plantas
 // const floors = projectData.getChildrenByDesign("", "floor");

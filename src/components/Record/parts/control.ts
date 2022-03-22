@@ -10,8 +10,10 @@ import { useState } from "../state";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
 import { useCurrent } from "../../shared/stores/useCurrent";
+import Options from "../../Options/index.vue";
 
 export default defineComponent({
+  components: { Options },
   setup() {
     const current = useCurrent();
     const router = useRouter();
@@ -82,14 +84,15 @@ export default defineComponent({
         brick.id = "add";
         brick.icon = "fa fa-plus";
         brick.clicked = () => {
+          current.selectOn = true;
           //! tengo que crear la manera de seleccionar el designKey
-          const designKey: string = brick.vars.get("record").__designKey;
-          if (brick.vars.get("record")) {
-            current.newRecord(
-              brick.vars.get("record").__designKey,
-              brick.vars.get("record"),
-            );
-          }
+          // const designKey: string = brick.vars.get("record").__designKey;
+          // if (brick.vars.get("record")) {
+          //   current.newRecord(
+          //     brick.vars.get("record").__designKey,
+          //     brick.vars.get("record"),
+          //   );
+          // }
         };
       });
 

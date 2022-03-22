@@ -1,0 +1,11 @@
+* {
+  font-size: 100%;
+  @media (min-width: 600px) {
+    font-size: 110%;
+  }
+}
+
+body {
+  overflow: hidden;
+  background-color: var(--bg-color);
+}

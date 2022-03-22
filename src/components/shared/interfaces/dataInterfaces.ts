@@ -44,3 +44,9 @@ export interface RecordBase {
   __order: number;
   __breadcrumb: string;
 }
+
+export interface ChildDesign {
+  designKey: string;
+  min: number | null;
+  max: number | null;
+}

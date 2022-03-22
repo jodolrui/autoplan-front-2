@@ -1,11 +1,7 @@
 <!--//* Record -->
-<Wall :config="control"/>
-<Wall :config="table" :key="current.pulse">
-  <!-- <template v-slot:edit>
-    <Edit
-      :value="current.edit.value"
-      :cursor="current.edit.cursor"
-      :key="current.edit.value"
-      />
-  </template> -->
-</Wall>
+<Wall :config="control" />
+<Wall :config="table" :key="current.pulse" />
+
+<Teleport v-if="current.selectOn" to="#select">
+  <Options :items="['hola', 'mundo']" />
+</Teleport>
