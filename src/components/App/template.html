@@ -1,13 +1,14 @@
 <!--//* App -->
-<div class="container">
-  <div class="header"><Wall :config="navbar" /></div>
-  <div class="body">
-    <!--//* :key="$route.path" es necesario para que se refresque al cambiar la dirección -->
+<div class="app">
+  <header><Wall :config="navbar" /></header>
+  <nav id="nav"></nav>
+  <aside v-if="false"></aside>
+  <article>
+    <!-- :key="$route.path" para refrescar al cambiar la dirección -->
     <router-view :key="$route.path"></router-view>
-  </div>
-  <div class="footer">
-    <div id="options"></div>
-    <Keyboard v-if="current.keyboardOn" />
+  </article>
+  <footer>
     <div id="select"></div>
-  </div>
+    <Keyboard v-if="current.keyboardOn" />
+  </footer>
 </div>

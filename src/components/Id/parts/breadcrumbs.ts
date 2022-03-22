@@ -27,16 +27,8 @@ export default defineComponent({
     });
 
     design((wall) => {
-      let { style } = wall;
-      style.set("display", "flex");
-      style.set("flex-direction", "row");
-      style.set("flex-wrap", "wrap");
-      style.set("justify-content", "flex-start");
-      style.set("align-content", "stretch");
-      style.set("align-items", "flex-start");
-      style.set("padding", "3px");
-      style.set("gap", "3px");
-      style.set("border-bottom", "1px solid var(--border-color)");
+      let { classes } = wall;
+      classes.set("toolbar", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 
@@ -53,6 +45,7 @@ export default defineComponent({
       design((brick) => {
         brick.id = "root";
         brick.icon = "fas fa-home";
+        brick.component = "RoundButton";
         brick.classes.set("btn-square", true);
         brick.classes.set("rounded-circle", true);
         brick.clicked = () => {

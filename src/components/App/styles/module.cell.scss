@@ -11,7 +11,7 @@
   cursor: pointer;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
-  &.first-row {
+  &.is-first-row {
     border-top: 1px solid var(--border-color);
   }
   &.first-col {
@@ -28,7 +28,7 @@
   box-sizing: inherit;
   /* scroll para poder ver el contenido entero */
   overflow-x: auto;
-  &.second-col {
+  &.is-second-col {
     /* añador código */
   }
   /* elimina el azul del toque en móviles */
@@ -51,7 +51,7 @@
   cursor: pointer;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
-  &.first-row {
+  &.is-first-row {
     border-top: 1px solid var(--border-color);
   }
   &.first-col {
@@ -68,7 +68,7 @@
   box-sizing: inherit;
   /* scroll para poder ver el contenido entero */
   overflow-x: auto;
-  &.second-col {
+  &.is-second-col {
     /* añador código */
   }
   /* elimina el azul del toque en móviles */

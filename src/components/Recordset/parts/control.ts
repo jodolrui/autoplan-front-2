@@ -27,25 +27,15 @@ export default defineComponent({
     });
 
     design((wall) => {
-      let { style } = wall;
-      style.set("display", "flex");
-      style.set("flex-direction", "row");
-      style.set("flex-wrap", "nowrap");
-      style.set("justify-content", "flex-end");
-      style.set("align-content", "stretch");
-      style.set("align-items", "flex-start");
-      style.set("padding", "3px");
-      style.set("gap", "3px");
-      // style.set("border-bottom", "1px solid var(--border-color)");
+      let { classes } = wall;
+      classes.set("toolbar", true);
+      classes.set("is-right-justified", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 
       create(useBrick);
       before((brick: Brick) => {
         const { classes } = brick;
-        classes.set("btn", true);
-        classes.set("btn-square", true);
-        classes.set("rounded-circle", true);
       });
       after((brick: Brick) => {
         brick.mount(wall);
@@ -54,6 +44,7 @@ export default defineComponent({
       design((brick) => {
         brick.id = "add";
         brick.icon = "fa fa-plus";
+        brick.component = "RoundButton";
         brick.clicked = () => {
           if (current.record) {
             const { childDesigns } = getDesign(current.record?.__designKey);

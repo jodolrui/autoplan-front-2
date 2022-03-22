@@ -1,4 +1,4 @@
-body {
+:root {
   --bg-color: rgb(245, 245, 245);
   --fore-color: rgb(80, 80, 80);
   --border-color: rgb(180, 180, 180);
@@ -6,7 +6,7 @@ body {
   --active-color: violet;
 }
 
-body.dark-mode {
+.dark-theme {
   --bg-color: rgb(50, 50, 50);
   --fore-color: rgb(200, 200, 200);
   --border-color: rgb(120, 120, 120);
@@ -14,27 +14,9 @@ body.dark-mode {
   --active-color: rgb(110, 60, 110);
 }
 
-/* --> variables */
-#app {
-  --width: 100%;
-  --max-width: 500px;
-  --border: none;
-}
-//* min-width debe ser igual a var(--max-width) sin variable
-@media (min-width: 600px) {
-  #app {
-    --width: var(--max-width);
-    --border: 1px solid var(--border-color);
-  }
-  .dark-mode #app {
-    --border: 1px solid var(--border-color);
-  }
-}
-/* --< variables */
-
 * {
   --my-table-border-color: var(--lm-table-border-color);
 }
-.dark-mode * {
+.dark-theme * {
   --my-table-border-color: var(--dm-table-border-color);
 }

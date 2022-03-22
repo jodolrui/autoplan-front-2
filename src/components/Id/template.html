@@ -1,9 +1,7 @@
 <!--//* Id -->
-<div class="sidebar"></div>
-<div id="breadcrumbs" class="breadcrumbs">
+<Teleport to="#nav">
   <Wall :config="breadcrumbs" />
-</div>
-<div id="content" class="content">
+</Teleport>
+<section>
   <Recordset />
-  <!-- <Datagrid /> -->
-</div>
+</section>

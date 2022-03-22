@@ -34,9 +34,9 @@ export default defineComponent({
     state.classes = state.config.classes.toLiteral();
     state.classes["cell"] = true;
     state.classes["edit"] = true;
-    state.classes["first-row"] = state.index <= 2;
+    state.classes["is-first-row"] = state.index <= 2;
     state.classes["first-col"] = state.index % 2 !== 0;
-    state.classes["second-col"] = state.index % 2 === 0;
+    state.classes["is-second-col"] = state.index % 2 === 0;
 
     onMounted(() => {
       let editDiv: HTMLElement | null;

@@ -1,35 +1,61 @@
-/* //* necesario para que el background-color aparezca bien en fullscreen */
-#app:fullscreen {
-  background-color: var(--bg-color);
-}
-.dark-mode #app:fullscreen {
+body {
   background-color: var(--bg-color);
 }
 
-/* --> variables */
 #app {
   --width: 100%;
-  --max-width: 500px;
-  --border: none;
 }
-//* min-width debe ser igual a var(--max-width) sin variable
-@media (min-width: 600px) {
+@media (min-width: 700px) {
   #app {
-    --width: var(--max-width);
-    --border: 1px solid var(--border-color);
-  }
-  .dark-mode #app {
-    --border: 1px solid var(--border-color);
+    --width: 700px;
   }
 }
-/* --< variables */
 #app {
   width: var(--width);
-  margin-left: calc(50% - var(--width) / 2);
-  margin-right: calc(50% - var(--width) / 2);
-  border-left: var(--border);
-  border-right: var(--border);
+  margin-left: calc((100% - var(--width)) / 2);
+  margin-right: calc((100% - var(--width)) / 2);
 }
-.dark-mode #app {
-  /* background-color: var(--dm-bg-color); */
+@media (min-width: 700px) {
+  #app {
+    width: var(--width);
+  }
+}
+#app:fullscreen {
+  background-color: var(--bg-color);
+}
+
+.app {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* header body footer */
+  grid-template-rows: auto auto 1fr auto;
+}
+@media (min-width: 700px) {
+  .app {
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+  }
+}
+
+header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+nav {
+  border-bottom: 1px solid var(--border-color);
+}
+
+article {
+  overflow: hidden;
+}
+
+footer {
+  border-top: 1px solid var(--border-color);
+}
+
+section {
+  width: 100%;
 }
