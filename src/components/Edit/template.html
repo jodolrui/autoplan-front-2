@@ -3,22 +3,22 @@
   <span
     v-for="(char, i) in chars"
     :key="i"
-    :id="`edit-char${i + 1}`"
+    :id="`m-edit__char${i + 1}`"
     :class="
       {
-        'edit-char': true,
-        cursor: i === current.edit.cursor,
+        'm-edit__char': true,
+        'm-edit__char__cursor': i === current.edit.cursor,
       }
     "
     :style="config.style.toLiteral()">
     {{ char === " " ? "&nbsp;" : char }}
   </span>
   <span
-    id="cursor-end"
+    id="m-edit__end"
     :class="
       {
-        'cursor-end': true,
-        cursor: current.edit.cursor === chars.length,
+        'm-edit__end': true,
+        'm-edit__char__cursor': current.edit.cursor === chars.length,
       }
     "
     :style="config.style.toLiteral()">

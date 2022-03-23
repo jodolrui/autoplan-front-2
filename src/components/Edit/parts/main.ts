@@ -32,11 +32,11 @@ export default defineComponent({
       state.config.clicked(state.config, state.config.wall);
     }
     state.classes = state.config.classes.toLiteral();
-    state.classes["cell"] = true;
-    state.classes["edit"] = true;
-    state.classes["is-first-row"] = state.index <= 2;
-    state.classes["is-first-col"] = state.index % 2 !== 0;
-    state.classes["is-second-col"] = state.index % 2 === 0;
+    state.classes["m-cell"] = true;
+    state.classes["m-edit"] = true;
+    state.classes["m-cell__first-row"] = state.index <= 2;
+    state.classes["m-cell__first-col"] = state.index % 2 !== 0;
+    state.classes["m-cell__second-col"] = state.index % 2 === 0;
 
     onMounted(() => {
       let editDiv: HTMLElement | null;
@@ -65,7 +65,7 @@ export default defineComponent({
             const span: HTMLElement | null = document.getElementById(
               (element as HTMLElement).id as string,
             );
-            if (span?.classList.contains("edit-char")) {
+            if (span?.classList.contains("m-edit__char")) {
               if (
                 span?.offsetLeft &&
                 span?.offsetLeft + span.offsetWidth / 2 < event.offsetX

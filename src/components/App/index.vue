@@ -16,9 +16,7 @@ export default compose("App", [main, navbar]);
 /* --> modules */
 @import url("./styles/module.toolbar.scss");
 @import url("./styles/module.cell.scss");
-@import url("./styles/module.edit-char.scss");
-@import url("./styles/module.cursor.scss");
-@import url("./styles/module.field.scss");
+@import url("./styles/module.edit.scss");
 @import url("./styles/module.keyboard.scss");
 /* --< modules */
 @import url("./styles/state.scss");

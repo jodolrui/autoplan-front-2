@@ -11,10 +11,10 @@ function clicked() {
   config.clicked();
 }
 const classes = config.classes.toLiteral();
-classes["cell"] = true;
-classes["is-first-row"] = index <= 2;
-classes["is-first-col"] = index % 2 !== 0;
-classes["is-second-col"] = index % 2 === 0;
+classes["m-cell"] = true;
+classes["m-cell__first-row"] = index <= 2;
+classes["m-cell__first-col"] = index % 2 !== 0;
+classes["m-cell__second-col"] = index % 2 === 0;
 </script>
 
 <template>

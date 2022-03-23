@@ -1,4 +1,4 @@
-.cell {
+.m-cell {
   display: inline-block;
   min-height: 2.2rem;
   height: 100%;
@@ -11,12 +11,6 @@
   cursor: pointer;
   background-color: var(--bg-color);
   border-bottom: 0.1rem solid var(--border-color);
-  &.is-first-row {
-    border-top: 0.1rem solid var(--border-color);
-  }
-  &.is-first-col {
-    border-right: 0.1rem solid var(--border-color);
-  }
   color: var(--fore-color);
   background-image: none;
   -webkit-appearance: button;
@@ -35,10 +29,14 @@
   }
 }
 
-.is-first-row {
+.m-cell__first-row {
   border-top: 0.1rem solid var(--border-color);
 }
 
-.is-first-col {
+.m-cell__first-col {
   border-right: 0.1rem solid var(--border-color);
+}
+
+.m-cell__second-col {
+  border-right: inherit;
 }
