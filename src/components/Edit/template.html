@@ -7,7 +7,7 @@
     :class="
       {
         'm-edit__char': true,
-        'm-edit__char__cursor': i === current.edit.cursor,
+        'm-edit__char--cursor': i === current.edit.cursor,
       }
     "
     :style="config.style.toLiteral()">
@@ -18,7 +18,7 @@
     :class="
       {
         'm-edit__end': true,
-        'm-edit__char__cursor': current.edit.cursor === chars.length,
+        'm-edit__char--cursor': current.edit.cursor === chars.length,
       }
     "
     :style="config.style.toLiteral()">

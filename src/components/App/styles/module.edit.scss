@@ -9,7 +9,7 @@
   margin-right: -1px;
 }
 
-.m-edit__char__cursor {
+.m-edit__char--cursor {
   border-left: 2px solid var(--fore-color);
   animation: blinker 0.5s ease infinite;
 }
