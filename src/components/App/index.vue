@@ -8,8 +8,7 @@ export default compose("App", [main, navbar]);
 </script>
 
 <style lang="scss">
-@import url("./reset.scss");
-
+@import url("./styles/__reset.scss");
 @import url("./styles/--variables.scss");
 @import url("./styles/base.scss");
 @import url("./styles/layout.scss");

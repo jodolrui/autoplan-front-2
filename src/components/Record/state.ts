@@ -26,10 +26,14 @@ export function useState() {
     format: Format;
     newRecord: RecordBase;
     selectOn: Ref<boolean>;
+    add: Wall;
+    options: Wall;
+    optionsOn: Ref<boolean>;
   }>({
     tablePulse: ref(0),
     controlPulse: ref(0),
     editPulse: ref(0),
     selectOn: ref(false),
+    optionsOn: ref(false),
   });
 }

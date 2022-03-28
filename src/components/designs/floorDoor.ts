@@ -4,10 +4,16 @@ import {
   RecordBase,
   Format,
   Field,
+  Design,
   ChildDesign,
 } from "../shared/interfaces/dataInterfaces";
-import { Design } from "./getDesign";
+import { DesignPack } from "./getDesign";
 import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
+
+const design: Design = {
+  designKey: "floorDoor",
+  caption: "Puerta de planta",
+};
 
 const format: Format = {
   desktop: {
@@ -159,6 +165,12 @@ const newRecord: Record = {
 
 const childDesigns: ChildDesign[] = [] as ChildDesign[];
 
-const design: Design = { format, fields, newRecord, childDesigns };
+const designPack: DesignPack = {
+  design,
+  format,
+  fields,
+  newRecord,
+  childDesigns,
+};
 
-export default design;
+export default designPack;

@@ -8,7 +8,7 @@
     <router-view :key="$route.path"></router-view>
   </article>
   <footer>
-    <div id="select"></div>
+    <Options v-if="current.optionsOn" :key="current.options" />
     <Keyboard v-if="current.keyboardOn" />
   </footer>
 </div>

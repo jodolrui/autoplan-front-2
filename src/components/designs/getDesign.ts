@@ -2,6 +2,7 @@ import {
   Format,
   Field,
   RecordBase,
+  Design,
   ChildDesign,
 } from "../shared/interfaces/dataInterfaces";
 
@@ -16,15 +17,29 @@ import zone from "../designs/zone";
 import stairs from "../designs/stairs";
 import elevator from "../designs/elevator";
 
-export type Design = {
+export const designs: Design[] = [
+  site.design,
+  coordinates.design,
+  building.design,
+  buildingExit.design,
+  floor.design,
+  floorExit.design,
+  floorDoor.design,
+  zone.design,
+  stairs.design,
+  elevator.design,
+];
+
+export type DesignPack = {
+  design: Design;
   format: Format;
   fields: Field[];
   newRecord: RecordBase;
   childDesigns: ChildDesign[];
 };
 
-export function getDesign(designKey: string): Design {
-  let result: Design = {} as Design;
+export function getDesign(designKey: string): DesignPack {
+  let result: DesignPack = {} as DesignPack;
   if (designKey) {
     if (designKey === "root") result = site;
     if (designKey === "site") result = site;

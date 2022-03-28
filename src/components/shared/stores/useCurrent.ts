@@ -1,6 +1,6 @@
 import { defineStore, Store } from "pinia";
 import { watch } from "vue";
-import { RecordBase } from "../interfaces/dataInterfaces";
+import { RecordBase, Design, ChildDesign } from "../interfaces/dataInterfaces";
 import { Field } from "../interfaces/dataInterfaces";
 import { Brick } from "../modules/wallbrick/wallbrick";
 import {
@@ -9,8 +9,9 @@ import {
   UseProjectDataGetters,
   UseProjectDataActions,
 } from "./useProjectData";
-import { getDesign, Design } from "../../designs/getDesign";
+import { getDesign, DesignPack, designs } from "../../designs/getDesign";
 import { v4 as uuidv4 } from "uuid";
+import { Option } from "../interfaces/general";
 
 export type UseCurrentState = {
   routeId: string;
@@ -25,8 +26,9 @@ export type UseCurrentState = {
   edit: { value: string; cursor: number };
   editing: { pre: string[]; post: string[] };
   keyboardOn: boolean;
-  selectOn: boolean;
   pulse: number;
+  optionsOn: boolean;
+  options: Option[];
 };
 
 export type UseCurrentGetters = {
@@ -51,6 +53,7 @@ export type UseCurrentActions = {
   moveDown: (record: RecordBase) => void;
   delete: (record: RecordBase) => void;
   newRecord: (designKey: string, beforeRecord?: RecordBase) => void;
+  chooseDesign: () => void;
 };
 
 export const useCurrent = defineStore<
@@ -69,8 +72,9 @@ export const useCurrent = defineStore<
       edit: { value: "", cursor: 0 },
       editing: { pre: [], post: [] },
       keyboardOn: false,
-      selectOn: false,
       pulse: 0,
+      optionsOn: false,
+      options: [],
     };
   },
   getters: {
@@ -240,7 +244,7 @@ export const useCurrent = defineStore<
       beforeRecord: RecordBase | undefined,
     ) {
       if (!this.children) this.children = [];
-      const design: Design = getDesign(designKey);
+      const design: DesignPack = getDesign(designKey);
       //! JSON.stringify/parse only work with Number and String and Object literal without function or Symbol properties
       const newRecord: RecordBase = JSON.parse(
         JSON.stringify(design.newRecord),
@@ -263,6 +267,24 @@ export const useCurrent = defineStore<
       }
       this.children.push(newRecord);
       this.orderChildren();
+    },
+    chooseDesign() {
+      if (this.record) {
+        const design = getDesign(this.record.__designKey);
+        this.options = [];
+        design.childDesigns.forEach((element: ChildDesign) => {
+          const found = designs.find((design: Design) => {
+            return design.designKey === element.designKey;
+          });
+          if (found) {
+            let option: Option = {
+              key: found.designKey,
+              caption: found.caption,
+            };
+            this.options.push(option);
+          }
+        });
+      }
     },
   },
 });

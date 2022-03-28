@@ -1,4 +1,4 @@
-import { defineComponent, reactive, computed } from "vue";
+import { defineComponent, reactive, computed, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { Field, RecordBase } from "../../shared/interfaces/dataInterfaces";
 import { useState } from "../state";
@@ -13,6 +13,7 @@ export default defineComponent({
     state.record = props.record as RecordBase & {
       [key: string]: { value: any | null; units?: string | null };
     };
+    state.optionsOn = ref(false);
     const current = useCurrent();
     expose({ current });
   },

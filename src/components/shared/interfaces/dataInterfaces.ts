@@ -50,3 +50,8 @@ export interface ChildDesign {
   min: number | null;
   max: number | null;
 }
+
+export interface Design {
+  designKey: string;
+  caption: string;
+}

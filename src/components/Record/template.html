@@ -1,7 +1,8 @@
 <!--//* Record -->
-<Wall :config="control" />
+<Wall v-if="!optionsOn" :config="add">
+  <template v-slot:controls>
+    <Wall :config="control" />
+  </template>
+</Wall>
+<Wall v-if="optionsOn" :config="options" />
 <Wall :config="table" :key="current.pulse" />
-
-<Teleport v-if="current.selectOn" to="#select">
-  <Options :items="['hola', 'mundo']" />
-</Teleport>
