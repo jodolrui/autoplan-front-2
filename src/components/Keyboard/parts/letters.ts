@@ -76,19 +76,46 @@ export default defineComponent({
             if (element === "up") brick.icon = "fa fa-caret-up";
             if (element === "down") brick.icon = "fa fa-caret-down";
             if (element === "right") brick.icon = "fa fa-caret-right";
-            let { classes, style } = brick;
+            let { classes, style, vars } = brick;
             classes.set("m-keyboard__key", true);
             style.set("grid-area", `1 / ${index + 1}`);
+            vars.set("type", element.toLowerCase());
             brick.updated = () => {
-              if (brick.caption.length === 1) {
+              if (brick.id.length === 1) {
+                // if ("aeiou".includes(brick.id)) {
+                //   brick.caption = "aeiou".charAt("aeiou".indexOf(brick.id));
+                //   if (state.acuteAccent.value)
+                //     brick.caption = "áéíóú".charAt("aeiou".indexOf(brick.id));
+                //   if (state.graveAccent.value)
+                //     brick.caption = "àèìòù".charAt("aeiou".indexOf(brick.id));
+                //   if (state.dieresis.value)
+                //     brick.caption = "äëïöü".charAt("aeiou".indexOf(brick.id));
+                // }
                 if ("aeiou".includes(brick.id)) {
-                  brick.caption = "aeiou".charAt("aeiou".indexOf(brick.id));
+                  brick.vars.set(
+                    "type",
+                    "aeiou".charAt("aeiou".indexOf(brick.id)),
+                  );
                   if (state.acuteAccent.value)
-                    brick.caption = "áéíóú".charAt("aeiou".indexOf(brick.id));
+                    brick.vars.set(
+                      "type",
+                      "áéíóú".charAt("aeiou".indexOf(brick.id)),
+                    );
                   if (state.graveAccent.value)
-                    brick.caption = "àèìòù".charAt("aeiou".indexOf(brick.id));
+                    brick.vars.set(
+                      "type",
+                      "àèìòù".charAt("aeiou".indexOf(brick.id)),
+                    );
                   if (state.dieresis.value)
-                    brick.caption = "äëïöü".charAt("aeiou".indexOf(brick.id));
+                    brick.vars.set(
+                      "type",
+                      "äëïöü".charAt("aeiou".indexOf(brick.id)),
+                    );
+                }
+                if (state.shift.value) {
+                  brick.vars.set("type", brick.vars.get("type").toUpperCase());
+                } else {
+                  brick.vars.set("type", brick.vars.get("type").toLowerCase());
                 }
                 brick.caption = state.shift.value
                   ? brick.caption?.toUpperCase()
@@ -147,7 +174,9 @@ export default defineComponent({
 
     //* funciones
     function typeKey(brick: Brick) {
-      current.sendKey(brick.id, brick.caption);
+      console.log({ vars: brick.vars });
+
+      current.sendKey(brick.id, brick.vars.get("type"));
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
       state.dieresis.value = false;

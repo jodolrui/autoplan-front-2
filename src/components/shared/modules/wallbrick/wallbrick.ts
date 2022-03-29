@@ -60,8 +60,12 @@ export function useBrick(id?: string): Brick {
       items: reactive([]),
       keys: [],
       set: function (key: string, item: string | boolean) {
-        this.items.push(item);
-        this.keys.push(key);
+        if (this.keys.includes(key)) {
+          this.items[this.keys.indexOf(key)] = item;
+        } else {
+          this.items.push(item);
+          this.keys.push(key);
+        }
       },
       get: function (key: string) {
         const position = this.keys.indexOf(key);
@@ -87,8 +91,12 @@ export function useBrick(id?: string): Brick {
       items: reactive([]),
       keys: [],
       set: function (key: string, item: string | boolean) {
-        this.items.push(item);
-        this.keys.push(key);
+        if (this.keys.includes(key)) {
+          this.items[this.keys.indexOf(key)] = item;
+        } else {
+          this.items.push(item);
+          this.keys.push(key);
+        }
       },
       get: function (key: string) {
         const position = this.keys.indexOf(key);
@@ -114,8 +122,12 @@ export function useBrick(id?: string): Brick {
       items: reactive([]),
       keys: [],
       set: function (key: string, item: Object) {
-        this.items.push(item);
-        this.keys.push(key);
+        if (this.keys.includes(key)) {
+          this.items[this.keys.indexOf(key)] = item;
+        } else {
+          this.items.push(item);
+          this.keys.push(key);
+        }
       },
       get: function (key: string) {
         const position = this.keys.indexOf(key);
