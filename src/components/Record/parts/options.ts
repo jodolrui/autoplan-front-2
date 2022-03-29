@@ -54,7 +54,7 @@ export default defineComponent({
           brick.component = "Button";
           brick.clicked = () => {
             const designKey = element.key;
-            if (state.isLast && state.addOn) current.newRecord(designKey);
+            if (state.isLast && state.addOn.value) current.newRecord(designKey);
             else current.newRecord(designKey, state.record);
           };
         });
