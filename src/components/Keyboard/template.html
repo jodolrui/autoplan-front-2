@@ -1,5 +1,17 @@
 <!--//* Keyboard -->
 <div class="m-keyboard">
+  <template v-if="panel === 'letters'" v-for="(row, i) in letters" :key="pulse">
+    <Wall :config="row" />
+  </template>
+  <template v-if="panel === 'numbers'" v-for="(row, i) in numbers" :key="pulse">
+    <Wall :config="row" />
+  </template>
+  <template v-if="panel === 'symbols'" v-for="(row, i) in symbols" :key="pulse">
+    <Wall :config="row" />
+  </template>
+</div>
+<!-- 
+<div class="m-keyboard">
   <template
     v-if="panel === 'letters'"
     v-for="(row, i) in letters"
@@ -18,4 +30,4 @@
     :key="row.name">
     <Wall :config="row" />
   </template>
-</div>
+</div> -->

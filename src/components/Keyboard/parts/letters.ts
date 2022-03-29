@@ -152,9 +152,10 @@ export default defineComponent({
       state.graveAccent.value = false;
       state.dieresis.value = false;
       state.shift.value = false;
-      // state.letters.forEach((row: Wall) => {
-      //   row.refreshAll();
-      // });
+      state.letters.forEach((row: Wall) => {
+        row.refreshAll();
+      });
+      state.pulse.value++;
     }
 
     function shift() {
@@ -162,6 +163,7 @@ export default defineComponent({
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
+      state.pulse.value++;
     }
 
     function numbers() {
@@ -175,6 +177,7 @@ export default defineComponent({
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
+      state.pulse.value++;
     }
 
     function graveAccent() {
@@ -184,6 +187,7 @@ export default defineComponent({
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
+      state.pulse.value++;
     }
 
     function dieresis() {
@@ -193,6 +197,7 @@ export default defineComponent({
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
+      state.pulse.value++;
     }
   },
 });
