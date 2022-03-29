@@ -18,7 +18,6 @@ export function useState() {
     graveAccent: Ref<boolean>;
     dieresis: Ref<boolean>;
     panel: Ref<"letters" | "numbers" | "symbols">;
-    pulse: Ref<number>;
   }>({
     letters: [],
     acuteAccent: ref(false),
@@ -28,6 +27,5 @@ export function useState() {
     symbols: [],
     shift: ref(false),
     panel: ref("letters"),
-    pulse: ref(0),
   });
 }

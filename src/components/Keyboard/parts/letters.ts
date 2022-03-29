@@ -78,6 +78,8 @@ export default defineComponent({
             if (element === "right") brick.icon = "fa fa-caret-right";
             let { classes, style, vars } = brick;
             classes.set("m-keyboard__key", true);
+            if ("abcdefghijklmnopqrstuvwxyzñç".includes(element))
+              classes.set("m-keyboard__key--letter", true);
             style.set("grid-area", `1 / ${index + 1}`);
             vars.set("type", element.toLowerCase());
             brick.updated = () => {
@@ -117,9 +119,6 @@ export default defineComponent({
                 } else {
                   brick.vars.set("type", brick.vars.get("type").toLowerCase());
                 }
-                brick.caption = state.shift.value
-                  ? brick.caption?.toUpperCase()
-                  : brick.caption?.toLowerCase();
                 if (brick.id === "´")
                   brick.style.set(
                     "background-color",
@@ -173,60 +172,76 @@ export default defineComponent({
     }
 
     //* funciones
-    function typeKey(brick: Brick) {
-      console.log({ vars: brick.vars });
+    function animatePressed(brick: Brick) {
+      brick.classes.set("s-pressed", true);
+      setTimeout(() => {
+        brick.classes.set("s-pressed", false);
+      }, 200);
+    }
 
+    function typeKey(brick: Brick) {
+      animatePressed(brick);
       current.sendKey(brick.id, brick.vars.get("type"));
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
       state.dieresis.value = false;
-      state.shift.value = false;
+      setTimeout(() => {
+        state.shift.value = false;
+      }, 200); // 200 ms para que la animación de la tecla se complete
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
-      state.pulse.value++;
     }
 
-    function shift() {
+    function shift(brick: Brick) {
+      animatePressed(brick);
       state.shift.value = !state.shift.value;
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
-      state.pulse.value++;
     }
+
+    watch(state.shift, () => {
+      const letters: HTMLCollectionOf<Element> =
+        document.getElementsByClassName("m-keyboard__key--letter");
+      for (let i = 0; i < letters.length; i++) {
+        if (state.shift.value) letters[i].classList.add("s-uppercase");
+        else letters[i].classList.remove("s-uppercase");
+      }
+    });
 
     function numbers() {
       state.panel.value = "numbers";
     }
 
-    function acuteAccent() {
+    function acuteAccent(brick: Brick) {
+      animatePressed(brick);
       state.acuteAccent.value = !state.acuteAccent.value;
       state.graveAccent.value = false;
       state.dieresis.value = false;
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
-      state.pulse.value++;
     }
 
-    function graveAccent() {
+    function graveAccent(brick: Brick) {
+      animatePressed(brick);
       state.graveAccent.value = !state.graveAccent.value;
       state.acuteAccent.value = false;
       state.dieresis.value = false;
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
-      state.pulse.value++;
     }
 
-    function dieresis() {
+    function dieresis(brick: Brick) {
+      animatePressed(brick);
       state.dieresis.value = !state.dieresis.value;
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
       state.letters.forEach((row: Wall) => {
         row.refreshAll();
       });
-      state.pulse.value++;
     }
   },
 });

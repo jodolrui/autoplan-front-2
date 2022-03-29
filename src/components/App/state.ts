@@ -1,9 +1,9 @@
 import { defineState } from "../shared/helpers/defineState";
 import { Ref, ref } from "vue";
-import { Wall } from "../shared/modules/wallbrick/wallbrick";
+import { Rack } from "@jodolrui/racket";
 
 export function useState() {
   return defineState<{
-    navbar: Wall;
+    navbar: Rack;
   }>({});
 }

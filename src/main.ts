@@ -10,6 +10,7 @@ import {
 import App from "./components/App/index.vue";
 import Id from "./components/Id/index.vue";
 import _Wall from "./components/shared/modules/wallbrick/Wall/index.vue";
+import Rack from "@jodolrui/racket/Rack.vue";
 import Cell from "./components/Cell.vue";
 import Edit from "./components/Edit/index.vue";
 import RoundButton from "./components/RoundButton.vue";
@@ -27,6 +28,7 @@ const router: Router = createRouter({ history, routes });
 const app = createApp(App);
 app.use(router);
 app.use(pinia);
+app.component("Rack", Rack);
 app.component("Wall", _Wall);
 app.component("Cell", Cell);
 app.component("RoundButton", RoundButton);

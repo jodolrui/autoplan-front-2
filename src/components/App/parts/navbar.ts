@@ -1,11 +1,6 @@
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Slot, Rack, useSlot, useRack } from "@jodolrui/racket";
 import { useState } from "../state";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
@@ -13,76 +8,76 @@ import { useCurrent } from "../../shared/stores/useCurrent";
 export default defineComponent({
   setup() {
     const state = useState();
-    state.navbar = useWall("navbar");
+    state.navbar = useRack("navbar");
     const current = useCurrent();
     expose({ current });
 
-    const { create, design, after, build } = createBuilder<Wall>();
+    const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.navbar);
-    after((wall: Wall) => {
-      wall.mount();
+    after((rack: Rack) => {
+      rack.mount();
     });
 
-    design((wall) => {
-      let { classes } = wall;
+    design((rack) => {
+      let { classes } = rack;
       classes.set("m-toolbar", true);
       classes.set("s-flex-right", true);
 
-      const { create, before, design, after, build } = createBuilder<Brick>();
+      const { create, before, design, after, build } = createBuilder<Slot>();
 
-      create(useBrick);
-      after((brick: Brick) => {
-        brick.mount(wall);
+      create(useSlot);
+      after((slot: Slot) => {
+        slot.mount(rack);
       });
 
-      design((brick) => {
-        brick.id = "toggle-keyboard";
-        brick.icon = "fa fa-keyboard";
-        brick.component = "RoundButton";
-        brick.setup = () => {
+      design((slot) => {
+        slot.id = "toggle-keyboard";
+        slot.icon = "fa fa-keyboard";
+        slot.component = "RoundButton";
+        slot.setup = () => {
           watch(
             () => current.keyboardOn,
             (value: boolean) => {
-              brick.classes.set("s-active", value);
+              slot.classes.set("s-active", value);
             },
           );
         };
-        brick.clicked = () => {
+        slot.clicked = () => {
           current.keyboardOn = !current.keyboardOn;
         };
       });
 
-      design((brick) => {
-        brick.id = "toggle-dark";
-        brick.icon = "fa fa-adjust";
-        brick.component = "RoundButton";
-        brick.updated = () => {
+      design((slot) => {
+        slot.id = "toggle-dark";
+        slot.icon = "fa fa-adjust";
+        slot.component = "RoundButton";
+        slot.updated = () => {
           var body = document.body;
-          brick.classes.set("s-active", body.classList.contains("dark-theme"));
+          slot.classes.set("s-active", body.classList.contains("dark-theme"));
         };
-        brick.clicked = () => {
+        slot.clicked = () => {
           var body = document.body;
           if (body.classList.contains("dark-theme"))
             body.classList.remove("dark-theme");
           else body.classList.add("dark-theme");
-          brick.refresh();
+          slot.refresh();
         };
       });
 
-      design((brick) => {
-        brick.id = "toggle-fullscreen";
-        brick.icon = "fas fa-expand";
-        brick.component = "RoundButton";
-        brick.updated = () => {
-          brick.classes.set("s-active", document.fullscreen);
+      design((slot) => {
+        slot.id = "toggle-fullscreen";
+        slot.icon = "fas fa-expand";
+        slot.component = "RoundButton";
+        slot.updated = () => {
+          slot.classes.set("s-active", document.fullscreen);
         };
-        brick.clicked = () => {
+        slot.clicked = () => {
           if (document.fullscreen)
             document
               .exitFullscreen()
               .then(() => {
-                if (brick.refresh) brick.refresh();
+                if (slot.refresh) slot.refresh();
               })
               .catch((error) => {});
           else {
@@ -91,7 +86,7 @@ export default defineComponent({
               element
                 .requestFullscreen()
                 .then(() => {
-                  if (brick.refresh) brick.refresh();
+                  if (slot.refresh) slot.refresh();
                 })
                 .catch((error) => {});
           }

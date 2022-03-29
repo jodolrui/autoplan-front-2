@@ -21,3 +21,23 @@
 .s-no-padding {
   padding: 0px;
 }
+
+.s-pressed {
+  animation: pressed 0.15s ease-out 1;
+  /*background-color: var(--active-color);*/
+}
+@keyframes pressed {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2) translate(-10px, -10px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.s-uppercase {
+  text-transform: uppercase;
+}
