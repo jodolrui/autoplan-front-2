@@ -70,8 +70,10 @@ export default defineComponent({
         brick.icon = "fa fa-trash";
         brick.component = "RoundButton";
         brick.clicked = () => {
-          if (brick.vars.get("record"))
-            current.delete(brick.vars.get("record"));
+          if (confirm(`Se borrará el registro. ¿Desea continuar?`)) {
+            if (brick.vars.get("record"))
+              current.delete(brick.vars.get("record"));
+          }
         };
       });
 

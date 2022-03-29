@@ -65,7 +65,8 @@ export default defineComponent({
       //   brick.icon = "fa fa-close";
       //   brick.component = "RoundButton";
       //   brick.clicked = () => {
-      //     state.optionsOn.value = false;
+      //     state.insertOn.value = false;
+      //     state.addOn.value = false;
       //   };
       // });
 
