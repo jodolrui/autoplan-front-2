@@ -35,7 +35,8 @@ export default defineComponent({
     design((wall) => {
       let { classes } = wall;
       classes.set("m-toolbar", true);
-      // classes.set("s-flex-right", true);
+      classes.set("s-flex-right", true);
+      classes.set("s-flex-wrap-reverse", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 
@@ -44,17 +45,9 @@ export default defineComponent({
         brick.mount(wall);
       });
 
-      design((brick) => {
-        brick.id = "close";
-        // brick.caption = "Cerrar";
-        brick.icon = "fa fa-close";
-        brick.component = "RoundButton";
-        brick.clicked = () => {
-          state.optionsOn.value = false;
-        };
-      });
+      let options: Option[] | [] = getOptions();
 
-      options().forEach((element: Option) => {
+      options.forEach((element: Option) => {
         design((brick) => {
           brick.id = element.key;
           brick.caption = element.caption;
@@ -66,12 +59,21 @@ export default defineComponent({
         });
       });
 
+      // design((brick) => {
+      //   brick.id = "close";
+      //   brick.icon = "fa fa-close";
+      //   brick.component = "RoundButton";
+      //   brick.clicked = () => {
+      //     state.optionsOn.value = false;
+      //   };
+      // });
+
       build();
     });
 
     build();
 
-    function options(): Option[] | [] {
+    function getOptions(): Option[] | [] {
       const result: Option[] = [];
       if (current.record) {
         const design = getDesign(current.record.__designKey);

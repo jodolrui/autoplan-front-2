@@ -1,4 +1,7 @@
 <template v-for="(record, i) in records" :key="recordPulse">
-  <Record :record="record" @updated="recordPulse++" />
+  <Record
+    :record="record"
+    @updated="recordPulse++"
+    :isLast="i===records.length-1" />
 </template>
-<Wall :config="control" />
+<!-- <Wall :config="control" /> -->

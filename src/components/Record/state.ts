@@ -28,12 +28,13 @@ export function useState() {
     selectOn: Ref<boolean>;
     add: Wall;
     options: Wall;
-    optionsOn: Ref<boolean>;
+    insertOn: Ref<boolean>;
+    addOn: Ref<boolean>;
+    isLast: boolean;
   }>({
     tablePulse: ref(0),
     controlPulse: ref(0),
     editPulse: ref(0),
     selectOn: ref(false),
-    optionsOn: ref(false),
   });
 }

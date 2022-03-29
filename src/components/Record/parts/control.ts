@@ -32,7 +32,7 @@ export default defineComponent({
       let { classes, style } = wall;
       classes.set("m-toolbar", true);
       classes.set("s-flex-right", true);
-      classes.set("s-no-padding", true);
+      // classes.set("s-no-padding", true);
       style.set("margin-left", "auto");
 
       const { create, before, design, after, build } = createBuilder<Brick>();
@@ -75,19 +75,19 @@ export default defineComponent({
         };
       });
 
-      // design((brick) => {
-      //   brick.id = "add";
-      //   brick.icon = "fa fa-plus";
-      //   brick.component = "RoundButton";
-      //   brick.clicked = () => {
-      //     if (current.record) {
-      //       // const design = getDesign(current.record.__designKey);
-      //       // current.chooseDesign();
-      //       // current.optionsOn = true;
-      //       state.addOn.value = true;
-      //     }
-      //   };
-      // });
+      design((brick) => {
+        brick.id = "add";
+        brick.icon = "fa fa-plus";
+        brick.component = "RoundButton";
+        brick.updated = () => {
+          brick.classes.set("s-active", state.insertOn.value);
+        };
+        brick.clicked = () => {
+          if (current.record) {
+            state.insertOn.value = !state.insertOn.value;
+          }
+        };
+      });
 
       design((brick) => {
         brick.id = "enter";

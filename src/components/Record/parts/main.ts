@@ -7,13 +7,16 @@ import { useCurrent } from "../../shared/stores/useCurrent";
 export default defineComponent({
   props: {
     record: { type: Object, required: true },
+    isLast: { type: Boolean, required: false },
   },
   setup(props) {
     const state = useState();
     state.record = props.record as RecordBase & {
       [key: string]: { value: any | null; units?: string | null };
     };
-    state.optionsOn = ref(false);
+    state.insertOn = ref(false);
+    state.addOn = ref(false);
+    state.isLast = props.isLast;
     const current = useCurrent();
     expose({ current });
   },

@@ -31,6 +31,7 @@ export default defineComponent({
     design((wall) => {
       let { classes } = wall;
       classes.set("m-toolbar", true);
+      classes.set("s-flex-right", true);
 
       const { create, before, design, after, build } = createBuilder<Brick>();
 
@@ -43,14 +44,14 @@ export default defineComponent({
         brick.id = "add";
         brick.icon = "fa fa-plus";
         brick.component = "RoundButton";
-        brick.clicked = () => {
-          state.optionsOn.value = true;
+        brick.updated = () => {
+          brick.classes.set("s-active", state.addOn.value);
         };
-      });
-
-      design((brick) => {
-        brick.id = "controls";
-        brick.slot = "controls";
+        brick.clicked = () => {
+          if (current.record) {
+            state.addOn.value = !state.addOn.value;
+          }
+        };
       });
 
       build();
