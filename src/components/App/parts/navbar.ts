@@ -15,7 +15,7 @@ export default defineComponent({
     const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.navbar);
-    after((rack: Rack) => {
+    after((rack) => {
       rack.mount();
     });
 
