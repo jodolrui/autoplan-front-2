@@ -11,17 +11,19 @@ import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
 import { useCurrent } from "../../shared/stores/useCurrent";
 import { getDesign } from "../../designs/getDesign";
+import Options from "../../Options/index.vue";
 
 export default defineComponent({
+  components: { Options },
   setup() {
     const current = useCurrent();
     const router = useRouter();
     const state = useState();
-    state.control = useWall("control");
+    state.controls = useWall("controls");
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => state.control);
+    create(() => state.controls);
     after((wall: Wall) => {
       wall.mount();
     });
@@ -34,9 +36,6 @@ export default defineComponent({
       const { create, before, design, after, build } = createBuilder<Brick>();
 
       create(useBrick);
-      before((brick: Brick) => {
-        const { classes } = brick;
-      });
       after((brick: Brick) => {
         brick.mount(wall);
       });
@@ -45,12 +44,12 @@ export default defineComponent({
         brick.id = "add";
         brick.icon = "fa fa-plus";
         brick.component = "RoundButton";
+        brick.updated = () => {
+          brick.classes.set("s-active", state.addOn.value);
+        };
         brick.clicked = () => {
           if (current.record) {
-            const { childDesigns } = getDesign(current.record?.__designKey);
-            //! tengo que crear la manera de seleccionar el designKey
-            const designKey: string = childDesigns[0].designKey;
-            current.newRecord(designKey);
+            state.addOn.value = !state.addOn.value;
           }
         };
       });

@@ -9,20 +9,16 @@ export default defineComponent({
   setup() {
     const state = useState();
 
-    state.designKey = computed(() => {
-      return state.record.__designKey;
+    const found = designs.find((design: Design) => {
+      return design.designKey === state.record.__designKey;
     });
+    if (found) state.design = found;
 
-    if (state.designKey.value) {
-      const design: DesignPack = getDesign(state.designKey.value);
+    if (state.design.designKey) {
+      const design: DesignPack = getDesign(state.design.designKey);
       state.format = design.format;
       state.fields = design.fields;
       state.newRecord = design.newRecord;
     }
-
-    const found = designs.find((design: Design) => {
-      return design.designKey === state.record.__designKey;
-    });
-    if (found) state.designCaption = found.caption;
   },
 });

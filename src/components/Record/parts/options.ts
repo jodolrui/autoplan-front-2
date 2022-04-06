@@ -76,6 +76,7 @@ export default defineComponent({
             let option: Option = {
               key: found.designKey,
               caption: found.caption,
+              icon: found.icon ? found.icon : "",
             };
             result.push(option);
           }

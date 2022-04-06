@@ -12,6 +12,7 @@ import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 const design: Design = {
   designKey: "coordinates",
   caption: "Coordenadas",
+  icon: "fa fa-map-marker",
 };
 
 const format: Format = {

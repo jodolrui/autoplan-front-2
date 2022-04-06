@@ -1,6 +1,11 @@
 import { defineState } from "../shared/helpers/defineState";
 import { Ref, ComputedRef, ref } from "vue";
-import { Format, Field, RecordBase } from "../shared/interfaces/dataInterfaces";
+import {
+  Format,
+  Field,
+  RecordBase,
+  Design,
+} from "../shared/interfaces/dataInterfaces";
 import { Wall } from "../shared/modules/wallbrick/wallbrick";
 import {
   UseCurrentState,
@@ -22,8 +27,7 @@ export function useState() {
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
     onEditUpdated: (cursor: number) => void;
-    designKey: ComputedRef<string | undefined>;
-    designCaption: string;
+    design: Design;
     format: Format;
     newRecord: RecordBase;
     selectOn: Ref<boolean>;

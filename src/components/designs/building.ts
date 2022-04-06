@@ -13,6 +13,7 @@ import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 const design: Design = {
   designKey: "building",
   caption: "Edificio",
+  icon: "fa fa-building",
 };
 
 const format: Format = {

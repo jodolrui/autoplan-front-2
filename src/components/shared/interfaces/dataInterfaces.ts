@@ -54,4 +54,5 @@ export interface ChildDesign {
 export interface Design {
   designKey: string;
   caption: string;
+  icon?: string;
 }

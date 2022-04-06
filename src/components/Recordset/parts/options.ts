@@ -55,6 +55,9 @@ export default defineComponent({
           brick.clicked = () => {
             const designKey = element.key;
             current.newRecord(designKey);
+            state.addOn.value = false;
+            //* refrescamos los controles para que el botón de añadir cambie su aspecto
+            state.controls.refreshAll();
           };
         });
       });
@@ -76,6 +79,7 @@ export default defineComponent({
             let option: Option = {
               key: found.designKey,
               caption: found.caption,
+              icon: found.icon ? found.icon : "",
             };
             result.push(option);
           }

@@ -47,8 +47,9 @@ export default defineComponent({
 
       design((brick) => {
         brick.id = "record-caption";
-        brick.caption = state.designCaption;
-        brick.component = "Button";
+        brick.caption = state.design.caption;
+        brick.icon = state.design.icon ? state.design.icon : "";
+        // brick.component = "Button";
         brick.style.set("margin-top", "3px");
       });
 

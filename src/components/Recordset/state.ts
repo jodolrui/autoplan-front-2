@@ -7,13 +7,12 @@ export function useState() {
   return defineState<{
     records: ComputedRef<RecordBase[] | null>;
     recordPulse: Ref<number>;
-    control: Wall;
-    controlPulse: Ref<number>;
+    controls: Wall;
+    controlsPulse: Ref<number>;
     options: Wall;
-    add: Wall;
     addOn: Ref<boolean>;
   }>({
     recordPulse: ref(0),
-    controlPulse: ref(0),
+    controlsPulse: ref(0),
   });
 }
