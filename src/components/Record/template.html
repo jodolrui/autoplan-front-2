@@ -1,11 +1,8 @@
 <!--//* Record -->
 <Wall v-if="insertOn" :config="options" />
-<Wall :config="control" />
-<!-- <Wall v-if="optionsOn" :config="add">
+<Wall :config="topPanel">
   <template v-slot:controls>
-    <Wall :config="control" />
+    <Wall :config="controls" />
   </template>
-</Wall> -->
+</Wall>
 <Wall :config="table" :key="current.pulse" />
-<Wall v-if="isLast && addOn" :config="options" />
-<Wall v-if="isLast" :config="add" />

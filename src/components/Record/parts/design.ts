@@ -2,7 +2,8 @@ import { defineComponent, ref, computed } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
-import { getDesign, DesignPack } from "../../designs/getDesign";
+import { Design } from "../../shared/interfaces/dataInterfaces";
+import { getDesign, designs, DesignPack } from "../../designs/getDesign";
 
 export default defineComponent({
   setup() {
@@ -18,5 +19,10 @@ export default defineComponent({
       state.fields = design.fields;
       state.newRecord = design.newRecord;
     }
+
+    const found = designs.find((design: Design) => {
+      return design.designKey === state.record.__designKey;
+    });
+    if (found) state.designCaption = found.caption;
   },
 });

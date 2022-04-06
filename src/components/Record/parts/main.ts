@@ -1,6 +1,10 @@
 import { defineComponent, reactive, computed, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import { Field, RecordBase } from "../../shared/interfaces/dataInterfaces";
+import {
+  Field,
+  RecordBase,
+  Design,
+} from "../../shared/interfaces/dataInterfaces";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
 
@@ -16,7 +20,6 @@ export default defineComponent({
     };
     state.insertOn = ref(false);
     state.addOn = ref(false);
-    state.isLast = props.isLast;
     const current = useCurrent();
     expose({ current });
   },

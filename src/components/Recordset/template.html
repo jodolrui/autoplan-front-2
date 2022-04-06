@@ -4,4 +4,5 @@
     @updated="recordPulse++"
     :isLast="i===records.length-1" />
 </template>
-<!-- <Wall :config="control" /> -->
+<Wall v-if="addOn" :config="options" />
+<Wall :config="add" />

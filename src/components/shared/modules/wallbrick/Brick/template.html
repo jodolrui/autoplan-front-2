@@ -1,8 +1,5 @@
 <!--//* Brick -->
-<template v-if="config.slot">
-  <slot :name="config.slot"></slot>
-</template>
-<template v-else>
+<template v-if="!config.isSlot">
   <!-- //! necesito un div "relative" para que funcione el "absolute" del tooltip -->
   <div style="position: relative">
     <!-- //! aquí puedo poner un div "absolute" para hacer un tooltip popup -->

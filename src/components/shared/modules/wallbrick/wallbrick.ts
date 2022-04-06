@@ -16,7 +16,7 @@ export type Brick = {
   id: string;
   caption: string;
   icon: string;
-  slot: string;
+  isSlot: boolean;
   html: string;
   component: string;
   classes: Collection<string | boolean>;
@@ -52,7 +52,7 @@ export function useBrick(id?: string): Brick {
     id: id ? id : "",
     caption: "",
     icon: "",
-    slot: "",
+    isSlot: false,
     html: "",
     component: "",
     wall: {} as Wall,

@@ -1,8 +1,8 @@
 <!--//* Wall -->
 <div :class="config.classes.toLiteral()" :style="config.style.toLiteral()">
   <template v-for="(brick, i) in config.bricks.items" :key="brick.id">
-    <template v-if="brick.slot">
-      <slot :name="brick.slot"></slot>
+    <template v-if="brick.isSlot">
+      <slot :name="brick.id"></slot>
     </template>
     <template v-else>
       <Brick :config="brick" :index="i+1" :count="config.bricks.items.length" />

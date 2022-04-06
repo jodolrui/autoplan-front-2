@@ -11,6 +11,7 @@ export default defineComponent({
     const state = useState();
     const route = useRoute();
     const current = useCurrent();
+    state.addOn = ref(false);
     state.records = computed(() => current.children);
     watch(
       state.records,

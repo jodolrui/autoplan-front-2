@@ -17,12 +17,13 @@ export function useState() {
     };
     table: Wall;
     tablePulse: Ref<number>;
-    control: Wall;
-    controlPulse: Ref<number>;
+    controls: Wall;
+    controlsPulse: Ref<number>;
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
     onEditUpdated: (cursor: number) => void;
     designKey: ComputedRef<string | undefined>;
+    designCaption: string;
     format: Format;
     newRecord: RecordBase;
     selectOn: Ref<boolean>;
@@ -30,10 +31,10 @@ export function useState() {
     options: Wall;
     insertOn: Ref<boolean>;
     addOn: Ref<boolean>;
-    isLast: boolean;
+    topPanel: Wall;
   }>({
     tablePulse: ref(0),
-    controlPulse: ref(0),
+    controlsPulse: ref(0),
     editPulse: ref(0),
     selectOn: ref(false),
   });

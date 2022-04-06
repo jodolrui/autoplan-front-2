@@ -19,11 +19,11 @@ export default defineComponent({
     const current = useCurrent();
     const router = useRouter();
     const state = useState();
-    state.control = useWall("control");
+    state.controls = useWall("controls");
 
     const { create, design, after, build } = createBuilder<Wall>();
 
-    create(() => state.control);
+    create(() => state.controls);
     after((wall: Wall) => {
       wall.mount();
     });
