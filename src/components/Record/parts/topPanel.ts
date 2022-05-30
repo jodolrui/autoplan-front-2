@@ -51,6 +51,9 @@ export default defineComponent({
         brick.icon = state.design.icon ? state.design.icon : "";
         // brick.component = "Button";
         brick.style.set("margin-top", "3px");
+        brick.clicked = () => {
+          current.logDelta();
+        };
       });
 
       design((brick) => {

@@ -12,11 +12,13 @@ import {
 import { getDesign, DesignPack, designs } from "../../designs/getDesign";
 import { v4 as uuidv4 } from "uuid";
 import { Option } from "../interfaces/general";
+import { getDelta } from "../helpers/delta";
 
 export type UseCurrentState = {
   routeId: string;
   record: RecordBase | null;
   children: RecordBase[] | null;
+  originalChildren: RecordBase[] | null;
   path: RecordBase[] | null;
   selected: {
     record: RecordBase | null;
@@ -54,6 +56,7 @@ export type UseCurrentActions = {
   delete: (record: RecordBase) => void;
   newRecord: (designKey: string, beforeRecord?: RecordBase) => void;
   chooseDesign: () => void;
+  logDelta: () => void;
 };
 
 export const useCurrent = defineStore<
@@ -67,6 +70,7 @@ export const useCurrent = defineStore<
       routeId: "",
       record: null,
       children: null,
+      originalChildren: null,
       path: null,
       selected: { record: null, field: null, brick: null },
       edit: { value: "", cursor: 0 },
@@ -105,6 +109,8 @@ export const useCurrent = defineStore<
       this.record = projectData.getItem(this.routeId as string);
       //* buscamos los hijos
       this.children = projectData.getChildren(this.routeId as string);
+      //* guardamos una copia del original de los hijos para poder controlar los cambios
+      this.originalChildren = JSON.parse(JSON.stringify(this.children));
       //* ordenamos hijos primero por __designKey y segundo por __order
       if (this.children) this.orderChildren();
       //* buscamos el path
@@ -283,6 +289,22 @@ export const useCurrent = defineStore<
             };
             this.options.push(option);
           }
+        });
+      }
+    },
+    logDelta() {
+      const projectData: Store<
+        "projectData",
+        UseProjectDataState,
+        UseProjectDataGetters,
+        UseProjectDataActions
+      > = useProjectData();
+      if (this.originalChildren && this.children) {
+        const delta = getDelta(this.originalChildren, this.children);
+        // console.log({ delta });
+        delta.added.forEach((element: RecordBase) => {
+          console.log({ element });
+          projectData.projectData.push(element);
         });
       }
     },

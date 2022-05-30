@@ -12,6 +12,7 @@ import { required, numeric, integer, alphaNum } from "@vuelidate/validators";
 const design: Design = {
   designKey: "zone",
   caption: "Zona",
+  icon: "fa fa-square-o",
 };
 
 const format: Format = {

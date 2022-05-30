@@ -1,4 +1,4 @@
-import { defineState } from "../../../helpers/defineState";
+import { defineState } from "@jodolrui/glue";
 import { ComputedRef, Ref } from "vue";
 import { Brick } from "../wallbrick";
 

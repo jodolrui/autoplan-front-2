@@ -1,4 +1,4 @@
-import { defineState } from "../shared/helpers/defineState";
+import { defineState } from "@jodolrui/glue";
 import { Ref, ref } from "vue";
 import { Wall } from "../shared/modules/wallbrick/wallbrick";
 import { Store } from "pinia";

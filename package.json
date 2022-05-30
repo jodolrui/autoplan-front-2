@@ -13,7 +13,7 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "@jodolrui/glue": "^1.0.4",
+    "@jodolrui/glue": "^1.0.6",
     "@jodolrui/racket": "^1.0.0",
     "@types/halfmoon": "^1.0.2",
     "@types/lodash": "^4.14.178",

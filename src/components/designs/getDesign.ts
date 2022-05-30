@@ -6,6 +6,7 @@ import {
   ChildDesign,
 } from "../shared/interfaces/dataInterfaces";
 
+import root from "../designs/root";
 import site from "../designs/site";
 import coordinates from "../designs/coordinates";
 import building from "../designs/building";
@@ -18,6 +19,7 @@ import stairs from "../designs/stairs";
 import elevator from "../designs/elevator";
 
 export const designs: Design[] = [
+  root.design,
   site.design,
   coordinates.design,
   building.design,
@@ -41,7 +43,7 @@ export type DesignPack = {
 export function getDesign(designKey: string): DesignPack {
   let result: DesignPack = {} as DesignPack;
   if (designKey) {
-    if (designKey === "root") result = site;
+    if (designKey === "root") result = root;
     if (designKey === "site") result = site;
     if (designKey === "coordinates") result = coordinates;
     if (designKey === "building") result = building;

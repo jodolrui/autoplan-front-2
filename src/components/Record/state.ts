@@ -1,4 +1,4 @@
-import { defineState } from "../shared/helpers/defineState";
+import { defineState } from "@jodolrui/glue";
 import { Ref, ComputedRef, ref } from "vue";
 import {
   Format,

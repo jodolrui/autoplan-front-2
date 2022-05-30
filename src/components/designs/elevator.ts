@@ -16,6 +16,7 @@ import { useProjectData } from "../shared/stores/useProjectData";
 const design: Design = {
   designKey: "elevator",
   caption: "Ascensor",
+  icon: "fa fa-arrows-v",
 };
 
 const format: Format = {
