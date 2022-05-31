@@ -1,11 +1,6 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
 import { useState } from "../state";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
@@ -19,46 +14,46 @@ export default defineComponent({
     const current = useCurrent();
     const router = useRouter();
     const state = useState();
-    state.topPanel = useWall("topPanel");
+    state.topPanel = useRack("topPanel");
 
-    const { create, design, after, build } = createBuilder<Wall>();
+    const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.topPanel);
-    after((wall: Wall) => {
-      wall.mount();
+    after((rack: Rack) => {
+      rack.mount();
     });
 
-    design((wall) => {
-      let { classes, style } = wall;
+    design((rack) => {
+      let { classes, style } = rack;
       classes.set("m-toolbar", true);
       classes.set("s-flex-right", true);
       // classes.set("s-no-padding", true);
       style.set("margin-left", "auto");
 
-      const { create, before, design, after, build } = createBuilder<Brick>();
+      const { create, before, design, after, build } = createBuilder<Slot>();
 
-      create(useBrick);
-      before((brick: Brick) => {
-        brick.vars.set("record", state.record);
+      create(useSlot);
+      before((slot: Slot) => {
+        slot.vars.set("record", state.record);
       });
-      after((brick: Brick) => {
-        brick.mount(wall);
+      after((slot: Slot) => {
+        slot.mount(rack);
       });
 
-      design((brick) => {
-        brick.id = "record-caption";
-        brick.caption = state.design.caption;
-        brick.icon = state.design.icon ? state.design.icon : "";
-        // brick.component = "Button";
-        brick.style.set("margin-top", "3px");
-        brick.clicked = () => {
+      design((slot) => {
+        slot.id = "record-caption";
+        slot.caption = state.design.caption;
+        slot.icon = state.design.icon ? state.design.icon : "";
+        // slot.component = "Button";
+        slot.style.set("margin-top", "3px");
+        slot.clicked = () => {
           current.logDelta();
         };
       });
 
-      design((brick) => {
-        brick.id = "controls";
-        brick.isSlot = true;
+      design((slot) => {
+        slot.id = "controls";
+        slot.name = "controls";
       });
 
       build();

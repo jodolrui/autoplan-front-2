@@ -6,7 +6,7 @@ import {
   RecordBase,
   Design,
 } from "../shared/interfaces/dataInterfaces";
-import { Wall } from "../shared/modules/wallbrick/wallbrick";
+import { Rack } from "@jodolrui/racket";
 import {
   UseCurrentState,
   UseCurrentGetters,
@@ -20,9 +20,9 @@ export function useState() {
     record: RecordBase & {
       [key: string]: { value: any | null; units?: string | null };
     };
-    table: Wall;
+    table: Rack;
     tablePulse: Ref<number>;
-    controls: Wall;
+    controls: Rack;
     controlsPulse: Ref<number>;
     isEditing: ComputedRef<boolean>;
     editPulse: Ref<number>;
@@ -31,11 +31,11 @@ export function useState() {
     format: Format;
     newRecord: RecordBase;
     selectOn: Ref<boolean>;
-    add: Wall;
-    options: Wall;
+    add: Rack;
+    options: Rack;
     insertOn: Ref<boolean>;
     addOn: Ref<boolean>;
-    topPanel: Wall;
+    topPanel: Rack;
   }>({
     tablePulse: ref(0),
     controlsPulse: ref(0),

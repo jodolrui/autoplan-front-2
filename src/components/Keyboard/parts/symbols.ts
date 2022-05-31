@@ -1,12 +1,7 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 
@@ -23,57 +18,57 @@ export default defineComponent({
     ];
 
     for (let row = 0; row < keys.length; row++) {
-      state.symbols[row] = useWall(`symbols${row + 1}`);
+      state.symbols[row] = useRack(`symbols${row + 1}`);
 
-      const { create, before, design, after, build } = createBuilder<Wall>();
+      const { create, before, design, after, build } = createBuilder<Rack>();
 
       create(() => state.symbols[row]);
-      after((wall) => {
-        wall.mount();
+      after((rack) => {
+        rack.mount();
       });
 
-      design((wall) => {
-        let { classes } = wall;
+      design((rack) => {
+        let { classes } = rack;
         classes.set("m-keyboard__panel", true);
         if (row <= 1)
-          wall.style.set(
+          rack.style.set(
             "grid-template-columns",
             `repeat(${keys[row].length}, 1fr)`,
           );
         if (row === 2)
-          wall.style.set(
+          rack.style.set(
             "grid-template-columns",
             `2fr repeat(${keys[row].length - 2}, 1fr) 2fr`,
           );
         if (row === 3)
-          wall.style.set("grid-template-columns", `2fr 3fr 1fr 1fr 1fr 2fr`);
+          rack.style.set("grid-template-columns", `2fr 3fr 1fr 1fr 1fr 2fr`);
 
-        const { create, before, design, after, build } = createBuilder<Brick>();
+        const { create, before, design, after, build } = createBuilder<Slot>();
 
-        create(useBrick);
-        after((brick) => {
-          brick.mount(wall);
+        create(useSlot);
+        after((slot) => {
+          slot.mount(rack);
         });
 
         const keysRow = keys[row];
         keysRow.forEach((element: string, index: number) => {
-          design((brick) => {
-            brick.id = element;
-            brick.caption = element.length === 1 ? element : "";
-            if (element === "tab") brick.icon = "fa fa-arrow-right";
-            if (element === "shift") brick.icon = "fa fa-arrow-up";
-            if (element === "backspace") brick.icon = "fa fa-backspace";
-            if (element === "numbers") brick.caption = "123";
-            if (element === "letters") brick.caption = "abc";
-            if (element === "enter") brick.icon = "fa fa-check";
-            let { classes, style } = brick;
+          design((slot) => {
+            slot.id = element;
+            slot.caption = element.length === 1 ? element : "";
+            if (element === "tab") slot.icon = "fa fa-arrow-right";
+            if (element === "shift") slot.icon = "fa fa-arrow-up";
+            if (element === "backspace") slot.icon = "fa fa-backspace";
+            if (element === "numbers") slot.caption = "123";
+            if (element === "letters") slot.caption = "abc";
+            if (element === "enter") slot.icon = "fa fa-check";
+            let { classes, style } = slot;
             classes.set("m-keyboard__key", true);
             style.set("grid-area", `1 / ${index + 1}`);
-            brick.clicked = () => current.sendKey(brick.id, brick.caption);
+            slot.clicked = () => current.sendKey(slot.id, slot.caption);
             if (element === "symbols")
-              brick.clicked = () => (state.panel.value = "symbols");
+              slot.clicked = () => (state.panel.value = "symbols");
             if (element === "letters")
-              brick.clicked = () => (state.panel.value = "letters");
+              slot.clicked = () => (state.panel.value = "letters");
           });
         });
 

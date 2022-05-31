@@ -4,7 +4,7 @@ const props = defineProps({
 });
 const config = props.config;
 function clicked() {
-  config.clicked(config, config.wall);
+  config.clicked(config, config.rack);
 }
 </script>
 

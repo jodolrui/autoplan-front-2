@@ -1,11 +1,6 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
 import { useState } from "../state";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
@@ -19,35 +14,35 @@ export default defineComponent({
     const current = useCurrent();
     const router = useRouter();
     const state = useState();
-    state.controls = useWall("controls");
+    state.controls = useRack("controls");
 
-    const { create, design, after, build } = createBuilder<Wall>();
+    const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.controls);
-    after((wall: Wall) => {
-      wall.mount();
+    after((rack: Rack) => {
+      rack.mount();
     });
 
-    design((wall) => {
-      let { classes } = wall;
+    design((rack) => {
+      let { classes } = rack;
       classes.set("m-toolbar", true);
       classes.set("s-flex-right", true);
 
-      const { create, before, design, after, build } = createBuilder<Brick>();
+      const { create, before, design, after, build } = createBuilder<Slot>();
 
-      create(useBrick);
-      after((brick: Brick) => {
-        brick.mount(wall);
+      create(useSlot);
+      after((slot: Slot) => {
+        slot.mount(rack);
       });
 
-      design((brick) => {
-        brick.id = "add";
-        brick.icon = "fa fa-plus";
-        brick.component = "RoundButton";
-        brick.updated = () => {
-          brick.classes.set("s-active", state.addOn.value);
+      design((slot) => {
+        slot.id = "add";
+        slot.icon = "fa fa-plus";
+        slot.component = "RoundButton";
+        slot.updated = () => {
+          slot.classes.set("s-active", state.addOn.value);
         };
-        brick.clicked = () => {
+        slot.clicked = () => {
           if (current.record) {
             state.addOn.value = !state.addOn.value;
           }

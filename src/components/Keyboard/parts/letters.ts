@@ -1,12 +1,7 @@
 import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 
@@ -31,134 +26,134 @@ export default defineComponent({
     ];
 
     for (let row = 0; row < keys.length; row++) {
-      state.letters[row] = useWall(`letters${row + 1}`);
+      state.letters[row] = useRack(`letters${row + 1}`);
 
-      const { create, before, design, after, build } = createBuilder<Wall>();
+      const { create, before, design, after, build } = createBuilder<Rack>();
 
       create(() => state.letters[row]);
-      after((wall) => {
-        wall.mount();
+      after((rack) => {
+        rack.mount();
       });
 
-      design((wall) => {
-        let { classes } = wall;
+      design((rack) => {
+        let { classes } = rack;
         classes.set("m-keyboard__panel", true);
         if (row <= 2)
-          wall.style.set(
+          rack.style.set(
             "grid-template-columns",
             `repeat(${keys[row].length}, 1fr)`,
           );
         if (row === 3)
-          wall.style.set(
+          rack.style.set(
             "grid-template-columns",
             `2fr repeat(${keys[row].length - 2}, 1fr) 2fr`,
           );
         if (row === 4)
-          wall.style.set("grid-template-columns", `2fr 1fr 5fr 1fr 2fr`);
+          rack.style.set("grid-template-columns", `2fr 1fr 5fr 1fr 2fr`);
 
-        const { create, before, design, after, build } = createBuilder<Brick>();
+        const { create, before, design, after, build } = createBuilder<Slot>();
 
-        create(useBrick);
-        after((brick) => {
-          brick.mount(wall);
+        create(useSlot);
+        after((slot) => {
+          slot.mount(rack);
         });
 
         const keysRow = keys[row];
         keysRow.forEach((element: string, index: number) => {
-          design((brick) => {
-            brick.id = element;
-            brick.caption = element.length === 1 ? element : "";
-            if (element === "shift") brick.icon = "fa fa-arrow-up";
-            if (element === "backspace") brick.icon = "fa fa-backspace";
-            if (element === "numbers") brick.caption = "123";
-            if (element === "enter") brick.icon = "fa fa-check";
-            if (element === "left") brick.icon = "fa fa-caret-left";
-            if (element === "up") brick.icon = "fa fa-caret-up";
-            if (element === "down") brick.icon = "fa fa-caret-down";
-            if (element === "right") brick.icon = "fa fa-caret-right";
-            let { classes, style, vars } = brick;
+          design((slot) => {
+            slot.id = element;
+            slot.caption = element.length === 1 ? element : "";
+            if (element === "shift") slot.icon = "fa fa-arrow-up";
+            if (element === "backspace") slot.icon = "fa fa-backspace";
+            if (element === "numbers") slot.caption = "123";
+            if (element === "enter") slot.icon = "fa fa-check";
+            if (element === "left") slot.icon = "fa fa-caret-left";
+            if (element === "up") slot.icon = "fa fa-caret-up";
+            if (element === "down") slot.icon = "fa fa-caret-down";
+            if (element === "right") slot.icon = "fa fa-caret-right";
+            let { classes, style, vars } = slot;
             classes.set("m-keyboard__key", true);
             if ("abcdefghijklmnopqrstuvwxyzñç".includes(element))
               classes.set("m-keyboard__key--letter", true);
             style.set("grid-area", `1 / ${index + 1}`);
             vars.set("type", element.toLowerCase());
-            brick.updated = () => {
-              if (brick.id.length === 1) {
-                // if ("aeiou".includes(brick.id)) {
-                //   brick.caption = "aeiou".charAt("aeiou".indexOf(brick.id));
+            slot.updated = () => {
+              if (slot.id.length === 1) {
+                // if ("aeiou".includes(slot.id)) {
+                //   slot.caption = "aeiou".charAt("aeiou".indexOf(slot.id));
                 //   if (state.acuteAccent.value)
-                //     brick.caption = "áéíóú".charAt("aeiou".indexOf(brick.id));
+                //     slot.caption = "áéíóú".charAt("aeiou".indexOf(slot.id));
                 //   if (state.graveAccent.value)
-                //     brick.caption = "àèìòù".charAt("aeiou".indexOf(brick.id));
+                //     slot.caption = "àèìòù".charAt("aeiou".indexOf(slot.id));
                 //   if (state.dieresis.value)
-                //     brick.caption = "äëïöü".charAt("aeiou".indexOf(brick.id));
+                //     slot.caption = "äëïöü".charAt("aeiou".indexOf(slot.id));
                 // }
-                if ("aeiou".includes(brick.id)) {
-                  brick.vars.set(
+                if ("aeiou".includes(slot.id)) {
+                  slot.vars.set(
                     "type",
-                    "aeiou".charAt("aeiou".indexOf(brick.id)),
+                    "aeiou".charAt("aeiou".indexOf(slot.id)),
                   );
                   if (state.acuteAccent.value)
-                    brick.vars.set(
+                    slot.vars.set(
                       "type",
-                      "áéíóú".charAt("aeiou".indexOf(brick.id)),
+                      "áéíóú".charAt("aeiou".indexOf(slot.id)),
                     );
                   if (state.graveAccent.value)
-                    brick.vars.set(
+                    slot.vars.set(
                       "type",
-                      "àèìòù".charAt("aeiou".indexOf(brick.id)),
+                      "àèìòù".charAt("aeiou".indexOf(slot.id)),
                     );
                   if (state.dieresis.value)
-                    brick.vars.set(
+                    slot.vars.set(
                       "type",
-                      "äëïöü".charAt("aeiou".indexOf(brick.id)),
+                      "äëïöü".charAt("aeiou".indexOf(slot.id)),
                     );
                 }
                 if (state.shift.value) {
-                  brick.vars.set("type", brick.vars.get("type").toUpperCase());
+                  slot.vars.set("type", slot.vars.get("type").toUpperCase());
                 } else {
-                  brick.vars.set("type", brick.vars.get("type").toLowerCase());
+                  slot.vars.set("type", slot.vars.get("type").toLowerCase());
                 }
-                if (brick.id === "´")
-                  brick.style.set(
+                if (slot.id === "´")
+                  slot.style.set(
                     "background-color",
                     state.acuteAccent.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.id === "`")
-                  brick.style.set(
+                if (slot.id === "`")
+                  slot.style.set(
                     "background-color",
                     state.graveAccent.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.id === "¨")
-                  brick.style.set(
+                if (slot.id === "¨")
+                  slot.style.set(
                     "background-color",
                     state.dieresis.value ? "var(--active-color)" : "inherit",
                   );
-                if (brick.id === "shift")
-                  brick.style.set(
+                if (slot.id === "shift")
+                  slot.style.set(
                     "background-color",
                     state.shift.value ? "var(--active-color)" : "inherit",
                   );
               }
             };
-            brick.clicked = () => {
-              typeKey(brick);
+            slot.clicked = () => {
+              typeKey(slot);
             };
-            if (element === "shift") brick.clicked = shift;
-            if (element === "`") brick.clicked = graveAccent;
-            if (element === "´") brick.clicked = acuteAccent;
-            if (element === "¨") brick.clicked = dieresis;
-            if (element === "numbers") brick.clicked = numbers;
+            if (element === "shift") slot.clicked = shift;
+            if (element === "`") slot.clicked = graveAccent;
+            if (element === "´") slot.clicked = acuteAccent;
+            if (element === "¨") slot.clicked = dieresis;
+            if (element === "numbers") slot.clicked = numbers;
             if (element === "enter")
-              brick.clicked = () => {
-                typeKey(brick);
+              slot.clicked = () => {
+                typeKey(slot);
               };
             if (element === "left")
-              brick.clicked = () => {
+              slot.clicked = () => {
                 if (current.edit.cursor > 0) current.edit.cursor--;
               };
             if (element === "right")
-              brick.clicked = () => {
+              slot.clicked = () => {
                 if (current.edit.cursor < current.edit.value.length)
                   current.edit.cursor++;
               };
@@ -172,31 +167,31 @@ export default defineComponent({
     }
 
     //* funciones
-    function animatePressed(brick: Brick) {
-      brick.classes.set("s-pressed", true);
+    function animatePressed(slot: Slot) {
+      slot.classes.set("s-pressed", true);
       setTimeout(() => {
-        brick.classes.set("s-pressed", false);
+        slot.classes.set("s-pressed", false);
       }, 200);
     }
 
-    function typeKey(brick: Brick) {
-      animatePressed(brick);
-      current.sendKey(brick.id, brick.vars.get("type"));
+    function typeKey(slot: Slot) {
+      animatePressed(slot);
+      current.sendKey(slot.id, slot.vars.get("type"));
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
       state.dieresis.value = false;
       setTimeout(() => {
         state.shift.value = false;
       }, 200); // 200 ms para que la animación de la tecla se complete
-      state.letters.forEach((row: Wall) => {
+      state.letters.forEach((row: Rack) => {
         row.refreshAll();
       });
     }
 
-    function shift(brick: Brick) {
-      animatePressed(brick);
+    function shift(slot: Slot) {
+      animatePressed(slot);
       state.shift.value = !state.shift.value;
-      state.letters.forEach((row: Wall) => {
+      state.letters.forEach((row: Rack) => {
         row.refreshAll();
       });
     }
@@ -214,32 +209,32 @@ export default defineComponent({
       state.panel.value = "numbers";
     }
 
-    function acuteAccent(brick: Brick) {
-      animatePressed(brick);
+    function acuteAccent(slot: Slot) {
+      animatePressed(slot);
       state.acuteAccent.value = !state.acuteAccent.value;
       state.graveAccent.value = false;
       state.dieresis.value = false;
-      state.letters.forEach((row: Wall) => {
+      state.letters.forEach((row: Rack) => {
         row.refreshAll();
       });
     }
 
-    function graveAccent(brick: Brick) {
-      animatePressed(brick);
+    function graveAccent(slot: Slot) {
+      animatePressed(slot);
       state.graveAccent.value = !state.graveAccent.value;
       state.acuteAccent.value = false;
       state.dieresis.value = false;
-      state.letters.forEach((row: Wall) => {
+      state.letters.forEach((row: Rack) => {
         row.refreshAll();
       });
     }
 
-    function dieresis(brick: Brick) {
-      animatePressed(brick);
+    function dieresis(slot: Slot) {
+      animatePressed(slot);
       state.dieresis.value = !state.dieresis.value;
       state.acuteAccent.value = false;
       state.graveAccent.value = false;
-      state.letters.forEach((row: Wall) => {
+      state.letters.forEach((row: Rack) => {
         row.refreshAll();
       });
     }

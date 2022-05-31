@@ -1,6 +1,6 @@
 import { defineState } from "@jodolrui/glue";
 import { Ref, ref } from "vue";
-import { Wall } from "../shared/modules/wallbrick/wallbrick";
+import { Rack } from "@jodolrui/racket";
 import { Store } from "pinia";
 import {
   UseCurrentState,
@@ -10,9 +10,9 @@ import {
 
 export function useState() {
   return defineState<{
-    letters: Wall[];
-    numbers: Wall[];
-    symbols: Wall[];
+    letters: Rack[];
+    numbers: Rack[];
+    symbols: Rack[];
     shift: Ref<boolean>;
     acuteAccent: Ref<boolean>;
     graveAccent: Ref<boolean>;

@@ -1,10 +1,10 @@
 import { defineState } from "@jodolrui/glue";
 import { Ref, ComputedRef, ref } from "vue";
-import { Brick } from "../shared/modules/wallbrick/wallbrick";
+import { Slot } from "@jodolrui/racket";
 
 export function useState() {
   return defineState<{
-    config: Brick;
+    config: Slot;
     index: number;
     count: number;
     chars: ComputedRef<string[]>;

@@ -2,7 +2,7 @@ import { defineStore, Store } from "pinia";
 import { watch } from "vue";
 import { RecordBase, Design, ChildDesign } from "../interfaces/dataInterfaces";
 import { Field } from "../interfaces/dataInterfaces";
-import { Brick } from "../modules/wallbrick/wallbrick";
+import { Slot } from "@jodolrui/racket";
 import {
   useProjectData,
   UseProjectDataState,
@@ -23,7 +23,7 @@ export type UseCurrentState = {
   selected: {
     record: RecordBase | null;
     field: Field | null;
-    brick: Brick | null;
+    slot: Slot | null;
   };
   edit: { value: string; cursor: number };
   editing: { pre: string[]; post: string[] };
@@ -47,7 +47,7 @@ export type UseCurrentActions = {
   setSelected: (
     record: RecordBase | null,
     field: Field | null,
-    brick: Brick | null,
+    slot: Slot | null,
   ) => void;
   sendKey: (keyCode: string, keyCaption: string) => void;
   move: (record: RecordBase, step: number) => void;
@@ -72,7 +72,7 @@ export const useCurrent = defineStore<
       children: null,
       originalChildren: null,
       path: null,
-      selected: { record: null, field: null, brick: null },
+      selected: { record: null, field: null, slot: null },
       edit: { value: "", cursor: 0 },
       editing: { pre: [], post: [] },
       keyboardOn: false,
@@ -148,9 +148,9 @@ export const useCurrent = defineStore<
     setSelected: function (
       record: RecordBase | null,
       field: Field | null,
-      brick: Brick | null,
+      slot: Slot | null,
     ) {
-      this.selected = { record, field: field as any, brick };
+      this.selected = { record, field: field as any, slot };
       if (record && field) {
         let value: string = (record as any)[field.key].value.toString();
         if ((record as any)[field.key].units)
@@ -208,7 +208,7 @@ export const useCurrent = defineStore<
           (this.selected.record as any)[
             (this.selected.field as Field).key
           ].value = value;
-          if (this.selected.brick) this.selected.brick.caption = value;
+          if (this.selected.slot) this.selected.slot.caption = value;
           this.setSelected(null, null, null);
         }
       }

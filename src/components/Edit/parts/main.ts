@@ -10,7 +10,7 @@ import {
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { useCurrent } from "../../shared/stores/useCurrent";
-import { Brick } from "../../shared/modules/wallbrick/wallbrick";
+import { Slot } from "@jodolrui/racket";
 
 export default defineComponent({
   props: {
@@ -25,11 +25,11 @@ export default defineComponent({
     state.chars = computed(() =>
       current.edit.value ? current.edit.value.split("") : [],
     );
-    state.config = props.config as Brick;
+    state.config = props.config as Slot;
     state.index = props.index;
     state.count = props.count;
     function clicked() {
-      state.config.clicked(state.config, state.config.wall);
+      state.config.clicked(state.config, state.config.rack);
     }
     state.classes = state.config.classes.toLiteral();
     state.classes["m-cell"] = true;

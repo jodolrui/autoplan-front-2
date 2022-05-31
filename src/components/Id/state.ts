@@ -1,10 +1,10 @@
 import { defineState } from "@jodolrui/glue";
 import { Ref, ComputedRef, ref, computed } from "vue";
-import { Wall } from "../shared/modules/wallbrick/wallbrick";
+import { Rack } from "@jodolrui/racket";
 
 export function useState() {
   return defineState<{
-    breadcrumbs: Wall;
+    breadcrumbs: Rack;
     designKey: ComputedRef<string | undefined>;
     goTo: (id: string) => void;
   }>({});

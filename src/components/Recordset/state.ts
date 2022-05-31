@@ -1,15 +1,15 @@
 import { defineState } from "@jodolrui/glue";
 import { Ref, ComputedRef, ref, computed } from "vue";
-import { Wall } from "../shared/modules/wallbrick/wallbrick";
+import { Rack } from "@jodolrui/racket";
 import { RecordBase } from "../shared/interfaces/dataInterfaces";
 
 export function useState() {
   return defineState<{
     records: ComputedRef<RecordBase[] | null>;
     recordPulse: Ref<number>;
-    controls: Wall;
+    controls: Rack;
     controlsPulse: Ref<number>;
-    options: Wall;
+    options: Rack;
     addOn: Ref<boolean>;
   }>({
     recordPulse: ref(0),

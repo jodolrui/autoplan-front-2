@@ -1,12 +1,7 @@
 import { defineComponent, Ref, ref, onMounted } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
-import {
-  Wall,
-  Brick,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
+import { Rack, Slot, useRack, useSlot } from "@jodolrui/racket";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 import { Option } from "../../shared/interfaces/general";
@@ -23,36 +18,36 @@ export default defineComponent({
     const current = useCurrent();
     const state = useState();
 
-    state.options = useWall("options");
+    state.options = useRack("options");
 
-    const { create, design, after, build } = createBuilder<Wall>();
+    const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.options);
-    after((wall: Wall) => {
-      wall.mount();
+    after((rack: Rack) => {
+      rack.mount();
     });
 
-    design((wall) => {
-      let { classes } = wall;
+    design((rack) => {
+      let { classes } = rack;
       classes.set("m-toolbar", true);
       classes.set("s-flex-right", true);
       classes.set("s-flex-wrap-reverse", true);
 
-      const { create, before, design, after, build } = createBuilder<Brick>();
+      const { create, before, design, after, build } = createBuilder<Slot>();
 
-      create(useBrick);
-      after((brick: Brick) => {
-        brick.mount(wall);
+      create(useSlot);
+      after((slot: Slot) => {
+        slot.mount(rack);
       });
 
       let options: Option[] | [] = getOptions();
 
       options.forEach((element: Option) => {
-        design((brick) => {
-          brick.id = element.key;
-          brick.caption = element.caption;
-          brick.component = "Button";
-          brick.clicked = () => {
+        design((slot) => {
+          slot.id = element.key;
+          slot.caption = element.caption;
+          slot.component = "Button";
+          slot.clicked = () => {
             const designKey = element.key;
             current.newRecord(designKey, state.record);
           };

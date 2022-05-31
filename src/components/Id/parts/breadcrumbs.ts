@@ -1,64 +1,59 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
-import {
-  Brick,
-  Wall,
-  useWall,
-  useBrick,
-} from "../../shared/modules/wallbrick/wallbrick";
 import { useState } from "../state";
 import { RecordBase } from "../../shared/interfaces/dataInterfaces";
 import { createBuilder } from "../../shared/helpers/builder";
 import { useRouter } from "vue-router";
 import { useCurrent } from "../../shared/stores/useCurrent";
+import { Rack, useRack, Slot, useSlot } from "@jodolrui/racket";
 
 export default defineComponent({
   setup() {
     const router = useRouter();
     const state = useState();
     const current = useCurrent();
-    state.breadcrumbs = useWall("breadcrumbs");
+    state.breadcrumbs = useRack("breadcrumbs");
 
-    const { create, design, after, build } = createBuilder<Wall>();
+    const { create, design, after, build } = createBuilder<Rack>();
 
     create(() => state.breadcrumbs);
-    after((wall: Wall) => {
-      wall.mount();
+    after((rack: Rack) => {
+      rack.mount();
     });
 
-    design((wall) => {
-      let { classes } = wall;
+    design((rack) => {
+      let { classes } = rack;
       classes.set("m-toolbar", true);
 
-      const { create, before, design, after, build } = createBuilder<Brick>();
+      const { create, before, design, after, build } = createBuilder<Slot>();
 
-      create(useBrick);
-      before((brick: Brick) => {
-        const { classes } = brick;
+      create(useSlot);
+      before((slot: Slot) => {
+        const { classes } = slot;
       });
-      after((brick: Brick) => {
-        brick.mount(wall);
+      after((slot: Slot) => {
+        slot.mount(rack);
       });
 
       //* root
-      design((brick) => {
-        brick.id = "root";
-        brick.icon = "fas fa-home";
-        brick.component = "RoundButton";
-        brick.clicked = () => {
-          router.push({ path: `/${brick.id}` });
+      design((slot) => {
+        slot.id = "root";
+        slot.icon = "fas fa-home";
+        slot.component = "RoundButton";
+        slot.clicked = () => {
+          router.push({ path: `/${slot.id}` });
         };
       });
 
       if (current.path && current.path)
         current.path.forEach((element: RecordBase) => {
           if (element.__id !== "root")
-            design((brick) => {
-              brick.id = element.__id;
-              brick.caption = element.__breadcrumb;
-              brick.component = "Button";
-              brick.clicked = () => {
-                router.push({ path: `/${brick.id}` });
+            design((slot) => {
+              slot.id = element.__id;
+              slot.caption = element.__breadcrumb;
+              slot.component = "Button";
+              slot.clicked = () => {
+                router.push({ path: `/${slot.id}` });
               };
             });
         });

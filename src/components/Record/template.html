@@ -1,12 +1,12 @@
 <!--//* Record -->
-<Wall v-if="insertOn" :config="options" />
-<Wall :config="topPanel">
+<Rack v-if="insertOn" :config="options" />
+<Rack :config="topPanel">
   <template v-slot:controls>
-    <Wall :config="controls" />
+    <Rack :config="controls" />
   </template>
-</Wall>
-<Wall :config="table" :key="current.pulse" />
-<!-- <Wall
+</Rack>
+<Rack :config="table" :key="current.pulse" />
+<!-- <Rack
   style="
     margin: 3px;
     border-left: 3px solid var(--border-color);
