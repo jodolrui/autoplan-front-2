@@ -2,7 +2,7 @@ import { defineComponent, Ref, ref, onMounted } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { Rack, Slot, useRack, useSlot } from "@jodolrui/racket";
-import { createBuilder } from "../../shared/helpers/builder";
+import { createBuilder } from "@jodolrui/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 import { Option } from "../../shared/interfaces/general";
 import { getDesign, designs } from "../../designs/getDesign";

@@ -3,7 +3,7 @@ import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
 import { Field, RecordBase } from "../../shared/interfaces/dataInterfaces";
-import { createBuilder } from "../../shared/helpers/builder";
+import { createBuilder } from "@jodolrui/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 //! los controles Cell y Edit se cargan desde el main.ts principal
 

@@ -2,7 +2,7 @@ import { defineComponent, ref, computed, watch, reactive } from "vue";
 import { expose, exposed } from "@jodolrui/glue";
 import { useState } from "../state";
 import { Slot, Rack, useRack, useSlot } from "@jodolrui/racket";
-import { createBuilder } from "../../shared/helpers/builder";
+import { createBuilder } from "@jodolrui/builder";
 import { useCurrent } from "../../shared/stores/useCurrent";
 
 export default defineComponent({
